@@ -2,103 +2,71 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 
+/**/
+
 
 public class MultithreadingTask1 implements Runnable{
     static String OnePath;
     static double SumMediumValuesFromAllFiles;
     static double FinelValue = 0;
-    static String path = "E://Ksupito//Projects//Proj1//src//files";
+    static String path = "E://Ksupito1//Projects//Proj1//src//files";
     public static void main(String[] args) throws Exception{
         File dir = new File(path);
         File[] list = dir.listFiles();
         Thread threads;
 
-        for(int i = 0; i <1; i++){
+        for(int i = 0; i <list.length; i++){
             threads =  new Thread(new MultithreadingTask1());
             OnePath = list[i].toString();
             threads.start();
-            Thread.sleep(1000);
+            Thread.sleep(50);
         }
 
         FinelValue = SumMediumValuesFromAllFiles/list.length;
-        //System.out.println(FinelValue);
-
-
+        System.out.println(FinelValue);
 
     }
     public double MediumValueFromFile(){
         double value = 0;
+        int intForChar = 0;
+        int sum = 0;
+        ArrayList<Integer> ListOfInteger = new ArrayList<>();
+        ArrayList<Character> ListOfChar = new ArrayList<>();
 
-        try{FileInputStream ins = new FileInputStream (OnePath);
-            long sum = 0;
-            String sd = "";
-            ArrayList<Integer> h = new ArrayList<>();
-            ArrayList<Character> hdd = new ArrayList<>();
-            while (ins.available() > 0){
-                int s = ins.read();
-               // int d = Character.getNumericValue((char)s);
+        try{FileInputStream file = new FileInputStream (OnePath);
 
-                //sd = sd + Character.toString((char)s);
-                //System.out.print(sd);
-                //h.add(d);
-               hdd.add((char)s);
-
+            while (file.available() > 0){
+                int s = file.read();
+                ListOfChar.add((char)s);
             }
-            hdd.add('\r');
-            hdd.add('\n');
-            ins.close();
-            int r = 0;
-            char[] n = new char[10];
-            String v = "";
-            ArrayList<String> qweqwe = new ArrayList<>();
-            for(int i = 0; i < hdd.size(); i++){
-                if(hdd.get(i) =='\r'){
-                   // System.out.println(v);
-                    qweqwe.add(v);
+            file.close();
 
-                    v = "";
-                    r++;
+            for(int i = 0; i < ListOfChar.size(); i++){
+                if(ListOfChar.get(i) =='\r'){
+                    ListOfInteger.add(intForChar);
+                    intForChar = 0;
                     i++;
-
                 }
+                else if(i == ListOfChar.size()-1){  intForChar = intForChar *10 + Character.getNumericValue(ListOfChar.get(i));
+                    ListOfInteger.add(intForChar);}
+
                 else {
-
-                    v = v + Character.toString(hdd.get(i));
-
+                    intForChar = intForChar *10 + Character.getNumericValue(ListOfChar.get(i));
                 }
-
-
-
-            }
-            ArrayList<Integer> cc = new ArrayList<>();
-            int a = Integer.parseInt(qweqwe.get(0));
-            //cc.add(a);
-            String dss= "12";
-            //System.out.println(a);
-            for(int i = 0; i <qweqwe.size(); i++){
-                int dg = Integer.parseInt(qweqwe.get(i));
-                cc.add(dg);
-
-                System.out.println(cc.get(i));
-
             }
 
-            
-
-            /*for (int i = 0 ; i < asddd.size(); i ++){
-                sum = Integer.parseInt(asddd.get(i)) + sum;
-
+            for (int i = 0 ; i < ListOfInteger.size(); i ++){
+                sum = ListOfInteger.get(i) + sum;
             }
-            value = sum /h.size();*/
-
+            value = sum /ListOfInteger.size();
         }
         catch (Exception e){}
         return value;}
 
 
     public void run() {
-        double Sum = MediumValueFromFile();
-        SumMediumValuesFromAllFiles = SumMediumValuesFromAllFiles + Sum;
+        double FinelSum = MediumValueFromFile();
+        SumMediumValuesFromAllFiles = SumMediumValuesFromAllFiles + FinelSum;
 
     }
 
