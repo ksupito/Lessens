@@ -15,8 +15,8 @@
       <file leaf-file-name="MultithreadingTask1.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/MultithreadingTask1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+            <state relative-caret-position="1278">
+              <caret line="76" column="66" lean-forward="false" selection-start-line="76" selection-start-column="66" selection-end-line="76" selection-end-column="66" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -49,7 +49,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="36" />
     <option name="width" value="1346" />
     <option name="height" value="688" />
@@ -234,7 +234,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -433,8 +433,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MultithreadingTask1.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="20" column="10" lean-forward="false" selection-start-line="20" selection-start-column="10" selection-end-line="20" selection-end-column="10" />
+        <state relative-caret-position="1278">
+          <caret line="76" column="66" lean-forward="false" selection-start-line="76" selection-start-column="66" selection-end-line="76" selection-end-column="66" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

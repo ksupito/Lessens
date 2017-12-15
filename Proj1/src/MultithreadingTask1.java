@@ -18,7 +18,7 @@ public class MultithreadingTask1  {
         File[] list = directory.listFiles();
 
         for (int i = 0; i < list.length; i++) {
-          
+
             Thread threads = new Thread(new RunClass());
             OnePath = list[i].toString();
             threads.start();
@@ -71,10 +71,10 @@ public class MultithreadingTask1  {
     }
 
 
-    public static  double Value(ArrayList<Integer> h){
+    public static  double Value(ArrayList<Integer> integer){
         double value;
         int sum = 0;
-        ArrayList<Integer> ListOfInteger = new ArrayList<>(h);
+        ArrayList<Integer> ListOfInteger = new ArrayList<>(integer);
 
         for (int i = 0; i < ListOfInteger.size(); i++) {
             sum = ListOfInteger.get(i) + sum;
