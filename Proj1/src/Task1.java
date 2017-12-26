@@ -39,7 +39,7 @@ public class Task1 {
                                 try {
                                     listOfLong.add(Long.parseLong(stringLineTemp));
                                 } catch (NumberFormatException e) {
-                                    e.getMessage();
+                                    System.out.println("Foramt of number is incorrect: " + e );
                                 }
                             }
                         } catch (StringIsNotPositiveAndInteger e) {
