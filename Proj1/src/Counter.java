@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Counter {
-    private double value;
+    double value;
 
     public long sumDigit(ArrayList<Long> listOfLong) {
 
