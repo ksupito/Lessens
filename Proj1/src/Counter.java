@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class EvaluateValue {
+public class Counter {
     double value;
 
     public long sumDigit(ArrayList<Long> listOfLong) {

@@ -1,7 +1,7 @@
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class IsCorrectDigit {
+public class CheckerOfString {
 
     public boolean isDigit(String stringLine) throws StringIsNotPositiveAndInteger {
         Pattern pattern = Pattern.compile("^\\d+$");

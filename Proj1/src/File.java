@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class File {
     private ArrayList<String> listOfString;
     private ArrayList<Long> listOfLong = new ArrayList<>();
-    IsCorrectDigit checker = new IsCorrectDigit();
-    EvaluateValue evaluator = new EvaluateValue();
+    CheckerOfString checker = new CheckerOfString();
+    Counter counter = new Counter();
 
 
     public ArrayList<String> readFile(String path) throws IOException {
@@ -41,8 +41,8 @@ public class File {
     }
 
     public double countValue() {
-        long sumOfValues = evaluator.sumDigit(listOfLong);
-        double averageValue = evaluator.countAverageValue(sumOfValues, listOfLong.size());
+        long sumOfValues = counter.sumDigit(listOfLong);
+        double averageValue = counter.countAverageValue(sumOfValues, listOfLong.size());
         return averageValue;
     }
 
