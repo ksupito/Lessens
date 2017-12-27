@@ -3,13 +3,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.logging.Logger;
+
 
 public class File {
     private ArrayList<String> listOfString;
-    private ArrayList<Long> listOfLong = new ArrayList<>();
-    CheckerOfString checker = new CheckerOfString();
-    Counter counter = new Counter();
-
 
     public ArrayList<String> readFile(String path) throws IOException {
         listOfString = new ArrayList<>();
@@ -22,28 +20,6 @@ public class File {
             }
             return listOfString;
         }
-    }
-
-    public ArrayList<Long> checkString() {
-        ArrayList<String> listOfStringTemp = new ArrayList<>(listOfString);
-        for (int i = 0; i < listOfStringTemp.size(); i++) {
-            try {
-                if (checker.isDigit(checker.checkLenght(listOfStringTemp.get(i))) == true) ;
-                try {
-                    listOfLong.add(Long.parseLong(listOfStringTemp.get(i)));
-                } catch (NumberFormatException e) {
-                }
-            } catch (LengthIsNotValidException e) {
-            } catch (StringIsNotPositiveAndInteger e) {
-            }
-        }
-        return listOfLong;
-    }
-
-    public double countValue() {
-        long sumOfValues = counter.sumDigit(listOfLong);
-        double averageValue = counter.countAverageValue(sumOfValues, listOfLong.size());
-        return averageValue;
     }
 
 
