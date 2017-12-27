@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CheckerOfString {
+public class Validator {
     private double value;
 
     public boolean isDigit(String stringLine) throws StringIsNotPositiveAndInteger {
