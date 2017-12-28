@@ -1,26 +1,40 @@
 import org.apache.log4j.Logger;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Phaser;
 
 public class MainClass {
-    private static final Logger log = Logger.getLogger(Processor.class.getSimpleName());
 
     public static void main(String[] args) {
         org.apache.log4j.PropertyConfigurator.configure("src/resources/log4j.properties");
-        ArrayList<Long> listOfLong = new ArrayList<>();
-        long sum;
-        double value;
-        Processor processor = new Processor();
-        Validator validator = new Validator();
 
-        try {
-            listOfLong = new ArrayList<>(processor.readFile(".//src//files//doc1.txt"));
-        } catch (IOException e) {
-            log.error(e.getMessage());
+        String onePath;
+        String path = ".//src//files";
+        File directory = new File(path);
+        File[] listOfFiles = directory.listFiles();
+        Phaser phaser = new Phaser(listOfFiles.length + 1);
+        ArrayList<Processor> listOfThreads = new ArrayList<>();
+        double sumOfValue = 0;
+        double averageValue;
+
+        for (int i = 0; i < listOfFiles.length; i++) {
+            onePath = listOfFiles[i].toString();
+            Processor processor = new Processor(phaser, onePath, 0);
+            processor.start();
+            listOfThreads.add(processor);
         }
 
-        sum = validator.sumDigit(listOfLong);
-        value = validator.countAverageValue(sum, listOfLong.size());
-        System.out.println(value);
+        phaser.arriveAndAwaitAdvance();
+
+        for(int i = 0; i < listOfThreads.size(); i++){
+            System.out.println(listOfThreads.get(i).valueOfThread);
+            sumOfValue = sumOfValue + listOfThreads.get(i).valueOfThread;
+        }
+        averageValue = sumOfValue / (double) listOfThreads.size();
+        System.out.println(averageValue);
+
+
     }
 }

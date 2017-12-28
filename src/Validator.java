@@ -22,7 +22,7 @@ public class Validator {
         return stringLine;
     }
 
-    public long sumDigit(ArrayList<Long> listOfLong) {
+    public synchronized long sumDigit(ArrayList<Long> listOfLong) {
         long count = 0;
         ArrayList<Long> tempListOfLong = new ArrayList<>(listOfLong);
         for (int i = 0; i < tempListOfLong.size(); i++) {
@@ -31,7 +31,7 @@ public class Validator {
         return count;
     }
 
-    public double countAverageValue(long longValue, int count) {
+    public synchronized double countAverageValue(long longValue, int count) {
         value = longValue / (double) count;
         return value;
     }
