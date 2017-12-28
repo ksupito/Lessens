@@ -31,7 +31,7 @@ public class MainClass {
         for (int i = 0; i < listOfThreads.size(); i++) {
             sumOfValue = sumOfValue + listOfThreads.get(i).valueOfThread;
         }
-        averageValue = sumOfValue / (double) listOfThreads.size();
+        averageValue = sumOfValue / (double)listOfThreads.size();
         System.out.println(averageValue);
 
 
