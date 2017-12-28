@@ -15,7 +15,7 @@ public class Processor extends Thread {
     private long sum;
     double valueOfThread;
     Validator validator = new Validator();
-    private ArrayList<Long> listOfLongForOneThread = new ArrayList<>();
+    private ArrayList<Long> listOfLongForOneThread  = new ArrayList<>();
 
     public Processor(Phaser phaser, String pathToFile, double valueOfThread) {
         this.phaser = phaser;
@@ -26,7 +26,7 @@ public class Processor extends Thread {
     @Override
     public void run() {
         try {
-            listOfLongForOneThread = new ArrayList<>(readFile());
+            listOfLongForOneThread.addAll(readFile());
         } catch (IOException e) {
             log.error(e.getMessage());
         }
