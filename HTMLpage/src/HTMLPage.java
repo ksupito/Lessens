@@ -8,9 +8,9 @@ import java.io.PrintWriter;
 
 @WebServlet("/pageHTML")
 public class HTMLPage extends HttpServlet {
-    final String TITLE = "A Sample Servlet!";
-    final String H1 = "Первый servlet с HTML";
-    final String P_TAG = "Первый servlet с HTML, There was an old owl that lived in an oak. Everyday he saw " +
+    private final static String TITLE = "A Sample Servlet!";
+    private final static String H1 = "Первый servlet с HTML";
+    private final static String P_TAG = "Первый servlet с HTML, There was an old owl that lived in an oak. Everyday he saw " +
             "incidents happening around him. Yesterday he saw a boy helping an old man to carry a heavy basket. " +
             "Today he saw a girl shouting at her mother.he more he saw the less he spoke";
 
