@@ -22,9 +22,7 @@ public class HTMLPage extends HttpServlet {
                 "</body></html>";
         resp.setContentType("text/html;charset=utf-8");
         PrintWriter print = resp.getWriter();
-        print.println(String.format(allText,TITLE,H1,P_TAG));
-
-
+        print.println(String.format(allText, TITLE, H1, P_TAG));
     }
 
     @Override
