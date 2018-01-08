@@ -7,9 +7,10 @@ import java.io.IOException;
 
 @WebServlet("/hello")
 public class NewServlet extends HttpServlet{
+    String text = "First servlet";
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.getWriter().write("First servlet");
+        resp.getWriter().write(text);
     }
 
     @Override
