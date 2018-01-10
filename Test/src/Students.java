@@ -8,7 +8,7 @@ public class Students {
         double[] listOfRaiting;
         try {
             listOfRaiting = randomRating();
-            System.out.println(result(listOfRaiting));
+            System.out.println(evaluateResult(listOfRaiting));
         } catch (NegativeArraySizeException e) {
             System.out.println("N is negative");
         }
@@ -37,7 +37,7 @@ public class Students {
         return mapTemp;
     }
 
-    private static int result(double[] list) {
+    private static int evaluateResult(double[] list) {
         Map<Double, Integer> map = evaluateEqualRaiting(list);
         int sume = 0;
         int count = 1;
