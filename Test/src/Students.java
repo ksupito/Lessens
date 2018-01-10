@@ -1,4 +1,3 @@
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -42,7 +41,7 @@ public class Students {
         Map<Double, Integer> map = evaluateEqualRaiting(list);
         int sume = 0;
         int count = 1;
-        for (HashMap.Entry<Double, Integer> pair : map.entrySet()) {
+        for (Map.Entry<Double, Integer> pair : map.entrySet()) {
             int value = pair.getValue();
             sume = sume + count * value;
             count++;
