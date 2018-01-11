@@ -6,9 +6,9 @@ public class Students {
         System.out.println(student.calculateMinumalSum(args));
     }
 
-    private double[] stringToDouble(String[] stringListOfRaiting) throws NumberFormatException{
+    private double[] stringToDouble(String[] stringListOfRaiting) throws NumberFormatException {
         double[] listOfRaiting = new double[stringListOfRaiting.length];
-        for(int i = 0; i < stringListOfRaiting.length; i++){
+        for (int i = 0; i < stringListOfRaiting.length; i++) {
             listOfRaiting[i] = Double.parseDouble(stringListOfRaiting[i]);
         }
         return listOfRaiting;
@@ -26,7 +26,7 @@ public class Students {
         return studentsGrouppedByRating;
     }
 
-    private Map<Double, Integer> sortStudentsByRating(Map<Double, Integer> map){
+    private Map<Double, Integer> sortStudentsByRating(Map<Double, Integer> map) {
         List<Map.Entry<Double, Integer>> entries = new LinkedList<>(map.entrySet());
         Collections.sort(entries, new Comparator<Map.Entry<Double, Integer>>() {
             @Override
@@ -46,23 +46,15 @@ public class Students {
         int sum = 0;
         int count = 1;
         try {
-            studentsGrouppedByRating =sortStudentsByRating(groupStudentsByRating(stringToDouble(list)));
+            studentsGrouppedByRating = sortStudentsByRating(groupStudentsByRating(stringToDouble(list)));
             for (Map.Entry<Double, Integer> pair : studentsGrouppedByRating.entrySet()) {
                 int value = pair.getValue();
                 sum = sum + count * value;
                 count++;
             }
-        }catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.out.println("Format value is incorrect");
         }
-
-
-
-        /*for (Map.Entry<Double, Integer> pair : studentsGrouppedByRating.entrySet()) {
-            int value = pair.getValue();
-            sum = sum + count * value;
-            count++;
-        }*/
         return sum;
     }
 }
