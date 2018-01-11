@@ -11,6 +11,9 @@ public class Students {
         for (int i = 0; i < stringListOfRaiting.length; i++) {
             try {
                 listOfRaiting[i] = Double.parseDouble(stringListOfRaiting[i]);
+                if(listOfRaiting[i] < 0){
+                    throw new IllegalArgumentException("Input data is not valid");
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Format the value is incorrect");
                 throw new IllegalArgumentException("Input data is not valid");
