@@ -13,7 +13,7 @@ public class Students {
                 listOfRaiting[i] = Double.parseDouble(stringListOfRaiting[i]);
             } catch (NumberFormatException e) {
                 System.out.println("Format the value is incorrect");
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Input data is not valid");
             }
         }
         return listOfRaiting;
@@ -58,7 +58,7 @@ public class Students {
                 count++;
             }
         } catch (IllegalArgumentException e) {
-            System.out.println("The argument in the array is incorrect");
+            System.out.println(e.getMessage());
         }
         return sum;
     }
