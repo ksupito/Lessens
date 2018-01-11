@@ -1,52 +1,41 @@
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Students {
-    private static final int N = 5;
-
     public static void main(String[] args) {
-        double[] listOfRaiting;
-        try {
-            listOfRaiting = randomRating();
-            System.out.println(evaluateResult(listOfRaiting));
-        } catch (NegativeArraySizeException e) {
-            System.out.println("N is negative");
-        }
+        Students student = new Students();
+        double[] listOfRaiting = new double[]{2.7, 3.4, 10.0, 2.7, 5.6, 43.5, 43.5};
+        System.out.println(student.calculateMinumalSum(listOfRaiting));
     }
 
-    private static double[] randomRating() throws NegativeArraySizeException {
-        double[] listOfRaitingTemp = new double[N];
-        double value;
-        for (int i = 0; i < N; i++) {
-            value = (Math.random() * 10);
-            listOfRaitingTemp[i] = value;
-        }
-        return listOfRaitingTemp;
-    }
-
-    private static Map<Double, Integer> evaluateEqualRaiting(double[] listOfRaiting) {
-        double[] listTemp = listOfRaiting;
-        Map<Double, Integer> mapTemp = new TreeMap<>();
-        for (int i = 0; i < listTemp.length; i++) {
-            if (mapTemp.containsKey(listTemp[i])) {
-                mapTemp.put(listTemp[i], mapTemp.get(listTemp[i]) + 1);
+    private Map<Double, Integer> groupStudentsByRating(double[] listOfRaiting) {
+        Map<Double, Integer> studentsGrouppedByRating = new HashMap<>();
+        for (int i = 0; i < listOfRaiting.length; i++) {
+            if (studentsGrouppedByRating.containsKey(listOfRaiting[i])) {
+                studentsGrouppedByRating.put(listOfRaiting[i], studentsGrouppedByRating.get(listOfRaiting[i]) + 1);
             } else {
-                mapTemp.put(listTemp[i], 1);
+                studentsGrouppedByRating.put(listOfRaiting[i], 1);
             }
         }
-        return mapTemp;
+        return studentsGrouppedByRating;
     }
 
-    private static int evaluateResult(double[] list) {
-        Map<Double, Integer> map = evaluateEqualRaiting(list);
+    private int calculateMinumalSum(double[] list) {
+        Map<Double, Integer> studentsGrouppedByRating = groupStudentsByRating(list);
         int sume = 0;
         int count = 1;
-        for (Map.Entry<Double, Integer> pair : map.entrySet()) {
+
+        List<Map.Entry<Double, Integer>> entries = new LinkedList<>(studentsGrouppedByRating.entrySet());
+        Collections.sort(entries, new Comparator<Map.Entry<Double, Integer>>() {
+            @Override
+            public int compare(Map.Entry<Double, Integer> o1, Map.Entry<Double, Integer> o2) {
+                return o1.getKey().compareTo(o2.getKey());
+            }
+        });
+        for (Map.Entry<Double, Integer> pair : entries) {
             int value = pair.getValue();
             sume = sume + count * value;
             count++;
         }
         return sume;
     }
-
 }
