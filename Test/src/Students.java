@@ -6,10 +6,15 @@ public class Students {
         System.out.println(student.calculateMinumalSum(args));
     }
 
-    private double[] stringToDouble(String[] stringListOfRaiting) throws NumberFormatException {
+    private double[] stringToDouble(String[] stringListOfRaiting) {
         double[] listOfRaiting = new double[stringListOfRaiting.length];
         for (int i = 0; i < stringListOfRaiting.length; i++) {
-            listOfRaiting[i] = Double.parseDouble(stringListOfRaiting[i]);
+            try {
+                listOfRaiting[i] = Double.parseDouble(stringListOfRaiting[i]);
+            } catch (NumberFormatException e) {
+                System.out.println("Format the value is incorrect");
+                throw new IllegalArgumentException();
+            }
         }
         return listOfRaiting;
     }
@@ -52,8 +57,8 @@ public class Students {
                 sum = sum + count * value;
                 count++;
             }
-        } catch (NumberFormatException e) {
-            System.out.println("Format value is incorrect");
+        } catch (IllegalArgumentException e) {
+            System.out.println("The argument in the array is incorrect");
         }
         return sum;
     }
