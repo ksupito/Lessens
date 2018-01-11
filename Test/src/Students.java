@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Students {
     public static void main(String[] args) {
@@ -35,17 +36,10 @@ public class Students {
     }
 
     private Map<Double, Integer> sortStudentsByRating(Map<Double, Integer> map) {
-        Map<Double, Integer> sortedMap = new LinkedHashMap<>();
-        List<Map.Entry<Double, Integer>> entries = new LinkedList<>(map.entrySet());
-        Collections.sort(entries, new Comparator<Map.Entry<Double, Integer>>() {
-            @Override
-            public int compare(Map.Entry<Double, Integer> o1, Map.Entry<Double, Integer> o2) {
-                return o1.getKey().compareTo(o2.getKey());
-            }
-        });
-        for (Map.Entry<Double, Integer> pair : entries) {
-            sortedMap.put(pair.getKey(), pair.getValue());
-        }
+        Map<Double, Integer> sortedMap = map.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
         return sortedMap;
     }
 
