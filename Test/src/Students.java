@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 public class Students {
     public static void main(String[] args) {
         Students student = new Students();
-        System.out.println(student.calculateMinumalSum(args));
+        System.out.println(student.calculateMinumalSum(new String[]{"-1"}));
     }
 
     private double[] stringToDouble(String[] stringListOfRaiting) {
@@ -12,7 +12,7 @@ public class Students {
         for (int i = 0; i < stringListOfRaiting.length; i++) {
             try {
                 listOfRaiting[i] = Double.parseDouble(stringListOfRaiting[i]);
-                if(listOfRaiting[i] < 0){
+                if (listOfRaiting[i] < 0) {
                     throw new IllegalArgumentException("Input data is not valid");
                 }
             } catch (NumberFormatException e) {
@@ -44,19 +44,15 @@ public class Students {
     }
 
     private int calculateMinumalSum(String[] list) {
-        Map<Double, Integer> studentsGrouppedByRating;
         int sum = 0;
         int count = 1;
-        try {
-            studentsGrouppedByRating = sortStudentsByRating(groupStudentsByRating(stringToDouble(list)));
-            for (Map.Entry<Double, Integer> pair : studentsGrouppedByRating.entrySet()) {
-                int value = pair.getValue();
-                sum = sum + count * value;
-                count++;
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+        Map<Double, Integer> studentsGrouppedByRating = sortStudentsByRating(groupStudentsByRating(stringToDouble(list)));
+        for (Map.Entry<Double, Integer> pair : studentsGrouppedByRating.entrySet()) {
+            int value = pair.getValue();
+            sum = sum + count * value;
+            count++;
         }
+
         return sum;
     }
 }
