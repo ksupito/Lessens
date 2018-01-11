@@ -27,6 +27,7 @@ public class Students {
     }
 
     private Map<Double, Integer> sortStudentsByRating(Map<Double, Integer> map) {
+        Map<Double, Integer> sortedMap = new LinkedHashMap<>();
         List<Map.Entry<Double, Integer>> entries = new LinkedList<>(map.entrySet());
         Collections.sort(entries, new Comparator<Map.Entry<Double, Integer>>() {
             @Override
@@ -34,7 +35,6 @@ public class Students {
                 return o1.getKey().compareTo(o2.getKey());
             }
         });
-        Map<Double, Integer> sortedMap = new LinkedHashMap<>();
         for (Map.Entry<Double, Integer> pair : entries) {
             sortedMap.put(pair.getKey(), pair.getValue());
         }
