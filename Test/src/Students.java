@@ -22,18 +22,22 @@ public class Students {
         Queue<Integer> queueOfStudents = stringToInteger(stringListOfRaiting);
         int sum = 0;
         int money = 1;
-        int firstStudent = queueOfStudents.remove();
-        while (!queueOfStudents.isEmpty()) {
-            int nextStudent = queueOfStudents.remove();
-            if (firstStudent > nextStudent) {
-                sum = sum + money + 1;
-            }
-            if (firstStudent <= nextStudent) {
-                sum = sum + money;
-            }
-            firstStudent = nextStudent;
-            if (queueOfStudents.size() == 0) {
-                sum = sum + money;
+        if (queueOfStudents.size() == 1) {
+            sum = money;
+        } else {
+            int firstStudent = queueOfStudents.remove();
+            while (!queueOfStudents.isEmpty()) {
+                int nextStudent = queueOfStudents.remove();
+                if (firstStudent > nextStudent) {
+                    sum = sum + money + 1;
+                }
+                if (firstStudent <= nextStudent) {
+                    sum = sum + money;
+                }
+                firstStudent = nextStudent;
+                if (queueOfStudents.size() == 0) {
+                    sum = sum + money;
+                }
             }
         }
         return sum;
