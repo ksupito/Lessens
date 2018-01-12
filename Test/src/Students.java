@@ -1,58 +1,41 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Students {
     public static void main(String[] args) {
         Students student = new Students();
-        System.out.println(student.calculateMinumalSum(new String[]{"-1"}));
+        System.out.println(student.calculateMinumalSum(new String[]{"50", "39", "49", "25", "69", "44", "98", "65"}));
     }
 
-    private double[] stringToDouble(String[] stringListOfRaiting) {
-        double[] listOfRaiting = new double[stringListOfRaiting.length];
+    private Queue<Integer> stringToInteger(String[] stringListOfRaiting) {
+        Queue<Integer> queueOfStudents = new LinkedList<>();
         for (int i = 0; i < stringListOfRaiting.length; i++) {
             try {
-                listOfRaiting[i] = Double.parseDouble(stringListOfRaiting[i]);
-                if (listOfRaiting[i] < 0) {
-                    throw new IllegalArgumentException("Input data is not valid");
-                }
+                queueOfStudents.add(Integer.parseInt(stringListOfRaiting[i]));
             } catch (NumberFormatException e) {
                 System.out.println("Format the value is incorrect");
-                throw new IllegalArgumentException("Input data is not valid");
             }
         }
-        return listOfRaiting;
+        return queueOfStudents;
     }
 
-    private Map<Double, Integer> groupStudentsByRating(double[] listOfRaiting) {
-        Map<Double, Integer> studentsGrouppedByRating = new HashMap<>();
-        for (int i = 0; i < listOfRaiting.length; i++) {
-            if (studentsGrouppedByRating.containsKey(listOfRaiting[i])) {
-                studentsGrouppedByRating.put(listOfRaiting[i], studentsGrouppedByRating.get(listOfRaiting[i]) + 1);
-            } else {
-                studentsGrouppedByRating.put(listOfRaiting[i], 1);
-            }
-        }
-        return studentsGrouppedByRating;
-    }
-
-    private Map<Double, Integer> sortStudentsByRating(Map<Double, Integer> map) {
-        Map<Double, Integer> sortedMap = map.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
-                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
-        return sortedMap;
-    }
-
-    private int calculateMinumalSum(String[] list) {
+    private int calculateMinumalSum(String[] stringListOfRaiting) {
+        Queue<Integer> queueOfStudents = stringToInteger(stringListOfRaiting);
         int sum = 0;
-        int count = 1;
-        Map<Double, Integer> studentsGrouppedByRating = sortStudentsByRating(groupStudentsByRating(stringToDouble(list)));
-        for (Map.Entry<Double, Integer> pair : studentsGrouppedByRating.entrySet()) {
-            int value = pair.getValue();
-            sum = sum + count * value;
-            count++;
+        int money = 1;
+        int firstStudent = queueOfStudents.remove();
+        while (!queueOfStudents.isEmpty()) {
+            int nextStudent = queueOfStudents.remove();
+            if (firstStudent > nextStudent) {
+                sum = sum + money + 1;
+            }
+            if (firstStudent <= nextStudent) {
+                sum = sum + money;
+            }
+            firstStudent = nextStudent;
+            if (queueOfStudents.size() == 0) {
+                sum = sum + money;
+            }
         }
-
         return sum;
     }
 }
