@@ -34,7 +34,6 @@ public class Students {
             double firstStudent = queueOfStudents.remove();
             while (!queueOfStudents.isEmpty()) {
                 double nextStudent = queueOfStudents.remove();
-                System.out.println(nextStudent);
                 if (firstStudent > nextStudent) {
                     sum = sum + money + 1;
                 }
