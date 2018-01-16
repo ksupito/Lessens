@@ -26,20 +26,21 @@ public class Students {
     private int calculateMinumalSum(String[] stringListOfRaiting) {
         ArrayList<Double> queueOfStudents = convert(stringListOfRaiting);
         ArrayList<Integer> moneysOfStudents = new ArrayList<>();
+        int studentsCount = queueOfStudents.size();
         int sum = 0;
-        for (int i = 0; i < queueOfStudents.size(); i++) {
+        for (int i = 0; i < studentsCount; i++) {
             moneysOfStudents.add(1);
         }
-        for (int i = 0; i < queueOfStudents.size(); i++) {
+        for (int i = 0; i < studentsCount; i++) {
             boolean comparisonDone = false;
-            if (queueOfStudents.size() == 1) {
+            if (studentsCount == 1) {
                 break;
             }
             if (queueOfStudents.get(0) > queueOfStudents.get(1) && moneysOfStudents.get(0) <= moneysOfStudents.get(1)) {
                 moneysOfStudents.set(0, moneysOfStudents.get(0) + 1);
             }
-            for (int j = 1; j < queueOfStudents.size(); j++) {
-                if (j == queueOfStudents.size() - 1) {
+            for (int j = 1; j < studentsCount; j++) {
+                if (j == studentsCount - 1) {
                     break;
                 }
                 double left = queueOfStudents.get(j - 1);
@@ -55,9 +56,9 @@ public class Students {
                 } else continue;
             }
 
-            if (queueOfStudents.get(queueOfStudents.size() - 1) > queueOfStudents.get(queueOfStudents.size() - 2)
+            if (queueOfStudents.get(studentsCount - 1) > queueOfStudents.get(studentsCount - 2)
                     && moneysOfStudents.get(moneysOfStudents.size() - 1) <= moneysOfStudents.get(moneysOfStudents.size() - 2)) {
-                moneysOfStudents.set(queueOfStudents.size() - 1, moneysOfStudents.get(queueOfStudents.size() - 1) + 1);
+                moneysOfStudents.set(studentsCount - 1, moneysOfStudents.get(studentsCount - 1) + 1);
             }
             if (comparisonDone == false) {
                 break;
