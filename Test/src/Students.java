@@ -1,14 +1,13 @@
-import java.text.DecimalFormat;
 import java.util.*;
 
 public class Students {
     public static void main(String[] args) {
         Students student = new Students();
-        System.out.println(student.calculateMinumalSum(new String[]{"50", "39.23234234", "49.33055", "25", "69", "44", "98", "65"}));
+        System.out.println(student.calculateMinumalSum(new String[]{"1", "4", "3"}));
     }
 
-    private Queue<Double> convert(String[] stringListOfRaiting) {
-        Queue<Double> queueOfStudents = new LinkedList<>();
+    private ArrayList<Double> convert(String[] stringListOfRaiting) {
+        ArrayList<Double> queueOfStudents = new ArrayList<>();
 
         for (int i = 0; i < stringListOfRaiting.length; i++) {
             try {
@@ -25,26 +24,48 @@ public class Students {
     }
 
     private int calculateMinumalSum(String[] stringListOfRaiting) {
-        Queue<Double> queueOfStudents = convert(stringListOfRaiting);
+        ArrayList<Double> queueOfStudents = convert(stringListOfRaiting);
+        ArrayList<Integer> moneysOfStudents = new ArrayList<>();
         int sum = 0;
-        int money = 1;
-        if (queueOfStudents.size() == 1) {
-            sum = money;
-        } else {
-            double firstStudent = queueOfStudents.remove();
-            while (!queueOfStudents.isEmpty()) {
-                double nextStudent = queueOfStudents.remove();
-                if (firstStudent > nextStudent) {
-                    sum = sum + money + 1;
-                }
-                if (firstStudent <= nextStudent) {
-                    sum = sum + money;
-                }
-                firstStudent = nextStudent;
-                if (queueOfStudents.size() == 0) {
-                    sum = sum + money;
-                }
+        for (int i = 0; i < queueOfStudents.size(); i++) {
+            moneysOfStudents.add(1);
+        }
+        for (int i = 0; i < queueOfStudents.size(); i++) {
+            boolean comparisonDone = false;
+            if (queueOfStudents.size() == 1) {
+                break;
             }
+            if (queueOfStudents.get(0) > queueOfStudents.get(1) && moneysOfStudents.get(0) <= moneysOfStudents.get(1)) {
+                moneysOfStudents.set(0, moneysOfStudents.get(0) + 1);
+            }
+            for (int j = 1; j < queueOfStudents.size(); j++) {
+                if (j == queueOfStudents.size() - 1) {
+                    break;
+                }
+                double left = queueOfStudents.get(j - 1);
+                double current = queueOfStudents.get(j);
+                double right = queueOfStudents.get(j + 1);
+                int leftMoney = moneysOfStudents.get(j - 1);
+                int currentMoney = moneysOfStudents.get(j);
+                int rightMoney = moneysOfStudents.get(j + 1);
+
+                if ((current > left && currentMoney <= leftMoney) || (current > right && currentMoney <= rightMoney)) {
+                    moneysOfStudents.set(j, moneysOfStudents.get(j) + 1);
+                    comparisonDone = true;
+                } else continue;
+            }
+
+            if (queueOfStudents.get(queueOfStudents.size() - 1) > queueOfStudents.get(queueOfStudents.size() - 2)
+                    && moneysOfStudents.get(moneysOfStudents.size() - 1) <= moneysOfStudents.get(moneysOfStudents.size() - 2)) {
+                moneysOfStudents.set(queueOfStudents.size() - 1, moneysOfStudents.get(queueOfStudents.size() - 1) + 1);
+            }
+            if (comparisonDone == false) {
+                break;
+            }
+        }
+
+        for (int i = 0; i < moneysOfStudents.size(); i++) {
+            sum = sum + moneysOfStudents.get(i);
         }
         return sum;
     }
