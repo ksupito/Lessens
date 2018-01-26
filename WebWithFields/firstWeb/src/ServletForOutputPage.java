@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 
 @WebServlet("/output")
-public class ServletWithSession extends HttpServlet {
+public class ServletForOutputPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
