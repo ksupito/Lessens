@@ -17,7 +17,7 @@ public class ServletWithSession extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         try {
-            setSession(req, session);
+            setAttributeOfSession(req, session);
         } catch (NumberFormatException e) {
             req.setAttribute("errorMessage", "Invalid time");
             req.getRequestDispatcher("jsp/EntryPage.jsp").forward(req, resp);
@@ -30,7 +30,7 @@ public class ServletWithSession extends HttpServlet {
         doGet(req, resp);
     }
 
-    private void setSession(HttpServletRequest req, HttpSession session) throws NumberFormatException {
+    private void setAttributeOfSession(HttpServletRequest req, HttpSession session) throws NumberFormatException {
         String timeOfSession = req.getParameter("timeOfSession");
         String valueOfSession = req.getParameter("valueOfSession");
         if (timeOfSession != null && timeOfSession != "" && valueOfSession != null && valueOfSession != "") {
