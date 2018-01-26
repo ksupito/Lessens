@@ -11,7 +11,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
-@WebServlet("/after")
+@WebServlet("/output")
 public class ServletWithSession extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,7 +43,7 @@ public class ServletWithSession extends HttpServlet {
 
     private void startJSP(HttpServletRequest req, HttpServletResponse resp, HttpSession session) throws ServletException, IOException {
         if (session.isNew() == true) {
-            req.setAttribute("cancelMessage", "Session is ended");
+            req.setAttribute("cancelMessage", "Session was ended");
             req.getRequestDispatcher("jsp/EntryPage.jsp").forward(req, resp);
         } else if ((session.getAttribute("timeOfSession") == null || Integer.parseInt(session.getAttribute("timeOfSession").toString()) <= 0)
                 && session.isNew() == false) {
