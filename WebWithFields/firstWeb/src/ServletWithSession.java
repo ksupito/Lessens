@@ -1,4 +1,5 @@
 package newProject;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -6,35 +7,50 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
-@WebServlet("/main2")
+@WebServlet("/after")
 public class ServletWithSession extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        while (true) {
-            try {
-                String timeOfSession = req.getParameter("timeOfSession");
-                String valueOfSession = req.getParameter("valueOfSession");
-
-                if (timeOfSession != null && timeOfSession != "" && valueOfSession != null && valueOfSession != "") {
-                    session.setAttribute("timeOfSession", timeOfSession);
-                    session.setAttribute("valueOfSession", valueOfSession);
-                    int a = Integer.parseInt(timeOfSession);
-                    session.setMaxInactiveInterval(a);
-                }
-            } catch (NumberFormatException e) {
-                req.setAttribute("errorMessage", "Invalid time");
-                req.getRequestDispatcher("jsp/FirstPage.jsp").forward(req, resp);
-            } catch (IllegalStateException e) {
-            }
-            req.getRequestDispatcher("jsp/SecondPage.jsp").forward(req, resp);
-            break;
+        try {
+            setSession(req, session);
+        } catch (NumberFormatException e) {
+            req.setAttribute("errorMessage", "Invalid time");
+            req.getRequestDispatcher("jsp/EntryPage.jsp").forward(req, resp);
         }
+        startJSP(req, resp, session);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
+    }
+
+    private void setSession(HttpServletRequest req, HttpSession session) throws NumberFormatException {
+        String timeOfSession = req.getParameter("timeOfSession");
+        String valueOfSession = req.getParameter("valueOfSession");
+        if (timeOfSession != null && timeOfSession != "" && valueOfSession != null && valueOfSession != "") {
+            int sessionTime = Integer.parseInt(timeOfSession);
+            session.setAttribute("timeOfSession", timeOfSession);
+            session.setAttribute("valueOfSession", valueOfSession);
+            session.setMaxInactiveInterval(sessionTime);
+        }
+    }
+
+    private void startJSP(HttpServletRequest req, HttpServletResponse resp, HttpSession session) throws ServletException, IOException {
+        if (session.isNew() == true) {
+            req.setAttribute("cancelMessage", "Session is ended");
+            req.getRequestDispatcher("jsp/EntryPage.jsp").forward(req, resp);
+        } else if ((session.getAttribute("timeOfSession") == null || Integer.parseInt(session.getAttribute("timeOfSession").toString()) <= 0)
+                && session.isNew() == false) {
+            req.setAttribute("errorMessage", "Invalid time");
+            req.getRequestDispatcher("jsp/EntryPage.jsp").forward(req, resp);
+        } else {
+            req.getRequestDispatcher("jsp/OutputPage.jsp").forward(req, resp);
+        }
     }
 }
