@@ -5,8 +5,8 @@
 </head>
 <body>
 <p style="color: red">${errorMessage}</p>
-<p style="color: green">${cancelMessage}</p>
-<form method="post" action="/output">
+<p style="color: green">${sessionCanceledMessage}</p>
+<form method="get" action="/output">
     <p>Time:<input type="text" name="timeOfSession"></p>
     <p>Data:<input type="text" name="valueOfSession"></p>
     <input type="submit" value="Go!">

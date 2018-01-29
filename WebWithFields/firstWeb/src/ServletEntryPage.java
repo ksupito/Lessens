@@ -7,10 +7,21 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/entry")
-public class ServletForEntryPage extends HttpServlet {
+public class ServletEntryPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-       req.getRequestDispatcher("jsp/EntryPage.jsp").forward(req,resp);
+        if(req.getParameter("error") != null)
+        {
+            req.setAttribute("errorMessage", "Invalid time");
+            req.getRequestDispatcher("jsp/entryPage.jsp").forward(req,resp);
+        }
+        else if (req.getParameter("session") != null)
+        {
+            req.setAttribute("sessionCanceledMessage", "Session was ended");
+            req.getRequestDispatcher("jsp/entryPage.jsp").forward(req,resp);
+        }
+        else{
+       req.getRequestDispatcher("jsp/entryPage.jsp").forward(req,resp);}
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
