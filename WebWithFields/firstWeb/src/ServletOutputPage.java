@@ -15,6 +15,11 @@ import java.util.Enumeration;
 public class ServletOutputPage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        startJSP(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
         try {
             if (setAttributeOfSession(req, resp, session) == false) {
@@ -24,12 +29,7 @@ public class ServletOutputPage extends HttpServlet {
             resp.sendRedirect("/entry?error=true");
             return;
         }
-        startJSP(req, resp, session);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
+        startJSP(req, resp);
     }
 
     private boolean setAttributeOfSession(HttpServletRequest req, HttpServletResponse resp, HttpSession session) throws NumberFormatException, IOException {
@@ -46,9 +46,8 @@ public class ServletOutputPage extends HttpServlet {
         return true;
     }
 
-    private void startJSP(HttpServletRequest req, HttpServletResponse resp, HttpSession session) throws ServletException, IOException {
-        if (session.isNew() == true) {
-            session.invalidate();
+    private void startJSP(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getSession(false) == null) {
             resp.sendRedirect("/entry?session=ended");
         } else {
             req.getRequestDispatcher("jsp/outputPage.jsp").forward(req, resp);
