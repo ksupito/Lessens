@@ -7,21 +7,19 @@
     <title>Title</title>
 </head>
 <body>
-<table border="1" cellspacing="0" >
+<table border="1" cellspacing="0">
     <tr>
         <th bgcolor="#f5f5dc">Код</th>
         <th bgcolor="#f5f5dc">Наименование</th>
     </tr>
 
-    <c:set var="friends" value='<%=Countries.createMapOfCountrues(Locale.getISOCountries())%>' />
+    <c:set var="friends" value='<%=Countries.createMapOfCountrues(Locale.getISOCountries())%>'/>
     <c:forEach var="entry" items="${friends}">
         <tr>
             <td align="center"><c:out value="${entry.key}"/></td>
             <td align="center"><c:out value="${entry.value}"/></td>
         </tr>
     </c:forEach>
-
-
 
 </table>
 
