@@ -1,7 +1,8 @@
- public class User {
-    public int id;
-    public String lastName;
-    public String firstName;
+package classesHelpers;
+public class User {
+    final int id;
+    final String lastName;
+    final String firstName;
     public User(int id ,String lastName, String firstName){
         this.id = id;
         this.lastName = lastName;

@@ -1,3 +1,6 @@
+import classesHelpers.DataBase;
+import classesHelpers.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -5,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,25 +16,25 @@ import java.util.regex.Pattern;
 public class ServletResult extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         resp.sendRedirect("/input");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<User> listOfUser;
+        DataBase base = new DataBase();
         String lastName = validate(req, resp);
         if (lastName == null) {
             return;
         } else {
             try {
-                listOfUser = getData(lastName);
+                listOfUser = base.takeData(lastName);
                 if (listOfUser.size() == 0) {
                     resp.sendRedirect("/input?error=true");
                     return;
                 }
-            } catch (ClassNotFoundException | SQLException e) {
-                resp.sendError(523, "Origin Is Unreachable");
+            } catch (ClassNotFoundException | SQLException | NullPointerException e) {
                 return;
             }
             req.setAttribute("listOfUser", listOfUser);
@@ -59,27 +61,4 @@ public class ServletResult extends HttpServlet {
         }
         return lastName;
     }
-
-    private List<User> getData(String lastNameWasEntered) throws ClassNotFoundException, SQLException {
-        String url = "jdbc:mysql://localhost:3306/globalProject";
-        String memberName = "root";
-        String memberPassword = "1111";
-        List<User> listOfUser = new ArrayList<>();
-
-        Class.forName("com.mysql.jdbc.Driver");
-        try (Connection connection = DriverManager.getConnection(url, memberName, memberPassword);
-             Statement statement = connection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM employee where last_name = '" + lastNameWasEntered + "'");
-
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String lastName = resultSet.getString("last_name");
-                String firstName = resultSet.getString("first_name");
-                listOfUser.add(new User(id, lastName, firstName));
-            }
-        }
-        return listOfUser;
-    }
-
-
 }
