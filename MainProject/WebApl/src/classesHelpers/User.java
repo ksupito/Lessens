@@ -1,8 +1,8 @@
 package classesHelpers;
 public class User {
-    final int id;
-    final String lastName;
-    final String firstName;
+    private final int id;
+    private final String lastName;
+    private final String firstName;
     public User(int id ,String lastName, String firstName){
         this.id = id;
         this.lastName = lastName;
