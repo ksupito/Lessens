@@ -29,12 +29,13 @@ public class ServletResult extends HttpServlet {
             return;
         } else {
             try {
-                listOfUser = base.takeData(lastName);
+                listOfUser = base.takeData(lastName, resp);
                 if (listOfUser.size() == 0) {
                     resp.sendRedirect("/input?error=true");
                     return;
                 }
             } catch (ClassNotFoundException | SQLException | NullPointerException e) {
+                req.getRequestDispatcher("jsp/errors.jsp").forward(req, resp);
                 return;
             }
             req.setAttribute("listOfUser", listOfUser);

@@ -1,5 +1,6 @@
 package classesHelpers;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,7 +17,7 @@ public class DataBase {
     private String driver;
     private static Connection connection;
 
-    public List<User> takeData(String lastNameWasEntered) throws ClassNotFoundException, SQLException, IOException, NullPointerException {
+    public List<User> takeData(String lastNameWasEntered,HttpServletResponse resp) throws ClassNotFoundException, SQLException, IOException, NullPointerException {
         List<User> listOfUser = new ArrayList<>();
         if (connection == null) {
             try {
@@ -25,7 +26,7 @@ public class DataBase {
                 connection = DriverManager.getConnection(url, login, password);
 
             } catch (FileNotFoundException e) {
-                System.out.println(e);
+                resp.sendError(404, "File not found");
             }
         }
         try (Statement statement = connection.createStatement()) {
