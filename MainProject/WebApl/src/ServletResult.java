@@ -46,7 +46,7 @@ public class ServletResult extends HttpServlet {
         }
     }
 
-    private static boolean isString(String testString) {
+    private boolean isString(String testString) {
         Pattern p = Pattern.compile("^[а-яА-ЯёЁa-zA-Z]+$");
         Matcher m = p.matcher(testString);
         return m.matches();
