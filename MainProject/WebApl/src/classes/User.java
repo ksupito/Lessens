@@ -1,4 +1,4 @@
-package classesHelpers;
+package classes;
 public class User {
     private final int id;
     private final String lastName;

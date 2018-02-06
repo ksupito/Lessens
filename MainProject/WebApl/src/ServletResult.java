@@ -1,5 +1,5 @@
-import classesHelpers.DataBase;
-import classesHelpers.User;
+import classes.DataBaseHelper;
+import classes.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,19 +23,22 @@ public class ServletResult extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<User> listOfUser;
-        DataBase base = new DataBase();
+        DataBaseHelper base = new DataBaseHelper();
         String lastName = validate(req, resp);
         if (lastName == null) {
             return;
         } else {
             try {
-                listOfUser = base.takeData(lastName, resp);
+                listOfUser = base.getUsers(lastName);
                 if (listOfUser.size() == 0) {
                     resp.sendRedirect("/input?error=true");
                     return;
                 }
-            } catch (ClassNotFoundException | SQLException | NullPointerException e) {
+            } catch (ClassNotFoundException | SQLException e) {
                 req.getRequestDispatcher("jsp/errors.jsp").forward(req, resp);
+                return;
+            } catch (IOException e) {
+                resp.sendError(404, "File not found");
                 return;
             }
             req.setAttribute("listOfUser", listOfUser);
