@@ -5,7 +5,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class DataBaseHelper {
 
     public List<User> getUsers(String lastNameWasEntered) throws ClassNotFoundException, SQLException, IOException {

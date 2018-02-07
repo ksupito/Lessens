@@ -1,9 +1,11 @@
 package classes;
+
 public class User {
     private final int id;
     private final String lastName;
     private final String firstName;
-    public User(int id ,String lastName, String firstName){
+
+    public User(int id, String lastName, String firstName) {
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -20,6 +22,4 @@ public class User {
     public String getLastName() {
         return lastName;
     }
-
-
 }
