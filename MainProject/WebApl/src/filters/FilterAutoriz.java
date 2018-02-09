@@ -32,12 +32,12 @@ public class FilterAutoriz implements Filter {
             return;
         }
         try {
-            if (base.checkUser(login, password) == true && session.getAttribute("true") == null) {
-                session.setAttribute("true", true);
+            if (base.checkUser(login, password) && session.getAttribute("authorized") == null) {
+                session.setAttribute("authorized", true);
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;
             }
-            if (session.getAttribute("true") != null) {
+            if (session.getAttribute("authorized") != null) {
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;
             }

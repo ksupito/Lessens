@@ -48,20 +48,10 @@ public class ServletResult extends HttpServlet {
         }
     }
 
-    private boolean isString(String testString) {
-        Pattern p = Pattern.compile("^[а-яА-ЯёЁa-zA-Z]+$");
-        Matcher m = p.matcher(testString);
-        return m.matches();
-    }
-
     private String validate(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String lastNameRequest = req.getParameter("lastName").trim();
         String lastName = new String(lastNameRequest.getBytes("ISO-8859-1"), "UTF-8");
         if (lastName == null || lastName == "" || lastName.isEmpty()) {
-            resp.sendRedirect("/input?error=true");
-            return null;
-        }
-        if (isString(lastName) != true) {
             resp.sendRedirect("/input?error=true");
             return null;
         }
