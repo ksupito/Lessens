@@ -55,8 +55,8 @@ public class ServletResult extends HttpServlet {
     }
 
     private String validate(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        req.setCharacterEncoding("UTF-8");
-        String lastName = req.getParameter("lastName").trim();
+        String lastNameRequest = req.getParameter("lastName").trim();
+        String lastName = new String(lastNameRequest.getBytes("ISO-8859-1"), "UTF-8");
         if (lastName == null || lastName == "" || lastName.isEmpty()) {
             resp.sendRedirect("/input?error=true");
             return null;
