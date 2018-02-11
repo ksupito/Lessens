@@ -37,14 +37,18 @@ public class FilterAutoriz implements Filter {
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;
             }
+            if (!base.checkUser(login, password) && (login != null || password != null)) {
+                response.sendRedirect("/login?error=true");
+                return;
+            }
             if (session.getAttribute("authorized") != null) {
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;
             }
         } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
         }
-        response.sendRedirect("/login?error=true");
+        response.sendError(403, "Access denied");
     }
-
 }
 

@@ -20,6 +20,13 @@
         </tr>
     </c:forEach>
 </table>
+<c:if test="${requestScope.countPages > 1}">
+    <form method="get" action="/result">
+        <c:forEach begin="1" end="${requestScope.countPages}" varStatus="loop">
+            <input type="submit" name="page" value=${ loop.count }>
+        </c:forEach>
+    </form>
+</c:if>
 <a href="/input">Назад</a>
 </body>
 </html>

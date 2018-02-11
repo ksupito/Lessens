@@ -1,5 +1,3 @@
-
-
 import classes.DataBaseHelper;
 import classes.User;
 
@@ -10,21 +8,46 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @WebServlet("/result")
 public class ServletResult extends HttpServlet {
+    private List<User> listOfUser;
+    private List<User> listForOnePage;
+    private int countPages;
+    private static final int countUsersOnePage = 3;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        resp.sendRedirect("/input");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int minIndex;
+        int maxIndex;
+        int numberPage = Integer.parseInt(req.getParameter("page"));
+        if (numberPage == 1) {
+            minIndex = numberPage - 1;
+            if (listOfUser.size() < countUsersOnePage) {
+                maxIndex = listOfUser.size();
+            } else {
+                maxIndex = minIndex + countUsersOnePage;
+            }
+        } else {
+            if (listOfUser.size() % countUsersOnePage != 0 && numberPage == countPages) {
+                minIndex = numberPage * countUsersOnePage - countUsersOnePage;
+                maxIndex = listOfUser.size();
+            } else {
+                minIndex = numberPage * countUsersOnePage - countUsersOnePage;
+                maxIndex = minIndex + countUsersOnePage;
+            }
+        }
+        listForOnePage = new ArrayList<>(listOfUser.subList(minIndex, maxIndex));
+        req.setAttribute("listOfUser", listForOnePage);
+        req.setAttribute("countPages", countPages);
+        req.getRequestDispatcher("jsp/result.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<User> listOfUser;
+
         DataBaseHelper base = new DataBaseHelper();
         String lastName = validate(req, resp);
         if (lastName == null) {
@@ -43,7 +66,14 @@ public class ServletResult extends HttpServlet {
                 resp.sendError(404, "File not found");
                 return;
             }
-            req.setAttribute("listOfUser", listOfUser);
+            countPages = (int) Math.ceil((double) listOfUser.size() / countUsersOnePage);
+            if (listOfUser.size() < countUsersOnePage) {
+                listForOnePage = new ArrayList<>(listOfUser.subList(0, listOfUser.size()));
+            } else {
+                listForOnePage = new ArrayList<>(listOfUser.subList(0, countUsersOnePage));
+            }
+            req.setAttribute("listOfUser", listForOnePage);
+            req.setAttribute("countPages", countPages);
             req.getRequestDispatcher("jsp/result.jsp").forward(req, resp);
         }
     }

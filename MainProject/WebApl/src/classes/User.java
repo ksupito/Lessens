@@ -11,7 +11,6 @@ public class User {
         this.firstName = firstName;
     }
 
-
     public int getId() {
         return id;
     }
