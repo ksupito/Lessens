@@ -1,20 +1,20 @@
 package chat;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
 
-public class UserChat extends Thread {
+public class Client implements Runnable{
     private Socket socket;
     private ServerChat server;
-    PrintWriter writer;
+    private PrintWriter writer;
 
-    public UserChat(Socket socket, ServerChat server) {
+    public Client(Socket socket, ServerChat server) {
         this.socket = socket;
         this.server = server;
     }
-
-    @Override
     public void run() {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -27,15 +27,18 @@ public class UserChat extends Thread {
                     socket.close();
                     break;
                 }
-                server.sendMessageAll(message, this);
+                if (message.equals("/leave")) {
+                    server.severUser(this);
+                    break;
+                }
+                server.sendClientMessage(message, this);
             }
-
         } catch (IOException e) {
             System.out.println("тут будут логи");
         }
     }
 
-    void sendMessage(String message) {
+    public void sendMessage(String message) {
         writer.println(message);
     }
 }
