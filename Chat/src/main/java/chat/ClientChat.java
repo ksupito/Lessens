@@ -1,9 +1,11 @@
 package chat;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 public class ClientChat {
 
@@ -21,5 +23,4 @@ public class ClientChat {
             System.out.println("тут будут логи");
         }
     }
-
 }
