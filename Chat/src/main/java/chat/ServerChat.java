@@ -10,9 +10,9 @@ import java.util.*;
 
 public class ServerChat {
     private static final int PORT = 8887;
-    private Map<Agent, Client> oneChat = new HashMap<>();
+    private Map<Agent, Client> chat = new HashMap<>();
     private Queue<Client> queueClients = new LinkedList<>();
-    private PrintWriter writer;
+    private List<Client> listClients = new LinkedList<>();
 
     public static void main(String[] args) throws IOException {
         ServerChat server = new ServerChat();
@@ -24,22 +24,22 @@ public class ServerChat {
             while (true) {
                 Socket socket = serverSocket.accept();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                writer = new PrintWriter(socket.getOutputStream(), true);
+                PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
                 writer.println("Start");
                 while (true) {
-                    String message = reader.readLine();
-                    if (message.contains("/register agent ")) {
+                    String registration = reader.readLine();
+                    if (registration.contains("/register agent ")) {
                         Agent agent = new Agent(socket, this);
                         new Thread(agent).start();
-                        oneChat.put(agent, null);
-                        checkFreeAgent();
+                        chat.put(agent, null);
+                        searchChat();
                         break;
                     }
-                    if (message.contains("/register client ")) {
+                    if (registration.contains("/register client ")) {
                         Client client = new Client(socket, this);
                         new Thread(client).start();
-                        queueClients.add(client);
-                        checkFreeAgent();
+                        listClients.add(client);
+                        searchChat();
                         break;
                     } else {
                         writer.println("Incorrect console command ");
@@ -50,51 +50,79 @@ public class ServerChat {
             System.out.println("тут будут логи");
         }
     }
-    public void checkFreeAgent(){
-        for (Map.Entry<Agent, Client> entry : oneChat.entrySet()) {
-            if(queueClients.size() != 0){
-                Agent key = entry.getKey();
-                Client value = entry.getValue();
-                if (key != null && value == null)
-                    oneChat.put(key, queueClients.remove());
+
+    public synchronized boolean searchChat() {
+        for (Map.Entry<Agent, Client> entry : chat.entrySet()) {
+            if (queueClients.size() != 0) {
+                Agent agent = entry.getKey();
+                Client client = entry.getValue();
+                if (agent != null && client == null) {
+                    Client clientQueue = queueClients.remove();
+                    clientQueue.hasAgent = true;
+                    chat.put(agent, clientQueue);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public synchronized void sendAgentMessage(String message, Agent a) {
+        for (Map.Entry<Agent, Client> entry : chat.entrySet()) {
+            Agent agent = entry.getKey();
+            Client client = entry.getValue();
+            if (agent == a && client != null)
+                client.sendMessage(message);
+        }
+    }
+
+    public synchronized void sendClientMessage(String message, Client c) {
+        for (Map.Entry<Agent, Client> entry : chat.entrySet()) {
+            Agent agent = entry.getKey();
+            Client client = entry.getValue();
+            if (client == c)
+                agent.sendMessage(message);
+        }
+    }
+
+    public synchronized void exitClient(Client c) {
+        for (Map.Entry<Agent, Client> entry : chat.entrySet()) {
+            Agent agent = entry.getKey();
+            Client client = entry.getValue();
+            if (client == c)
+                chat.replace(agent, null);
+        }
+    }
+
+    public synchronized void exitAgent(Agent a) {
+        for (Map.Entry<Agent, Client> entry : chat.entrySet()) {
+            Agent agent = entry.getKey();
+            Client client = entry.getValue();
+            if (agent == a) {
+                listClients.add(client);
+                client.hasAgent = false;
+                chat.remove(agent, client);
             }
         }
     }
 
-    public void sendAgentMessage(String message, Agent agent) {
-        for (Map.Entry<Agent, Client> entry : oneChat.entrySet()) {
-            Agent key = entry.getKey();
-            Client value = entry.getValue();
-            if (key == agent)
-                value.sendMessage(message);
+    public synchronized void disconnectClient(Client c) {
+        for (Map.Entry<Agent, Client> entry : chat.entrySet()) {
+            Client client = entry.getValue();
+            if (client == c) {
+                listClients.add(client);
+                entry.setValue(null);
+                return;
+            }
         }
     }
 
-    public void sendClientMessage(String message, Client client) {
-        for (Map.Entry<Agent, Client> entry : oneChat.entrySet()) {
-            Agent key = entry.getKey();
-            Client value = entry.getValue();
-            if (value == client)
-                key.sendMessage(message);
-        }
-    }
-
-    public void removeUser(Client use) {
-        for (Map.Entry<Agent, Client> entry : oneChat.entrySet()) {
-            Agent key = entry.getKey();
-            Client value = entry.getValue();
-            if (value == use)
-                oneChat.replace(key, null);
-        }
-    }
-
-    public void severUser(Client use) {
-        for (Map.Entry<Agent, Client> entry : oneChat.entrySet()) {
-            Agent key = entry.getKey();
-            Client value = entry.getValue();
-            if (value == use)
-                queueClients.add(value);
-                oneChat.replace(key, null);
+    public synchronized void getInQueue(Client client) {
+        for (int i = 0; i < listClients.size(); i++) {
+            if (client == listClients.get(i)) {
+                queueClients.add(client);
+                listClients.remove(i);
+            }
         }
     }
 }
