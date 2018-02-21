@@ -7,11 +7,11 @@ import chat.server.*;
 import org.apache.log4j.Logger;
 
 public class Agent implements User {
-    private static final Logger log = Logger.getLogger(Reader.class.getSimpleName());
+    private static final Logger log = Logger.getLogger(Agent.class.getSimpleName());
     private Socket socket;
     private ServerChat server;
     private PrintWriter writer;
-    public String name;
+    private String name;
 
     public Agent(Socket socket, ServerChat server, String name) {
         this.socket = socket;
@@ -19,34 +19,35 @@ public class Agent implements User {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void start() {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"))) {
-            writer = new PrintWriter(socket.getOutputStream(), true);
+        try ( BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+              OutputStream out = socket.getOutputStream()) {
+            writer = new PrintWriter(out, true);
             server.searchChat();
             while (true) {
                 String message = reader.readLine();
-                if (message != null) {
-                    if (message.equals("/exit")) {
+                if (message != null) {                                      //????
+                    if (message.trim().equals("/exit")) {
                         exit();
                         break;
                     }
                     server.sendAgentMessage(message, this);
                 } else {
-                    exit();
+                    exit();             //???
                     break;
                 }
             }
         } catch (IOException e) {
             log.error(e.getMessage());
-        } finally {
-            if (writer != null) {
-                writer.close();
-            }
         }
     }
 
     public synchronized void sendMessage(String message, String name) {
-            writer.println(name + " : " + message);
+        writer.println(name + " : " + message);
     }
 
     private synchronized void exit() throws IOException {
