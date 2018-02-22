@@ -29,6 +29,14 @@ public class ServerChat {
         return mapAgents;
     }
 
+    public List<Client> getListClients() {
+        return listClients;
+    }
+
+    public Queue<Client> getQueueClients() {
+        return queueClients;
+    }
+
     public static void main(String[] args) {
         org.apache.log4j.PropertyConfigurator.configure("src/main/resources/log4j.properties");
         ServerChat server = new ServerChat();
@@ -87,28 +95,30 @@ public class ServerChat {
         return false;
     }
 
-    public synchronized void sendAgentMessage(String message, Agent ag) { //method send message to client
+    public synchronized boolean sendAgentMessage(String message, Agent ag) { //method send message to client
         for (Map.Entry<Agent, Client> entry : mapAgents.entrySet()) {
             Agent agent = entry.getKey();
             Client client = entry.getValue();
             if (agent == ag && client != null) {
                 client.sendMessage(message, agent.getName());
                 log.info("Message to a client");
-                return;
+                return true;
             }
         }
+        return false;
     }
 
-    public synchronized void sendClientMessage(String message, Client cl) { //method send message to agent
+    public synchronized boolean sendClientMessage(String message, Client cl) { //method send message to agent
         for (Map.Entry<Agent, Client> entry : mapAgents.entrySet()) {
             Agent agent = entry.getKey();
             Client client = entry.getValue();
             if (client == cl) {
                 agent.sendMessage(message, client.getName());
                 log.info("Message to an agent");
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     public synchronized boolean exitClient(Client cl) { //if a client input /exit in time of a chat method'll remove the client from map
@@ -125,7 +135,7 @@ public class ServerChat {
         return false;
     }
 
-    public synchronized void exitAgent(Agent ag) {//if a agent input /exit in time of a chat method'll remove the agent from map and a client'll be added to array
+    public synchronized boolean exitAgent(Agent ag) {//if a agent input /exit in time of a chat method'll remove the agent from map and a client'll be added to array
         for (Map.Entry<Agent, Client> entry : mapAgents.entrySet()) {
             Agent agent = entry.getKey();
             Client client = entry.getValue();
@@ -135,14 +145,15 @@ public class ServerChat {
                     listClients.add(client);
                     client.setHasAgent(false);
                 }
-                mapAgents.remove(agent, client);
+                mapAgents.remove(agent);
                 log.info("Agent exited");
-                return;
+                return true;
             }
         }
+        return false;
     }
 
-    public synchronized void disconnectClient(Client cl) {//if a client input /leave in time of a chat method'll remove the client from map and be added to array
+    public synchronized boolean disconnectClient(Client cl) {//if a client input /leave in time of a chat method'll remove the client from map and be added to array
         for (Map.Entry<Agent, Client> entry : mapAgents.entrySet()) {
             Agent agent = entry.getKey();
             Client client = entry.getValue();
@@ -151,9 +162,10 @@ public class ServerChat {
                 agent.sendMessage("client leaved", nameChat);
                 entry.setValue(null);
                 log.info("Client leaved");
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     public synchronized void getInQueue(Client client) { // add client in a queue if he wrote message
@@ -164,4 +176,5 @@ public class ServerChat {
             }
         }
     }
+
 }
