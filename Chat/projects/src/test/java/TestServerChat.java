@@ -23,5 +23,12 @@ public class TestServerChat {
         assertFalse(serverChat.exitClient(client));
     }
 
+    @Test
+    public void testExitClientIncorrectClient() {
+        serverChat.getMapAgents().put(agent, client);
+        Client newClient = Mockito.mock(Client.class);
+        assertFalse(serverChat.exitClient(newClient));
+    }
+
 
 }
