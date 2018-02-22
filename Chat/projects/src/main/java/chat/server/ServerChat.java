@@ -16,13 +16,17 @@ public class ServerChat {
     private Map<Agent, Client> mapAgents = new HashMap<>();
     private Queue<Client> queueClients = new LinkedList<>();
     private List<Client> listClients = new LinkedList<>();
-    Socket socket;
-    BufferedReader reader;
-    PrintWriter writer;
+    private Socket socket;
+    private BufferedReader reader;
+    private PrintWriter writer;
     public String nameChat = "------";
 
     public String getNameChat() {
         return nameChat;
+    }
+
+    public Map<Agent, Client> getMapAgents() {
+        return mapAgents;
     }
 
     public static void main(String[] args) {
@@ -107,7 +111,7 @@ public class ServerChat {
         }
     }
 
-    public synchronized void exitClient(Client cl) { //if a client input /exit in time of a chat method'll remove the client from map
+    public synchronized boolean exitClient(Client cl) { //if a client input /exit in time of a chat method'll remove the client from map
         for (Map.Entry<Agent, Client> entry : mapAgents.entrySet()) {
             Agent agent = entry.getKey();
             Client client = entry.getValue();
@@ -115,9 +119,10 @@ public class ServerChat {
                 agent.sendMessage("client exited", nameChat);
                 mapAgents.replace(agent, null);
                 log.info("Client exited");
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     public synchronized void exitAgent(Agent ag) {//if a agent input /exit in time of a chat method'll remove the agent from map and a client'll be added to array

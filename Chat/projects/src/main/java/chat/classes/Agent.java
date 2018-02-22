@@ -13,7 +13,7 @@ public class Agent implements User {
     private PrintWriter writer;
     private String name;
 
-    public Agent(Socket socket, ServerChat server, String name) {
+   public Agent(Socket socket, ServerChat server, String name) {
         this.socket = socket;
         this.server = server;
         this.name = name;
@@ -24,26 +24,27 @@ public class Agent implements User {
     }
 
     public void start() {
-        try ( BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+        //if(!socket.isClosed()){
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
               OutputStream out = socket.getOutputStream()) {
             writer = new PrintWriter(out, true);
             server.searchChat();
             while (true) {
                 String message = reader.readLine();
-                if (message != null) {                                      //????
+                if (message != null) {
                     if (message.trim().equals("/exit")) {
                         exit();
                         break;
                     }
                     server.sendAgentMessage(message, this);
                 } else {
-                    exit();             //???
+                    exit();
                     break;
                 }
             }
         } catch (IOException e) {
             log.error(e.getMessage());
-        }
+        }//}
     }
 
     public synchronized void sendMessage(String message, String name) {

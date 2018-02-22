@@ -24,4 +24,5 @@ public class ClientChat {
         try (Socket socket = new Socket(InetAddress.getLocalHost(), 8887)) {
         }
     }
+
 }

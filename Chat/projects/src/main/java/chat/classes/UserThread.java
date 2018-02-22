@@ -25,6 +25,7 @@ public class UserThread implements Runnable {
                 String registration = reader.readLine();
                 if (registration.contains("/agent ")) {
                     String name = registration.replaceFirst("/agent ", "");
+
                     Agent agent = new Agent(socket, server, name);
                     server.addAgent(agent);
                     agent.start();
