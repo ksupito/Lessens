@@ -40,7 +40,6 @@ public class ServerThread implements Runnable {
                     dos.flush();
                 }
             }
-
             findChatter();
             while (true) {
                 line = dis.readUTF();
@@ -78,8 +77,6 @@ public class ServerThread implements Runnable {
                 }
             }
         }
-
-
     }
 }
 

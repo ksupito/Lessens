@@ -9,8 +9,10 @@ public class Server {
         try (ServerSocket serverSocket = new ServerSocket(1111);) {
             while (true) {
                 Socket socket = serverSocket.accept();
-                ServerThread serverThread = new ServerThread(socket);
-                new Thread(serverThread).start();
+                //ServerThread serverThread = new ServerThread(socket);
+                //new Thread(serverThread).start();
+                NewVersionThread newVersionThread = new NewVersionThread(socket);
+                new Thread(newVersionThread).start();
             }
         } catch (Exception e) {
             System.out.println(e);
