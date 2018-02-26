@@ -7,7 +7,6 @@ public class ServerThread implements Runnable {
     Socket socket;
     DataInputStream dis;
     DataOutputStream dos;
-    String role;
     ServerMethods serverMethods;
     User user;
 
@@ -20,7 +19,6 @@ public class ServerThread implements Runnable {
         try {
             InputStream sin = socket.getInputStream();
             OutputStream sout = socket.getOutputStream();
-
             dis = new DataInputStream(sin);
             dos = new DataOutputStream(sout);
             serverMethods = new ServerMethods();
@@ -29,17 +27,13 @@ public class ServerThread implements Runnable {
             while (true) {
                 line = dis.readUTF();
                 if (line.contains("/a")) {
-                    role = "agent";
-                    user = new User(role, null, this, dis, dos, socket);
-                    // serverMethods.addAgent(this);
-                    Server.list.add(user);
+                    user = new User("agent", null, this, dis, dos, socket);
+                    serverMethods.addAgent(user);
                     break;
                 }
                 if (line.contains("/c")) {
-                    role = "client";
-                    user = new User(role, null, this, dis, dos, socket);
-                    //  serverMethods.addClient(this);
-                    Server.listClients.add(user);
+                    user = new User("client", null, this, dis, dos, socket);
+                    serverMethods.addClient(user);
                     break;
                 } else {
                     dos.writeUTF("Incorrect" + "\n");
@@ -50,8 +44,8 @@ public class ServerThread implements Runnable {
             findChatter();
             while (true) {
                 line = dis.readUTF();
-                if (user.chatter != null) {
-                    user.chatter.send(line);
+                if (user.getChatter() != null) {
+                    user.getChatter().send(line);
                 }
                 if (line.equalsIgnoreCase("quit")) {
                     socket.close();
@@ -68,20 +62,19 @@ public class ServerThread implements Runnable {
         dos.flush();
     }
 
-
     public void findChatter() {
         if (user.role.equals("client")) {
-            for (User thread : Server.list) {
-                if (thread.chatter == null) {
-                    thread.chatter = this;
-                    user.chatter = thread.my;
+            for (User us : serverMethods.getListAgents()) {
+                if (us.getChatter() == null) {
+                    us.setChatter(this);
+                    user.setChatter(us.getMy());
                 }
             }
         } else if (user.role.equals("agent")) {
-            for (User thread : Server.listClients) {
-                if (thread.chatter == null) {
-                    thread.chatter = this;
-                    user.chatter = thread.my;
+            for (User us : serverMethods.getListClients()) {
+                if (us.getChatter() == null) {
+                    us.setChatter(this);
+                    user.setChatter(us.getMy());
                 }
             }
         }
@@ -89,3 +82,4 @@ public class ServerThread implements Runnable {
 
     }
 }
+

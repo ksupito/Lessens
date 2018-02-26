@@ -5,9 +5,6 @@ import java.net.Socket;
 import java.util.*;
 
 public class Server {
-    static List<User> list = new ArrayList<>();
-    static List<User> listClients = new LinkedList<>();
-
     public static void main(String[] args) {
         try (ServerSocket serverSocket = new ServerSocket(1111);) {
             while (true) {

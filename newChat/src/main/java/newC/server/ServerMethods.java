@@ -3,23 +3,22 @@ package newC.server;
 import java.util.*;
 
 public class ServerMethods {
-    static List<ServerThread> list = new ArrayList<>();
-    Map<ServerThread, ServerThread> mapAgent = new HashMap<>();
-    static List<ServerThread> listClients = new LinkedList<>();
+    static List<User> listAgents = new ArrayList<>();
+    static List<User> listClients = new LinkedList<>();
 
-    public List<ServerThread> getListClients() {
+    public List<User> getListClients() {
         return listClients;
     }
 
-    public List<ServerThread> getList() {
-        return list;
+    public List<User> getListAgents() {
+        return listAgents;
     }
 
-    public void addAgent(ServerThread e) {
-        list.add(e);
+    public void addAgent(User e) {
+        listAgents.add(e);
     }
 
-    public void addClient(ServerThread e) {
+    public void addClient(User e) {
         listClients.add(e);
     }
 }
