@@ -12,6 +12,9 @@ public class ClientUser {
     String name;
     String message;
     ServerMethods serverMethods;
+    boolean hasAgent = false;
+    boolean waitAgent = false;
+
 
     public ClientUser( NewVersionThread chatter, NewVersionThread my, DataInputStream dis, DataOutputStream dos, Socket socket) {
 
@@ -67,12 +70,29 @@ public class ClientUser {
         dis = new DataInputStream(sin);
         dos = new DataOutputStream(sout);
         serverMethods=new ServerMethods();
-        serverMethods.findAgent(this,my);
         while (true) {
             message = dis.readUTF();
+            if (!hasAgent && !waitAgent){
+                serverMethods.changeQueue(this);
+                waitAgent=true;
+                if(serverMethods.findAgent(this,my)){
+                    this.getChatter().send(message);
+                    hasAgent=true;
+                }
+                else {my.send("Wait please");continue;} //Добавляем тут сообщения в списо
+
+            }
+            if(!hasAgent && waitAgent){
+                if(serverMethods.findAgent(this,my)){
+                    this.getChatter().send(message);
+                    hasAgent=true;
+                }
+                else {my.send("Wait please");continue;}
+            }else {
+
             if (this.getChatter() != null) {
                 this.getChatter().send(message);
-            }
+            }}
             if (message.equalsIgnoreCase("quit")) {
                 socket.close();
                 break;
