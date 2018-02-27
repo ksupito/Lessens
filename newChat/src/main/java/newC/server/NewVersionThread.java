@@ -25,21 +25,18 @@ public class NewVersionThread implements Runnable{
                 String registration = dis.readUTF();
                 if(registration != null) {
                     if (registration.contains("/a")) {
-                        String name = registration.replaceFirst("/agent ", "");
-                        AgentUser agent = new AgentUser(null, this, dis, dos, socket);
-                        serverMethods.addAgent(agent);
+                        String name = registration.replaceFirst("/a ", "");
+                        AgentUser agent = new AgentUser(null, this, dis, dos, socket, name);
+                        serverMethods.addAgentToMap(agent);
                         agent.read();
                         break;
                     }
                     if (registration.contains("/c")) {
-                        String name = registration.replaceFirst("/client ", "");
-                        ClientUser client = new ClientUser(null, this, dis, dos, socket);
+                        String name = registration.replaceFirst("/c ", "");
+                        ClientUser client = new ClientUser(null, this, dis, dos, socket, name);
                         serverMethods.addClient(client);
                         client.read();
                         break;
-                    } else {
-                        dos.writeUTF("Incorrect" + "\n");
-                        dos.flush();
                     }
                 }
             }

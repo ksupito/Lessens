@@ -1,77 +1,112 @@
 package newC.server;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.BlockingQueue;
 
 public class ServerMethods {
-    static List<User> listAgents = new LinkedList<>();
-    static List<User> listClients = new LinkedList<>();
-    static List<AgentUser> listAgents1 = new LinkedList<>();
-    static List<ClientUser> listClients1 = new LinkedList<>();
+    static Map<AgentUser, ClientUser> mapAgents = new HashMap<>();
+    static List<ClientUser> listClients = new LinkedList<>();
     static Queue<ClientUser> userQueue = new LinkedList<>();
 
-    public List<User> getListClients() {
-        return listClients;
+    public Map<AgentUser, ClientUser> getMapAgents() {
+        return mapAgents;
     }
 
-    public List<User> getListAgents() {
-        return listAgents;
-    }
-
-    public void addAgent(User e) {
-        listAgents.add(e);
-    }
-
-    public void addClient(User e) {
-        listClients.add(e);
+    public void addAgentToMap(AgentUser agent) {
+        mapAgents.put(agent, null);
     }
 
     public List<ClientUser> getListClients1() {
-        return listClients1;
-    }
-
-    public List<AgentUser> getListAgents1() {
-        return listAgents1;
-    }
-
-    public void addAgent(AgentUser e) {
-        listAgents1.add(e);
+        return listClients;
     }
 
     public void addClient(ClientUser e) {
-        listClients1.add(e);
+        listClients.add(e);
     }
 
+    public void changeQueue(ClientUser client) {
+        for (ClientUser us : listClients) {
+            if (us.equals(client)) {
+                userQueue.add(client);
+                listClients.remove(client);
+            }
+        }
+    }
 
-    public boolean findAgent(ClientUser client,NewVersionThread my) {
-        for (AgentUser us : listAgents1) {
-            if (us.getChatter() == null) {
-                us.setChatter(my);
-                client.setChatter(us.getMy());
+    public synchronized boolean searchChat() {
+        for (Map.Entry<AgentUser, ClientUser> entry : mapAgents.entrySet()) {
+            if (userQueue.size() != 0) {
+                AgentUser agent = entry.getKey();
+                ClientUser client = entry.getValue();
+                if (agent != null && client == null) {
+                    ClientUser clientFromQueue = userQueue.remove();
+                    clientFromQueue.setAgentUser(agent);
+                    agent.setClientUser(clientFromQueue);
+                    mapAgents.put(agent, clientFromQueue);
+                    if (clientFromQueue.getMessages().size() != 0) {
+                        try {
+                            sendMessages(agent.getDos(), clientFromQueue.name, clientFromQueue);
+                        } catch (IOException e) {
+                        }
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public synchronized void sendMessages(DataOutputStream dos, String name, ClientUser clientUser) throws IOException {
+
+        for (String mes : clientUser.getMessages()) {
+            dos.writeUTF(name + " : " + mes + "\n");
+            dos.flush();
+        }
+        clientUser.getMessages().clear();
+    }
+
+    public synchronized void send(String line, DataOutputStream dos, String name) throws IOException {
+        dos.writeUTF(name + " : " + line + "\n");
+        dos.flush();
+    }
+
+    public synchronized void exitClient(ClientUser cl) {
+        for (Map.Entry<AgentUser, ClientUser> entry : mapAgents.entrySet()) {
+            AgentUser agent = entry.getKey();
+            ClientUser client = entry.getValue();
+            if (client == cl && agent != null) {
+                mapAgents.replace(agent, null);
+            }
+        }
+    }
+
+    public synchronized boolean exitAgent(AgentUser ag) {
+        for (Map.Entry<AgentUser, ClientUser> entry : mapAgents.entrySet()) {
+            AgentUser agent = entry.getKey();
+            ClientUser client = entry.getValue();
+            if (agent == ag) {
+                if (client != null) {
+                    listClients.add(client);
+                }
+                mapAgents.remove(agent);
                 return true;
             }
         }
         return false;
     }
 
-    public void findClient (AgentUser agent,NewVersionThread my) {
-        for (ClientUser us : userQueue) {
-            if (us.getChatter() == null) {
-                us.setChatter(my);
-                agent.setChatter(us.getMy());
+    public synchronized boolean disconnectClient(ClientUser cl) {
+        for (Map.Entry<AgentUser, ClientUser> entry : mapAgents.entrySet()) {
+            AgentUser agent = entry.getKey();
+            ClientUser client = entry.getValue();
+            if (client == cl && agent != null) {
+                listClients.add(client);
+                entry.setValue(null);
+                return true;
             }
         }
+        return false;
     }
-    public void changeQueue(ClientUser client){
-        for (ClientUser us : listClients1) {
-            if(us.equals(client))
-            {
-                userQueue.add(client);
-                listClients1.remove(client);
-            }
-        }
-    }
-
-
 
 }

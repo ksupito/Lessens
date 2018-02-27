@@ -12,14 +12,23 @@ public class AgentUser {
     String name;
     String message;
     ServerMethods serverMethods;
+    ClientUser clientUser = null;
 
-    public AgentUser( NewVersionThread chatter, NewVersionThread my, DataInputStream dis, DataOutputStream dos, Socket socket) {
-
+    public AgentUser(NewVersionThread chatter, NewVersionThread my, DataInputStream dis, DataOutputStream dos, Socket socket, String name) {
+        this.name = name;
         this.chatter = chatter;
         this.dis = dis;
         this.dos = dos;
         this.socket = socket;
         this.my = my;
+    }
+
+    public ClientUser getClientUser() {
+        return clientUser;
+    }
+
+    public void setClientUser(ClientUser clientUser) {
+        this.clientUser = clientUser;
     }
 
     public DataInputStream getDis() {
@@ -62,17 +71,23 @@ public class AgentUser {
         this.my = my;
     }
 
-    public void read() throws IOException{
+    public void read() throws IOException {
         InputStream sin = socket.getInputStream();
         OutputStream sout = socket.getOutputStream();
-            dis = new DataInputStream(sin);
-            dos = new DataOutputStream(sout);
-        serverMethods=new ServerMethods();
-            serverMethods.findClient(this,my);
+        dis = new DataInputStream(sin);
+        dos = new DataOutputStream(sout);
+        serverMethods = new ServerMethods();
+        serverMethods.searchChat();
         while (true) {
             message = dis.readUTF();
-            if (this.getChatter() != null) {
-                this.getChatter().send(message);
+            if (message.equalsIgnoreCase("/exit")) {
+                serverMethods.exitAgent(this);
+                serverMethods.searchChat();
+                socket.close();
+                break;
+            }
+            if (clientUser != null) {
+                serverMethods.send(message, clientUser.getDos(), name);
             }
             if (message.equalsIgnoreCase("quit")) {
                 socket.close();
@@ -80,8 +95,4 @@ public class AgentUser {
             }
         }
     }
-
-
-
-
 }

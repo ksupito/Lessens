@@ -2,6 +2,8 @@ package newC.server;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.LinkedList;
+import java.util.List;
 
 public class ClientUser {
     Socket socket;
@@ -12,17 +14,34 @@ public class ClientUser {
     String name;
     String message;
     ServerMethods serverMethods;
-    boolean hasAgent = false;
     boolean waitAgent = false;
+    AgentUser agentUser = null;
 
+    List<String> messages = new LinkedList<>();
 
-    public ClientUser( NewVersionThread chatter, NewVersionThread my, DataInputStream dis, DataOutputStream dos, Socket socket) {
+    public List<String> getMessages() {
+        return messages;
+    }
 
+    public void addMessage(String m) {
+        messages.add(m);
+    }
+
+    public ClientUser(NewVersionThread chatter, NewVersionThread my, DataInputStream dis, DataOutputStream dos, Socket socket, String name) {
+        this.name = name;
         this.chatter = chatter;
         this.dis = dis;
         this.dos = dos;
         this.socket = socket;
         this.my = my;
+    }
+
+    public AgentUser getAgentUser() {
+        return agentUser;
+    }
+
+    public void setAgentUser(AgentUser agentUser) {
+        this.agentUser = agentUser;
     }
 
     public DataInputStream getDis() {
@@ -64,41 +83,51 @@ public class ClientUser {
     public void setMy(NewVersionThread my) {
         this.my = my;
     }
+
     public void read() throws IOException {
         InputStream sin = socket.getInputStream();
         OutputStream sout = socket.getOutputStream();
         dis = new DataInputStream(sin);
         dos = new DataOutputStream(sout);
-        serverMethods=new ServerMethods();
+        serverMethods = new ServerMethods();
         while (true) {
             message = dis.readUTF();
-            if (!hasAgent && !waitAgent){
-                serverMethods.changeQueue(this);
-                waitAgent=true;
-                if(serverMethods.findAgent(this,my)){
-                    this.getChatter().send(message);
-                    hasAgent=true;
-                }
-                else {my.send("Wait please");continue;} //Добавляем тут сообщения в списо
-
-            }
-            if(!hasAgent && waitAgent){
-                if(serverMethods.findAgent(this,my)){
-                    this.getChatter().send(message);
-                    hasAgent=true;
-                }
-                else {my.send("Wait please");continue;}
-            }else {
-
-            if (this.getChatter() != null) {
-                this.getChatter().send(message);
-            }}
-            if (message.equalsIgnoreCase("quit")) {
+            if (message.equalsIgnoreCase("/exit")) {
+                serverMethods.exitClient(this);
+                serverMethods.searchChat();
                 socket.close();
                 break;
+            } else if (message.equalsIgnoreCase("/leave")) {
+                serverMethods.disconnectClient(this);
+                serverMethods.searchChat();
+                continue;
+            }
+            if (agentUser == null && !waitAgent) {
+                serverMethods.changeQueue(this);
+                waitAgent = true;
+                if (serverMethods.searchChat()) {
+                    serverMethods.send(message, agentUser.getDos(), name);
+                    continue;
+                } else {
+                    this.addMessage(message);
+                    my.send("Wait please");
+                    continue;
+                }
+            }
+            if (waitAgent && agentUser == null) {
+                if (serverMethods.searchChat()) {
+                    serverMethods.send(message, agentUser.getDos(), name);
+                    continue;
+                } else {
+                    this.addMessage(message);
+                    my.send("Wait please");
+                    continue;
+                }
+            } else {
+                if (agentUser != null) {
+                    serverMethods.send(message, agentUser.getDos(), name);
+                }
             }
         }
     }
-
-
 }
