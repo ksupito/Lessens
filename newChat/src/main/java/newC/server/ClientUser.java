@@ -77,10 +77,24 @@ public class ClientUser {
             while (true) {
                 message = dis.readUTF();
                 if (message.equalsIgnoreCase("/exit")) {
-                    serverMethods.exitClient(this);
-                    serverMethods.searchChat();
-                    socket.close();
-                    break;
+                    if (agentUser != null) {
+                        serverMethods.exitClient(this);
+                        serverMethods.searchChat();
+                        socket.close();
+                        break;
+                    }
+                    if (waitAgent == true) {
+                        serverMethods.exitClientFromQueue(this);
+                        serverMethods.searchChat();
+                        socket.close();
+                        break;
+                    } else {
+                        serverMethods.exitClientFromList(this);
+                        serverMethods.searchChat();
+                        socket.close();
+                        break;
+                    }
+
                 } else if (message.equalsIgnoreCase("/leave")) {
                     serverMethods.disconnectClient(this);
                     serverMethods.searchChat();

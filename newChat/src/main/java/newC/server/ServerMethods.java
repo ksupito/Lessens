@@ -100,6 +100,23 @@ public class ServerMethods {
         }
     }
 
+    public synchronized void exitClientFromQueue(ClientUser cl) throws IOException {
+        if (userQueue.contains(cl)) {
+            userQueue.remove(cl);
+        }
+        cl.getDos().writeUTF("1");
+
+    }
+
+    public synchronized void exitClientFromList(ClientUser cl) throws IOException {
+        for (ClientUser client : listClients) {
+            if (client == cl) {
+                client.getDos().writeUTF("1");
+                listClients.remove(client);
+            }
+        }
+    }
+
     public synchronized boolean exitAgent(AgentUser ag) throws IOException {
         for (Map.Entry<AgentUser, ClientUser> entry : mapAgents.entrySet()) {
             AgentUser agent = entry.getKey();
