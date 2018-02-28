@@ -1,0 +1,111 @@
+2018-02-27 23:36:01 INFO  ServerMethods:64 - new chat started
+2018-02-27 23:36:31 INFO  ServerMethods:64 - new chat started
+2018-02-27 23:53:57 INFO  ServerMethods:126 - client lieved
+2018-02-27 23:53:57 INFO  ServerMethods:64 - new chat started
+2018-02-27 23:54:58 INFO  ServerMethods:96 - client exited
+2018-02-27 23:54:58 INFO  NewVersionThread:42 - client registered
+2018-02-27 23:54:58 ERROR Client:24 - 
+2018-02-27 23:55:38 INFO  ServerMethods:111 - agent exited
+2018-02-27 23:55:38 INFO  NewVersionThread:34 - agent registered
+2018-02-27 23:55:38 ERROR Client:24 - 
+2018-02-27 23:55:43 ERROR NewVersionThread:48 - Socket closed
+2018-02-27 23:55:43 ERROR Client:24 - 
+2018-02-27 23:56:31 ERROR NewVersionThread:48 - Socket closed
+2018-02-27 23:56:31 ERROR Client:24 - 
+2018-02-27 23:56:37 ERROR ReaderFromConsole:44 - Socket closed
+2018-02-27 23:56:48 ERROR ReaderFromConsole:44 - Socket closed
+2018-02-27 23:58:02 ERROR NewVersionThread:48 - Connection reset
+2018-02-28 00:09:43 INFO  ServerMethods:112 - agent exited
+2018-02-28 00:09:43 INFO  NewVersionThread:34 - agent registered
+2018-02-28 00:09:43 ERROR Client:25 - 
+2018-02-28 00:17:18 INFO  ServerMethods:112 - agent exited
+2018-02-28 00:17:18 INFO  NewVersionThread:34 - agent registered
+2018-02-28 00:17:18 ERROR Client:25 - 
+2018-02-28 00:18:52 INFO  ServerMethods:112 - agent exited
+2018-02-28 00:18:52 INFO  NewVersionThread:34 - agent registered
+2018-02-28 00:18:52 ERROR Client:25 - 
+2018-02-28 00:25:36 INFO  ServerMethods:112 - agent exited
+2018-02-28 00:25:36 INFO  NewVersionThread:34 - agent registered
+2018-02-28 00:25:36 ERROR Client:28 - 
+2018-02-28 00:26:51 INFO  ServerMethods:112 - agent exited
+2018-02-28 00:26:51 INFO  NewVersionThread:34 - agent registered
+2018-02-28 00:26:51 ERROR Client:30 - 
+2018-02-28 00:27:52 INFO  ServerMethods:112 - agent exited
+2018-02-28 00:27:52 INFO  NewVersionThread:34 - agent registered
+2018-02-28 00:29:56 INFO  ServerMethods:112 - agent exited
+2018-02-28 00:29:56 INFO  NewVersionThread:34 - agent registered
+2018-02-28 00:31:55 INFO  ServerMethods:112 - agent exited
+2018-02-28 00:31:55 INFO  NewVersionThread:34 - agent registered
+2018-02-28 00:39:16 INFO  ServerMethods:113 - agent exited
+2018-02-28 00:39:16 INFO  NewVersionThread:34 - agent registered
+2018-02-28 00:40:09 INFO  ServerMethods:113 - agent exited
+2018-02-28 00:40:09 INFO  NewVersionThread:34 - agent registered
+2018-02-28 10:34:06 INFO  ServerMethods:113 - agent exited
+2018-02-28 10:34:06 INFO  NewVersionThread:34 - agent registered
+2018-02-28 10:38:11 INFO  ServerMethods:113 - agent exited
+2018-02-28 10:38:11 INFO  NewVersionThread:34 - agent registered
+2018-02-28 10:39:03 INFO  ServerMethods:113 - agent exited
+2018-02-28 10:39:03 INFO  NewVersionThread:34 - agent registered
+2018-02-28 10:39:15 ERROR ReaderFromConsole:44 - Socket closed
+2018-02-28 10:42:23 INFO  ServerMethods:113 - agent exited
+2018-02-28 10:42:23 INFO  NewVersionThread:34 - agent registered
+2018-02-28 10:43:39 ERROR ReaderFromConsole:44 - Socket closed
+2018-02-28 10:44:03 INFO  ServerMethods:113 - agent exited
+2018-02-28 10:44:03 INFO  NewVersionThread:34 - agent registered
+2018-02-28 10:44:05 ERROR ReaderFromConsole:47 - Socket closed
+2018-02-28 10:48:04 ERROR NewVersionThread:48 - Connection reset
+2018-02-28 10:49:23 INFO  ServerMethods:113 - agent exited
+2018-02-28 10:49:23 INFO  NewVersionThread:34 - agent registered
+2018-02-28 10:52:00 INFO  ServerMethods:113 - agent exited
+2018-02-28 10:52:00 INFO  NewVersionThread:34 - agent registered
+2018-02-28 11:19:58 INFO  ServerMethods:113 - agent exited
+2018-02-28 11:19:58 INFO  NewVersionThread:34 - agent registered
+2018-02-28 11:22:56 INFO  ServerMethods:113 - agent exited
+2018-02-28 11:22:56 INFO  NewVersionThread:34 - agent registered
+2018-02-28 11:24:37 INFO  ServerMethods:113 - agent exited
+2018-02-28 11:24:37 INFO  NewVersionThread:34 - agent registered
+2018-02-28 11:33:13 ERROR NewVersionThread:48 - Software caused connection abort: socket write error
+2018-02-28 11:33:48 INFO  NewVersionThread:33 - agent registered
+2018-02-28 11:34:46 INFO  ServerMethods:113 - agent exited
+2018-02-28 11:36:31 ERROR NewVersionThread:48 - Connection reset
+2018-02-28 11:36:54 INFO  NewVersionThread:33 - agent registered
+2018-02-28 11:37:34 INFO  ServerMethods:113 - agent exited
+2018-02-28 11:41:39 INFO  NewVersionThread:33 - agent registered
+2018-02-28 11:42:15 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:01:00 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:01:13 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:02:07 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:02:17 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:03:05 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:03:11 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:03:47 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:03:50 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:03:56 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:06:06 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:06:09 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:06:09 ERROR NewVersionThread:48 - 
+2018-02-28 12:06:49 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:07:43 ERROR NewVersionThread:48 - Connection reset
+2018-02-28 12:09:02 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:09:06 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:09:06 ERROR NewVersionThread:48 - 
+2018-02-28 12:15:31 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:15:54 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:15:57 ERROR NewVersionThread:48 - 
+2018-02-28 12:26:00 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:26:11 INFO  ServerMethods:64 - new chat started
+2018-02-28 12:28:16 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:28:18 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:32:25 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:32:31 INFO  ServerMethods:64 - new chat started
+2018-02-28 12:32:39 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:32:51 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:37:11 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:37:28 ERROR NewVersionThread:48 - Connection reset
+2018-02-28 12:37:46 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:39:23 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:39:25 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:40:04 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:40:10 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:40:35 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:40:41 INFO  ServerMethods:113 - agent exited

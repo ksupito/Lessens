@@ -1,5 +1,7 @@
 package newC.server;
 
+import org.apache.log4j.Logger;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.LinkedList;
@@ -9,13 +11,12 @@ public class ClientUser {
     Socket socket;
     DataInputStream dis;
     DataOutputStream dos;
-    NewVersionThread chatter;
-    NewVersionThread my;
     String name;
     String message;
     ServerMethods serverMethods;
     boolean waitAgent = false;
     AgentUser agentUser = null;
+   // private static final Logger log = Logger.getLogger(ClientUser.class.getSimpleName());
 
     List<String> messages = new LinkedList<>();
 
@@ -27,13 +28,11 @@ public class ClientUser {
         messages.add(m);
     }
 
-    public ClientUser(NewVersionThread chatter, NewVersionThread my, DataInputStream dis, DataOutputStream dos, Socket socket, String name) {
+    public ClientUser(DataInputStream dis, DataOutputStream dos, Socket socket, String name) {
         this.name = name;
-        this.chatter = chatter;
         this.dis = dis;
         this.dos = dos;
         this.socket = socket;
-        this.my = my;
     }
 
     public AgentUser getAgentUser() {
@@ -52,14 +51,6 @@ public class ClientUser {
         return dos;
     }
 
-    public NewVersionThread getChatter() {
-        return chatter;
-    }
-
-    public NewVersionThread getMy() {
-        return my;
-    }
-
     public Socket getSocket() {
         return socket;
     }
@@ -72,60 +63,53 @@ public class ClientUser {
         this.dis = dis;
     }
 
-    public void setChatter(NewVersionThread chatter) {
-        this.chatter = chatter;
-    }
-
     public void setDos(DataOutputStream dos) {
         this.dos = dos;
     }
-
-    public void setMy(NewVersionThread my) {
-        this.my = my;
-    }
-
-    public void read() throws IOException {
-        InputStream sin = socket.getInputStream();
-        OutputStream sout = socket.getOutputStream();
-        dis = new DataInputStream(sin);
-        dos = new DataOutputStream(sout);
-        serverMethods = new ServerMethods();
-        while (true) {
-            message = dis.readUTF();
-            if (message.equalsIgnoreCase("/exit")) {
-                serverMethods.exitClient(this);
-                serverMethods.searchChat();
-                socket.close();
-                break;
-            } else if (message.equalsIgnoreCase("/leave")) {
-                serverMethods.disconnectClient(this);
-                serverMethods.searchChat();
-                continue;
-            }
-            if (agentUser == null && !waitAgent) {
-                serverMethods.changeQueue(this);
-                waitAgent = true;
-                if (serverMethods.searchChat()) {
-                    serverMethods.send(message, agentUser.getDos(), name);
-                    continue;
-                } else {
-                    this.addMessage(message);
-                    my.send("Wait please");
+    public synchronized void read() throws IOException {
+        try (
+                InputStream sin = socket.getInputStream();
+                OutputStream sout = socket.getOutputStream();) {
+            dis = new DataInputStream(sin);
+            dos = new DataOutputStream(sout);
+            serverMethods = new ServerMethods();
+            while (true) {
+                message = dis.readUTF();
+                if (message.equalsIgnoreCase("/exit")) {
+                    serverMethods.exitClient(this);
+                    serverMethods.searchChat();
+                    socket.close();
+                    break;
+                } else if (message.equalsIgnoreCase("/leave")) {
+                    serverMethods.disconnectClient(this);
+                    serverMethods.searchChat();
                     continue;
                 }
-            }
-            if (waitAgent && agentUser == null) {
-                if (serverMethods.searchChat()) {
-                    serverMethods.send(message, agentUser.getDos(), name);
-                    continue;
-                } else {
-                    this.addMessage(message);
-                    my.send("Wait please");
-                    continue;
+                if (agentUser == null && !waitAgent) {
+                    serverMethods.changeQueue(this);
+                    waitAgent = true;
+                    if (serverMethods.searchChat()) {
+                        serverMethods.send(message, agentUser.getDos(), name);
+                        continue;
+                    } else {
+                        this.addMessage(message);
+                        serverMethods.send("wait please!", this.getDos(), serverMethods.getChatName());
+                        continue;
+                    }
                 }
-            } else {
-                if (agentUser != null) {
-                    serverMethods.send(message, agentUser.getDos(), name);
+                if (waitAgent && agentUser == null) {
+                    if (serverMethods.searchChat()) {
+                        serverMethods.send(message, agentUser.getDos(), name);
+                        continue;
+                    } else {
+                        this.addMessage(message);
+                        serverMethods.send("wait please!", this.getDos(), serverMethods.getChatName());
+                        continue;
+                    }
+                } else {
+                    if (agentUser != null) {
+                        serverMethods.send(message, agentUser.getDos(), name);
+                    }
                 }
             }
         }
