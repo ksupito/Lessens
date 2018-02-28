@@ -1,5 +1,7 @@
 package newC.server;
 
+import org.apache.log4j.Logger;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -11,6 +13,7 @@ public class AgentUser {
     private String message;
     private ServerMethods serverMethods;
     private ClientUser clientUser = null;
+    private static final Logger log = Logger.getLogger(AgentUser.class.getSimpleName());
 
     public AgentUser(DataInputStream dis, DataOutputStream dos, Socket socket, String name) {
         this.name = name;
@@ -38,7 +41,6 @@ public class AgentUser {
                 message = dis.readUTF();
                 if (message.trim().equals("/exit")) {
                     if (serverMethods.exitAgent(this)) {
-                        serverMethods.searchChat();
                         socket.close();
                         break;
                     }

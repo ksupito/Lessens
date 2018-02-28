@@ -94,7 +94,8 @@ public class ServerMethods {
             ClientUser client = entry.getValue();
             if (client == cl) {                                            // && agent != null
                 send("client exited", agent.getDos(), chatName);
-                client.getDos().writeUTF("cancel");
+                agent.setClientUser(null);
+                cl.getDos().writeUTF("cancel");
                 mapAgents.replace(agent, null);
                 log.info("client exited");
                 return true;
@@ -105,8 +106,11 @@ public class ServerMethods {
 
     public synchronized boolean exitClientFromQueue(ClientUser cl) throws IOException {
         if (userQueue.contains(cl)) {
-            userQueue.remove(cl);
             cl.getDos().writeUTF("cancel");
+            if(cl.getMessages().size()!=0){
+                cl.getMessages().clear();
+            }
+            userQueue.remove(cl);
             return true;
         }
         return false;
@@ -115,7 +119,7 @@ public class ServerMethods {
     public synchronized boolean exitClientFromList(ClientUser cl) throws IOException {
         for (ClientUser client : listClients) {
             if (client == cl) {
-                client.getDos().writeUTF("cancel");
+                cl.getDos().writeUTF("cancel");
                 listClients.remove(client);
                 return true;
             }
@@ -128,12 +132,14 @@ public class ServerMethods {
             AgentUser agent = entry.getKey();
             ClientUser client = entry.getValue();
             if (agent == ag) {
+                mapAgents.remove(agent);
                 if (client != null) {
-                    listClients.add(client);
+                    userQueue.add(client);
+                    client.setAgentUser(null);
                     send("agent exited", client.getDos(), chatName);
                 }
+                searchChat();
                 agent.getDos().writeUTF("cancel");
-                mapAgents.remove(agent);
                 log.info("agent exited");
                 return true;
             }
@@ -149,6 +155,7 @@ public class ServerMethods {
                 listClients.add(client);
                 entry.setValue(null);
                 send("client leaved", agent.getDos(), chatName);
+                agent.setClientUser(null);
                 log.info("client leaved");
                 return true;
             }

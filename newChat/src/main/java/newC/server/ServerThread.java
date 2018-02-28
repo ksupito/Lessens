@@ -1,5 +1,6 @@
 package newC.server;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.apache.log4j.Logger;
 
 import java.io.*;
@@ -25,17 +26,16 @@ public class ServerThread implements Runnable {
             dis = new DataInputStream(sin);
             dos = new DataOutputStream(sout);
             serverMethods = new ServerMethods();
-            while (!socket.isClosed()) {
-                registration = dis.readUTF();
-                if (registration != null) {
-                    if (registration.contains("/a")) {
-                        createAgent();
-                        break;
-                    }
-                    if (registration.contains("/c")) {
-                        createClient();
-                        break;
-                    }
+            registration = dis.readUTF();
+            if (registration != null) {
+                if (registration.contains("/a")) {
+                    createAgent();
+                    socket.close();
+                    return;
+                }
+                if (registration.contains("/c")) {
+                    createClient();
+                    return;
                 }
             }
         } catch (IOException e) {

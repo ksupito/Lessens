@@ -31,7 +31,7 @@ public class ClientReader extends Thread {
             }
             out.writeUTF(registration);
             out.flush();
-            while (!socket.isClosed()) {
+            while (!socket.isClosed() ) {
                 message = keyboard.readLine();
                 out.writeUTF(message);
                 out.flush();
