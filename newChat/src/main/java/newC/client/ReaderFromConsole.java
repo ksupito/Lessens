@@ -19,7 +19,7 @@ public class ReaderFromConsole extends Thread {
 
     @Override
     public void run() {
-             try (BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
+        try (BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
              OutputStream sout = socket.getOutputStream();
              DataOutputStream out = new DataOutputStream(sout);) {
             System.out.println("register please");
@@ -35,12 +35,13 @@ public class ReaderFromConsole extends Thread {
             out.flush();
             System.out.println("Type in something and press enter");
             System.out.println();
-                while(true) {
+            while (!socket.isClosed()) {
                 line = keyboard.readLine();
                 out.writeUTF(line);
                 out.flush();
-               // if(line.equals("/exit")){}
+
             }
+
         } catch (IOException e) {
             log.error(e.getMessage());
             System.out.println(e);

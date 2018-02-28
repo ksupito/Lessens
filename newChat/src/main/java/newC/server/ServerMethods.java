@@ -93,6 +93,7 @@ public class ServerMethods {
             ClientUser client = entry.getValue();
             if (client == cl && agent != null) {
                 send("client exited", agent.getDos(), chatName);
+                client.getDos().writeUTF("1");
                 mapAgents.replace(agent, null);
                 log.info("client exited");
             }
@@ -108,7 +109,7 @@ public class ServerMethods {
                     listClients.add(client);
                     send("agent exited", client.getDos(), chatName);
                 }
-                //agent.getDos().writeUTF("1");
+                agent.getDos().writeUTF("1");
                 mapAgents.remove(agent);
                 log.info("agent exited");
                 return true;

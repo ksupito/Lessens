@@ -17,15 +17,19 @@ public class Client {
             ReaderFromConsole readerFromConsole = new ReaderFromConsole(socket);
             readerFromConsole.start();
             String line;
-            while(!socket.isClosed()) {
+            while (!socket.isClosed()) {
                 line = in.readUTF();
+                if (line.equals("1")) {
+                    socket.close();
+                    break;
+                }
                 System.out.println(line);
 
             }
-            //socket.close();
-        }// catch (IOException e) {
-        //  log.error(e.getMessage());
-        //   System.out.println(e);
-        //}
+            System.exit(0);
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            System.out.println(e);
+        }
     }
 }

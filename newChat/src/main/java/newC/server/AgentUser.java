@@ -13,9 +13,9 @@ public class AgentUser {
     String message;
     ServerMethods serverMethods;
     ClientUser clientUser = null;
-  // private static final Logger log = Logger.getLogger(AgentUser.class.getSimpleName());
+    // private static final Logger log = Logger.getLogger(AgentUser.class.getSimpleName());
 
-    public AgentUser( DataInputStream dis, DataOutputStream dos, Socket socket, String name) {
+    public AgentUser(DataInputStream dis, DataOutputStream dos, Socket socket, String name) {
         this.name = name;
         this.dis = dis;
         this.dos = dos;

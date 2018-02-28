@@ -28,7 +28,7 @@ public class NewVersionThread implements Runnable {
                 if (registration != null) {
                     if (registration.contains("/a")) {
                         String name = registration.replaceFirst("/a ", "");
-                        AgentUser agent = new AgentUser( dis, dos, socket, name);
+                        AgentUser agent = new AgentUser(dis, dos, socket, name);
                         serverMethods.addAgentToMap(agent);
                         log.info("agent registered");
                         agent.read();
@@ -36,7 +36,7 @@ public class NewVersionThread implements Runnable {
                     }
                     if (registration.contains("/c")) {
                         String name = registration.replaceFirst("/c ", "");
-                        ClientUser client = new ClientUser( dis, dos, socket, name);
+                        ClientUser client = new ClientUser(dis, dos, socket, name);
                         serverMethods.addClient(client);
                         client.read();
                         log.info("client registered");

@@ -109,3 +109,13 @@
 2018-02-28 12:40:10 INFO  ServerMethods:113 - agent exited
 2018-02-28 12:40:35 INFO  NewVersionThread:33 - agent registered
 2018-02-28 12:40:41 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:45:16 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:45:18 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:45:23 ERROR ReaderFromConsole:45 - Socket closed
+2018-02-28 12:48:28 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:49:49 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:49:59 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:51:01 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:51:05 INFO  ServerMethods:113 - agent exited
+2018-02-28 12:52:58 INFO  NewVersionThread:33 - agent registered
+2018-02-28 12:53:01 INFO  ServerMethods:113 - agent exited

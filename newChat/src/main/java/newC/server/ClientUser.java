@@ -16,7 +16,7 @@ public class ClientUser {
     ServerMethods serverMethods;
     boolean waitAgent = false;
     AgentUser agentUser = null;
-   // private static final Logger log = Logger.getLogger(ClientUser.class.getSimpleName());
+    // private static final Logger log = Logger.getLogger(ClientUser.class.getSimpleName());
 
     List<String> messages = new LinkedList<>();
 
@@ -66,6 +66,7 @@ public class ClientUser {
     public void setDos(DataOutputStream dos) {
         this.dos = dos;
     }
+
     public synchronized void read() throws IOException {
         try (
                 InputStream sin = socket.getInputStream();
