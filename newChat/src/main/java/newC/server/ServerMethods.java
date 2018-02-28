@@ -28,12 +28,20 @@ public class ServerMethods {
         mapAgents.put(agent, null);
     }
 
-    public List<ClientUser> getListClients1() {
-        return listClients;
+    public void addClientToQueue(ClientUser client) {
+        userQueue.add(client);
+    }
+
+    public BlockingQueue<ClientUser> getUserQueue() {
+        return userQueue;
     }
 
     public void addClient(ClientUser e) {
         listClients.add(e);
+    }
+
+    public List<ClientUser> getListClients() {
+        return listClients;
     }
 
     public void changeQueue(ClientUser client) {
@@ -87,34 +95,39 @@ public class ServerMethods {
         dos.flush();
     }
 
-    public synchronized void exitClient(ClientUser cl) throws IOException {
+    public synchronized boolean exitClient(ClientUser cl) throws IOException {
         for (Map.Entry<AgentUser, ClientUser> entry : mapAgents.entrySet()) {
             AgentUser agent = entry.getKey();
             ClientUser client = entry.getValue();
-            if (client == cl && agent != null) {
+            if (client == cl) {                                            // && agent != null
                 send("client exited", agent.getDos(), chatName);
                 client.getDos().writeUTF("1");
                 mapAgents.replace(agent, null);
                 log.info("client exited");
+                return true;
             }
         }
+        return false;
     }
 
-    public synchronized void exitClientFromQueue(ClientUser cl) throws IOException {
+    public synchronized boolean exitClientFromQueue(ClientUser cl) throws IOException {
         if (userQueue.contains(cl)) {
             userQueue.remove(cl);
+            cl.getDos().writeUTF("1");
+            return true;
         }
-        cl.getDos().writeUTF("1");
-
+        return false;
     }
 
-    public synchronized void exitClientFromList(ClientUser cl) throws IOException {
+    public synchronized boolean exitClientFromList(ClientUser cl) throws IOException {
         for (ClientUser client : listClients) {
             if (client == cl) {
                 client.getDos().writeUTF("1");
                 listClients.remove(client);
+                return true;
             }
         }
+        return false;
     }
 
     public synchronized boolean exitAgent(AgentUser ag) throws IOException {
@@ -135,17 +148,26 @@ public class ServerMethods {
         return false;
     }
 
-    public synchronized boolean disconnectClient(ClientUser cl) throws IOException {
+    public synchronized boolean leaveClient(ClientUser cl) throws IOException {
         for (Map.Entry<AgentUser, ClientUser> entry : mapAgents.entrySet()) {
             AgentUser agent = entry.getKey();
             ClientUser client = entry.getValue();
-            if (client == cl && agent != null) {
+            if (client == cl) {     //&& agent != null
                 listClients.add(client);
                 entry.setValue(null);
                 send("client lieved", agent.getDos(), chatName);
                 log.info("client lieved");
                 return true;
             }
+        }
+        return false;
+    }
+
+    public synchronized boolean leaveClientFromQueue(ClientUser cl) throws IOException {
+        if (userQueue.contains(cl)) {
+            userQueue.remove(cl);
+            listClients.add(cl);
+            return true;
         }
         return false;
     }

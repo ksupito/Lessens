@@ -76,12 +76,13 @@ public class ClientUser {
             serverMethods = new ServerMethods();
             while (true) {
                 message = dis.readUTF();
-                if (message.equalsIgnoreCase("/exit")) {
+                if (message.trim().equals("/exit")) {
                     if (agentUser != null) {
-                        serverMethods.exitClient(this);
-                        serverMethods.searchChat();
-                        socket.close();
-                        break;
+                        if (serverMethods.exitClient(this)) {
+                            serverMethods.searchChat();
+                            socket.close();
+                            break;
+                        }
                     }
                     if (waitAgent == true) {
                         serverMethods.exitClientFromQueue(this);
@@ -95,10 +96,18 @@ public class ClientUser {
                         break;
                     }
 
-                } else if (message.equalsIgnoreCase("/leave")) {
-                    serverMethods.disconnectClient(this);
-                    serverMethods.searchChat();
-                    continue;
+                } else if (message.trim().equals("/leave")) {
+                    if (agentUser != null) {
+                        if (serverMethods.leaveClient(this)) {
+                            serverMethods.searchChat();
+                            continue;
+                        }
+                    } else if (waitAgent == true) {
+                        if (serverMethods.leaveClientFromQueue(this)) {
+                            serverMethods.searchChat();
+                            continue;
+                        }
+                    }
                 }
                 if (agentUser == null && !waitAgent) {
                     serverMethods.changeQueue(this);

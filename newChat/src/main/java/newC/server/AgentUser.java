@@ -64,11 +64,12 @@ public class AgentUser {
             serverMethods.searchChat();
             while (true) {
                 message = dis.readUTF();
-                if (message.equals("/exit")) {
-                    serverMethods.exitAgent(this);
-                    serverMethods.searchChat();
-                    socket.close();
-                    break;
+                if (message.trim().equals("/exit")) {
+                    if(serverMethods.exitAgent(this)){
+                        serverMethods.searchChat();
+                        socket.close();
+                        break;
+                    }
                 }
                 if (clientUser != null) {
                     serverMethods.send(message, clientUser.getDos(), name);
