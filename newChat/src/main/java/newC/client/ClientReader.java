@@ -1,19 +1,17 @@
 package newC.client;
 
-import newC.server.AgentUser;
-import newC.server.ClientUser;
 import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.net.Socket;
 
-public class ReaderFromConsole extends Thread {
-    Socket socket;
-    String registration;
-    String line;
-    private static final Logger log = Logger.getLogger(ReaderFromConsole.class.getSimpleName());
+public class ClientReader extends Thread {
+    private Socket socket;
+    private String registration;
+    private String message;
+    private static final Logger log = Logger.getLogger(ClientReader.class.getSimpleName());
 
-    public ReaderFromConsole(Socket socket) {
+    public ClientReader(Socket socket) {
         this.socket = socket;
     }
 
@@ -28,23 +26,18 @@ public class ReaderFromConsole extends Thread {
                 if (registration.contains("/a") || registration.contains("/c")) {
                     break;
                 } else {
-                    System.out.println("incorrect!");
+                    System.out.println("incorrect command!");
                 }
             }
             out.writeUTF(registration);
             out.flush();
-            System.out.println("Type in something and press enter");
-            System.out.println();
             while (!socket.isClosed()) {
-                line = keyboard.readLine();
-                out.writeUTF(line);
+                message = keyboard.readLine();
+                out.writeUTF(message);
                 out.flush();
-
             }
-
         } catch (IOException e) {
             log.error(e.getMessage());
-            System.out.println(e);
         }
     }
 }

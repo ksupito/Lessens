@@ -22,7 +22,7 @@ public class ServerMethodTest {
     ServerMethods serverMethods = new ServerMethods();
 
     @Test
-    public void searchChatTest() {
+    public void searchChatTest() throws IOException{
         serverMethods.addClientToQueue(clientUser);
         serverMethods.addAgentToMap(agentUser);
         assertEquals(1,serverMethods.getUserQueue().size());
@@ -33,7 +33,7 @@ public class ServerMethodTest {
     }
 
     @Test
-    public void searchChatTestFalse() {
+    public void searchChatTestFalse() throws IOException {
         serverMethods.addAgentToMap(agentUser);
         assertEquals(0,serverMethods.getUserQueue().size());
         assertEquals(1,serverMethods.getMapAgents().size());
@@ -41,7 +41,7 @@ public class ServerMethodTest {
         serverMethods.getMapAgents().clear();
     }
     @Test
-    public void searchChatTestFalseWithTwoClient() {
+    public void searchChatTestFalseWithTwoClient()throws IOException {
         serverMethods.addClientToQueue(clientUser);
         serverMethods.getMapAgents().put(agentUser, new ClientUser(in, out,socket,"11"));
         assertEquals(1,serverMethods.getUserQueue().size());
