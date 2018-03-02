@@ -1,0 +1,259 @@
+2018-03-01 23:17:18 INFO  ServerThread:50 - agent registered
+2018-03-01 23:17:35 INFO  ServerThread:59 - client registered
+2018-03-01 23:17:36 INFO  ServerMethods:70 - new chat started
+2018-03-01 23:18:29 INFO  ServerThread:50 - agent registered
+2018-03-01 23:18:49 ERROR ServerThread:42 - 
+2018-03-01 23:18:50 ERROR ServerThread:42 - 
+2018-03-01 23:19:30 ERROR ServerThread:42 - Connection reset
+2018-03-01 23:19:50 ERROR ServerThread:42 - Connection reset
+2018-03-01 23:19:50 ERROR ServerThread:42 - Connection reset
+2018-03-01 23:19:50 ERROR ServerThread:42 - Connection reset
+2018-03-01 23:21:18 ERROR Server:24 - Address already in use: NET_Bind
+2018-03-01 23:21:47 ERROR Server:24 - Address already in use: NET_Bind
+2018-03-01 23:22:22 ERROR Server:24 - Address already in use: NET_Bind
+2018-03-01 23:22:51 INFO  ServerThread:51 - agent registered
+2018-03-01 23:23:08 INFO  ServerThread:60 - client registered
+2018-03-01 23:23:17 INFO  ServerMethods:70 - new chat started
+2018-03-01 23:24:20 INFO  ServerThread:51 - agent registered
+2018-03-01 23:24:31 INFO  ServerThread:60 - client registered
+2018-03-01 23:24:41 INFO  ServerMethods:70 - new chat started
+2018-03-01 23:31:56 INFO  ServerThread:51 - agent registered
+2018-03-01 23:32:03 INFO  ServerThread:60 - client registered
+2018-03-01 23:32:07 INFO  ServerThread:51 - agent registered
+2018-03-01 23:32:19 INFO  ServerThread:60 - client registered
+2018-03-01 23:32:31 INFO  ServerMethods:70 - new chat started
+2018-03-01 23:33:36 INFO  ServerMethods:70 - new chat started
+2018-03-01 23:33:36 INFO  ServerMethods:143 - agent exited
+2018-03-01 23:34:10 INFO  ServerMethods:100 - client exited
+2018-03-01 23:34:10 INFO  ServerMethods:70 - new chat started
+2018-03-01 23:35:56 ERROR ServerThread:43 - Connection reset
+2018-03-01 23:36:40 INFO  ServerThread:51 - agent registered
+2018-03-01 23:37:02 ERROR ServerThread:43 - Connection reset
+2018-03-01 23:43:40 ERROR ServerThread:43 - Connection reset
+2018-03-01 23:43:47 ERROR ServerThread:43 - Connection reset
+2018-03-01 23:43:55 INFO  ServerThread:60 - client registered
+2018-03-01 23:44:02 INFO  ServerThread:51 - agent registered
+2018-03-01 23:44:02 INFO  ServerMethods:71 - new chat started
+2018-03-01 23:44:07 ERROR ServerThread:43 - Connection reset
+2018-03-01 23:45:00 ERROR ServerThread:43 - Connection reset
+2018-03-01 23:45:24 INFO  ServerThread:51 - agent registered
+2018-03-01 23:45:28 INFO  ServerThread:60 - client registered
+2018-03-01 23:45:29 INFO  ServerMethods:71 - new chat started
+2018-03-01 23:45:37 ERROR ServerThread:43 - Connection reset
+2018-03-01 23:45:44 ERROR ServerThread:43 - Connection reset
+2018-03-01 23:48:14 INFO  ServerThread:60 - client registered
+2018-03-01 23:48:48 INFO  ServerThread:51 - agent registered
+2018-03-01 23:48:48 INFO  ServerMethods:71 - new chat started
+2018-03-01 23:51:19 ERROR ServerThread:43 - Connection reset
+2018-03-01 23:52:42 INFO  ServerThread:60 - client registered
+2018-03-01 23:52:49 INFO  ServerThread:51 - agent registered
+2018-03-01 23:52:49 INFO  ServerMethods:71 - new chat started
+2018-03-01 23:52:52 ERROR ServerThread:43 - Connection reset
+2018-03-01 23:53:00 ERROR ServerThread:43 - Connection reset
+2018-03-01 23:54:51 INFO  ServerThread:60 - client registered
+2018-03-01 23:55:08 INFO  ServerThread:51 - agent registered
+2018-03-01 23:55:08 INFO  ServerMethods:71 - new chat started
+2018-03-01 23:55:29 ERROR ServerThread:43 - Connection reset
+2018-03-01 23:55:38 ERROR ServerThread:43 - Connection reset
+2018-03-01 23:58:24 ERROR ServerThread:43 - Connection reset
+2018-03-01 23:59:26 INFO  ServerThread:61 - client registered
+2018-03-01 23:59:32 INFO  ServerThread:52 - agent registered
+2018-03-01 23:59:32 INFO  ServerMethods:71 - new chat started
+2018-03-01 23:59:40 ERROR ServerThread:44 - Connection reset
+2018-03-02 00:00:02 ERROR ServerThread:44 - Connection reset
+2018-03-02 00:00:05 ERROR ServerThread:44 - Connection reset
+2018-03-02 00:06:39 INFO  ServerThread:51 - agent registered
+2018-03-02 00:06:48 INFO  ServerThread:60 - client registered
+2018-03-02 00:06:49 INFO  ServerMethods:71 - new chat started
+2018-03-02 00:07:10 INFO  ServerThread:51 - agent registered
+2018-03-02 00:07:17 INFO  ServerThread:51 - agent registered
+2018-03-02 00:07:26 INFO  ServerThread:60 - client registered
+2018-03-02 00:07:27 INFO  ServerMethods:71 - new chat started
+2018-03-02 00:07:41 INFO  ServerMethods:144 - agent exited
+2018-03-02 00:07:48 ERROR ServerThread:43 - Connection reset
+2018-03-02 00:07:50 ERROR ServerThread:43 - Connection reset
+2018-03-02 00:07:53 ERROR ServerThread:43 - Connection reset
+2018-03-02 00:07:56 ERROR ServerThread:43 - Connection reset
+2018-03-02 00:14:54 INFO  ServerThread:60 - agent registered
+2018-03-02 00:14:59 INFO  ServerThread:69 - client registered
+2018-03-02 00:15:01 INFO  ServerMethods:71 - new chat started
+2018-03-02 00:15:06 ERROR ServerThread:52 - Connection reset
+2018-03-02 00:16:33 ERROR ServerThread:52 - 
+2018-03-02 00:16:33 ERROR Client:36 - [Ljava.lang.StackTraceElement;@782663d3
+2018-03-02 11:33:45 INFO  ServerThread:70 - client registered
+2018-03-02 11:34:03 INFO  ServerThread:61 - agent registered
+2018-03-02 11:34:05 INFO  ServerMethods:71 - new chat started
+2018-03-02 11:34:17 ERROR ServerThread:53 - Connection reset
+2018-03-02 11:34:20 ERROR ServerThread:53 - Socket closed
+2018-03-02 11:34:20 ERROR Client:36 - [Ljava.lang.StackTraceElement;@782663d3
+2018-03-02 11:34:23 ERROR ClientReader:40 - Socket closed
+2018-03-02 11:40:09 INFO  ServerThread:70 - client registered
+2018-03-02 11:40:17 INFO  ServerThread:61 - agent registered
+2018-03-02 11:40:17 INFO  ServerMethods:71 - new chat started
+2018-03-02 11:40:26 ERROR ServerThread:53 - Connection reset
+2018-03-02 11:40:38 ERROR ServerThread:53 - Socket closed
+2018-03-02 11:41:25 INFO  ServerThread:61 - agent registered
+2018-03-02 11:41:35 INFO  ServerThread:70 - client registered
+2018-03-02 11:41:37 INFO  ServerMethods:71 - new chat started
+2018-03-02 11:41:42 ERROR ServerThread:53 - Connection reset
+2018-03-02 11:42:21 INFO  ServerThread:70 - client registered
+2018-03-02 11:42:35 INFO  ServerThread:61 - agent registered
+2018-03-02 11:42:39 INFO  ServerMethods:71 - new chat started
+2018-03-02 11:42:51 ERROR ServerThread:53 - Connection reset
+2018-03-02 11:42:55 ERROR ServerThread:53 - Socket closed
+2018-03-02 11:42:59 ERROR ClientReader:40 - Socket closed
+2018-03-02 11:44:51 INFO  ServerThread:61 - agent registered
+2018-03-02 11:45:01 INFO  ServerThread:70 - client registered
+2018-03-02 11:45:02 INFO  ServerMethods:71 - new chat started
+2018-03-02 11:46:16 ERROR ServerThread:53 - Connection reset
+2018-03-02 11:46:38 INFO  ServerThread:61 - agent registered
+2018-03-02 11:46:44 INFO  ServerThread:70 - client registered
+2018-03-02 11:46:46 INFO  ServerMethods:71 - new chat started
+2018-03-02 11:46:59 ERROR ServerThread:53 - Connection reset
+2018-03-02 11:47:08 INFO  ServerThread:70 - client registered
+2018-03-02 11:47:19 INFO  ServerThread:61 - agent registered
+2018-03-02 11:47:21 INFO  ServerMethods:71 - new chat started
+2018-03-02 11:47:51 ERROR ServerThread:53 - Connection reset
+2018-03-02 11:48:15 INFO  ServerThread:70 - client registered
+2018-03-02 11:48:22 INFO  ServerThread:61 - agent registered
+2018-03-02 11:48:22 INFO  ServerMethods:71 - new chat started
+2018-03-02 11:48:25 ERROR ServerThread:53 - Connection reset
+2018-03-02 12:15:41 INFO  ServerThread:56 - agent registered
+2018-03-02 12:15:45 INFO  ServerThread:65 - client registered
+2018-03-02 12:15:46 INFO  ServerMethods:71 - new chat started
+2018-03-02 12:15:50 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:15:55 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:18:24 INFO  ServerThread:56 - agent registered
+2018-03-02 12:18:24 ERROR ServerThread:48 - Socket closed
+2018-03-02 12:21:21 INFO  ServerThread:56 - agent registered
+2018-03-02 12:21:27 INFO  ServerThread:65 - client registered
+2018-03-02 12:21:27 INFO  ServerMethods:71 - new chat started
+2018-03-02 12:21:35 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:21:45 INFO  ServerThread:56 - agent registered
+2018-03-02 12:21:45 INFO  ServerMethods:71 - new chat started
+2018-03-02 12:21:49 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:21:58 INFO  ServerThread:56 - agent registered
+2018-03-02 12:22:07 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:22:09 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:24:24 INFO  ServerThread:56 - agent registered
+2018-03-02 12:24:24 ERROR ServerThread:48 - Socket closed
+2018-03-02 12:24:47 INFO  ServerThread:56 - agent registered
+2018-03-02 12:24:47 ERROR ServerThread:48 - Socket closed
+2018-03-02 12:27:47 INFO  ServerThread:56 - agent registered
+2018-03-02 12:27:55 INFO  ServerThread:65 - client registered
+2018-03-02 12:27:58 INFO  ServerMethods:71 - new chat started
+2018-03-02 12:31:48 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:36:18 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:38:04 INFO  ServerThread:56 - agent registered
+2018-03-02 12:38:09 INFO  ServerThread:65 - client registered
+2018-03-02 12:38:10 INFO  ServerMethods:71 - new chat started
+2018-03-02 12:39:20 INFO  ServerMethods:143 - agent exited
+2018-03-02 12:39:20 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:41:02 INFO  ServerThread:65 - client registered
+2018-03-02 12:41:05 INFO  ServerThread:56 - agent registered
+2018-03-02 12:41:09 INFO  ServerMethods:71 - new chat started
+2018-03-02 12:50:57 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:51:01 INFO  ServerMethods:143 - agent exited
+2018-03-02 12:51:01 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:51:09 INFO  ServerThread:56 - agent registered
+2018-03-02 12:51:21 INFO  ServerThread:65 - client registered
+2018-03-02 12:51:22 INFO  ServerMethods:71 - new chat started
+2018-03-02 12:51:36 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:51:47 INFO  ServerThread:65 - client registered
+2018-03-02 12:51:51 INFO  ServerMethods:71 - new chat started
+2018-03-02 12:52:17 INFO  ServerMethods:143 - agent exited
+2018-03-02 12:52:17 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:52:29 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:52:33 INFO  ServerThread:56 - agent registered
+2018-03-02 12:52:47 INFO  ServerThread:56 - agent registered
+2018-03-02 12:52:51 INFO  ServerMethods:143 - agent exited
+2018-03-02 12:52:51 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:52:59 INFO  ServerThread:65 - client registered
+2018-03-02 12:53:02 INFO  ServerMethods:71 - new chat started
+2018-03-02 12:53:30 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:53:33 INFO  ServerMethods:143 - agent exited
+2018-03-02 12:53:33 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:53:38 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:53:45 INFO  ServerThread:56 - agent registered
+2018-03-02 12:58:21 INFO  ServerMethods:143 - agent exited
+2018-03-02 12:58:21 ERROR ServerThread:48 - Connection reset
+2018-03-02 12:59:39 ERROR ServerThread:48 - Connection reset
+2018-03-02 13:01:05 ERROR ServerThread:48 - Connection reset
+2018-03-02 13:05:38 ERROR ServerThread:48 - Connection reset
+2018-03-02 13:08:59 ERROR ServerThread:48 - Connection reset
+2018-03-02 13:09:59 ERROR ServerThread:48 - Connection reset
+2018-03-02 13:20:49 INFO  ServerThread:56 - agent registered
+2018-03-02 13:20:52 INFO  ServerMethods:143 - agent exited
+2018-03-02 13:20:52 ERROR ServerThread:77 - Socket closed
+2018-03-02 13:20:52 ERROR ServerThread:48 - Connection reset
+2018-03-02 13:27:33 INFO  ServerThread:56 - agent registered
+2018-03-02 13:27:34 INFO  ServerMethods:143 - agent exited
+2018-03-02 13:29:03 ERROR ServerThread:78 - Socket closed
+2018-03-02 13:29:03 ERROR ServerThread:48 - Connection reset
+2018-03-02 13:29:29 INFO  ServerThread:56 - agent registered
+2018-03-02 13:30:01 INFO  ServerMethods:143 - agent exited
+2018-03-02 13:31:34 ERROR ServerThread:78 - Socket closed
+2018-03-02 13:31:34 ERROR ServerThread:48 - Connection reset
+2018-03-02 13:42:50 INFO  ServerThread:56 - agent registered
+2018-03-02 13:42:50 INFO  ServerMethods:143 - agent exited
+2018-03-02 13:42:50 ERROR Client:34 - [Ljava.lang.StackTraceElement;@d6da883
+2018-03-02 13:43:40 INFO  ServerThread:56 - agent registered
+2018-03-02 13:43:44 INFO  ServerMethods:143 - agent exited
+2018-03-02 13:43:44 ERROR Client:34 - [Ljava.lang.StackTraceElement;@782663d3
+2018-03-02 13:45:46 INFO  ServerThread:56 - agent registered
+2018-03-02 13:45:52 INFO  ServerMethods:143 - agent exited
+2018-03-02 13:54:28 ERROR ServerThread:48 - Connection reset
+2018-03-02 13:54:30 ERROR ServerThread:48 - Connection reset
+2018-03-02 13:54:44 INFO  ServerThread:56 - agent registered
+2018-03-02 13:54:48 INFO  ServerThread:65 - client registered
+2018-03-02 13:54:50 INFO  ServerMethods:71 - new chat started
+2018-03-02 13:55:37 INFO  ServerMethods:143 - agent exited
+2018-03-02 13:56:34 ERROR ServerThread:48 - Connection reset
+2018-03-02 13:57:19 ERROR ServerThread:48 - Connection reset
+2018-03-02 13:57:30 INFO  ServerThread:56 - agent registered
+2018-03-02 13:57:31 INFO  ServerMethods:143 - agent exited
+2018-03-02 13:57:31 ERROR ServerThread:48 - Connection reset
+2018-03-02 14:30:58 INFO  ServerThread:62 - client registered
+2018-03-02 14:33:31 INFO  ServerThread:53 - agent registered
+2018-03-02 14:34:55 ERROR Client:34 - [Ljava.lang.StackTraceElement;@45afc369
+2018-03-02 14:36:37 INFO  ServerThread:53 - agent registered
+2018-03-02 14:36:42 INFO  ServerThread:62 - client registered
+2018-03-02 14:36:43 INFO  ServerMethods:71 - new chat started
+2018-03-02 14:37:15 INFO  ServerMethods:101 - client exited
+2018-03-02 14:37:38 INFO  ServerThread:53 - agent registered
+2018-03-02 14:37:47 INFO  ServerThread:62 - client registered
+2018-03-02 14:37:48 INFO  ServerMethods:71 - new chat started
+2018-03-02 14:38:05 INFO  ServerThread:62 - client registered
+2018-03-02 14:38:08 INFO  ServerMethods:71 - new chat started
+2018-03-02 14:38:33 INFO  ServerMethods:143 - agent exited
+2018-03-02 14:39:31 INFO  ServerMethods:101 - client exited
+2018-03-02 14:41:44 ERROR Client:35 - [Ljava.lang.StackTraceElement;@1990a65e
+2018-03-02 14:42:28 INFO  ServerThread:53 - agent registered
+2018-03-02 14:42:35 INFO  ServerThread:62 - client registered
+2018-03-02 14:42:36 INFO  ServerMethods:71 - new chat started
+2018-03-02 14:42:45 INFO  ServerThread:62 - client registered
+2018-03-02 14:43:27 INFO  ServerMethods:171 - client leaved
+2018-03-02 14:43:32 INFO  ServerMethods:101 - client exited
+2018-03-02 14:44:47 ERROR Client:35 - [Ljava.lang.StackTraceElement;@64485a47
+2018-03-02 14:44:47 ERROR Client:35 - [Ljava.lang.StackTraceElement;@1990a65e
+2018-03-02 14:45:43 INFO  ServerThread:53 - agent registered
+2018-03-02 14:45:48 INFO  ServerThread:62 - client registered
+2018-03-02 14:45:54 INFO  ServerMethods:71 - new chat started
+2018-03-02 14:46:13 INFO  ServerThread:62 - client registered
+2018-03-02 14:46:28 INFO  ServerMethods:172 - client leaved
+2018-03-02 14:46:37 INFO  ServerMethods:101 - client exited
+2018-03-02 14:46:44 INFO  ServerMethods:71 - new chat started
+2018-03-02 14:47:05 INFO  ServerThread:62 - client registered
+2018-03-02 14:47:16 INFO  ServerMethods:101 - client exited
+2018-03-02 14:47:23 INFO  ServerMethods:71 - new chat started
+2018-03-02 14:47:31 ERROR Client:35 - [Ljava.lang.StackTraceElement;@1990a65e
+2018-03-02 14:47:31 ERROR Client:35 - [Ljava.lang.StackTraceElement;@1990a65e
+2018-03-02 14:58:07 ERROR Client:35 - [Ljava.lang.StackTraceElement;@1990a65e
+2018-03-02 15:01:42 INFO  ServerThread:53 - agent registered
+2018-03-02 15:04:35 INFO  ServerThread:53 - agent registered
+2018-03-02 15:04:38 ERROR Client:35 - [Ljava.lang.StackTraceElement;@1990a65e
+2018-03-02 15:06:15 INFO  ServerThread:53 - agent registered
+2018-03-02 15:06:19 INFO  ServerThread:62 - client registered
+2018-03-02 15:06:22 ERROR Client:35 - [Ljava.lang.StackTraceElement;@1990a65e
+2018-03-02 15:06:22 ERROR Client:35 - [Ljava.lang.StackTraceElement;@1990a65e
+2018-03-02 15:11:03 ERROR ServerThread:45 - Connection reset

@@ -7,10 +7,11 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerMethods {
     public static Map<AgentUser, ClientUser> mapAgents = new HashMap<>();
-    public static List<ClientUser> listClients = new LinkedList<>();
+    public static List<ClientUser> listClients = Collections.synchronizedList(new LinkedList<>());
     public static BlockingQueue<ClientUser> userQueue = new ArrayBlockingQueue<>(1000);
     public String chatName = "------------->";
     private static final Logger log = Logger.getLogger(ServerMethods.class.getSimpleName());
@@ -95,8 +96,8 @@ public class ServerMethods {
             if (client == cl) {                                            // && agent != null
                 send("client exited", agent.getDos(), chatName);
                 agent.setClientUser(null);
-                cl.getDos().writeUTF("cancel");
                 mapAgents.replace(agent, null);
+                // cl.getDos().writeUTF("cancel");
                 log.info("client exited");
                 return true;
             }
@@ -106,11 +107,11 @@ public class ServerMethods {
 
     public synchronized boolean exitClientFromQueue(ClientUser cl) throws IOException {
         if (userQueue.contains(cl)) {
-            cl.getDos().writeUTF("cancel");
-            if(cl.getMessages().size()!=0){
+            if (cl.getMessages().size() != 0) {
                 cl.getMessages().clear();
             }
             userQueue.remove(cl);
+            //cl.getDos().writeUTF("cancel");
             return true;
         }
         return false;
@@ -119,8 +120,8 @@ public class ServerMethods {
     public synchronized boolean exitClientFromList(ClientUser cl) throws IOException {
         for (ClientUser client : listClients) {
             if (client == cl) {
-                cl.getDos().writeUTF("cancel");
                 listClients.remove(client);
+                //cl.getDos().writeUTF("cancel");
                 return true;
             }
         }
@@ -139,8 +140,8 @@ public class ServerMethods {
                     send("agent exited", client.getDos(), chatName);
                 }
                 searchChat();
-                agent.getDos().writeUTF("cancel");
                 log.info("agent exited");
+                // agent.getDos().writeUTF("cancel");
                 return true;
             }
         }
@@ -166,7 +167,9 @@ public class ServerMethods {
     public synchronized boolean leaveClientFromQueue(ClientUser cl) {
         if (userQueue.contains(cl)) {
             userQueue.remove(cl);
+            cl.setWaitAgent(false);
             listClients.add(cl);
+            log.info("client leaved");
             return true;
         }
         return false;

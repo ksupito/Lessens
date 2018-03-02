@@ -21,7 +21,7 @@ public class ClientReader extends Thread {
              OutputStream sout = socket.getOutputStream();
              DataOutputStream out = new DataOutputStream(sout);) {
             System.out.println("register please");
-            while (true) {
+            while (!socket.isClosed()) {
                 registration = keyboard.readLine();
                 if (registration.contains("/a") || registration.contains("/c")) {
                     break;
@@ -31,7 +31,7 @@ public class ClientReader extends Thread {
             }
             out.writeUTF(registration);
             out.flush();
-            while (!socket.isClosed() ) {
+            while (!socket.isClosed()) {
                 message = keyboard.readLine();
                 out.writeUTF(message);
                 out.flush();

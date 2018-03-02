@@ -9,19 +9,19 @@ import java.net.Socket;
 public class Client {
     private static final Logger log = Logger.getLogger(Client.class.getSimpleName());
 
-    public static void main(String[] args)throws IOException {
+    public static void main(String[] args) throws IOException {
         Client client = new Client();
         client.startClient();
     }
 
-    private synchronized void startClient() throws IOException{
-        try (Socket socket = new Socket(InetAddress.getLocalHost(), 1111);
+    private synchronized void startClient() throws IOException {
+        try (Socket socket = new Socket(InetAddress.getLocalHost(), 1112);
              InputStream sin = socket.getInputStream();
              DataInputStream in = new DataInputStream(sin)) {
             ClientReader clientReader = new ClientReader(socket);
             clientReader.start();
             String message;
-            while (!socket.isClosed()&& socket.isConnected()) {
+            while (!socket.isClosed() && socket.isConnected()) {
                 message = in.readUTF();
                 if (message.equals("cancel")) {
                     socket.close();
@@ -30,8 +30,10 @@ public class Client {
                 System.out.println(message);
             }
             System.exit(0);
-        } //catch (IOException e) {
-          //  log.error(e.getStackTrace());
-       // }
+        } catch (IOException e) {
+            System.out.println("please, connect later");
+            log.error(e.getStackTrace());
+            System.exit(0);
+        }
     }
 }
