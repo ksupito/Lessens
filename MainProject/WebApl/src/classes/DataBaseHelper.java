@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DataBaseHelper {
 
-    public int checkCountPages(String lastNameWasEntered) throws ClassNotFoundException, SQLException, IOException {
+    public int checkCountRows(String lastNameWasEntered) throws ClassNotFoundException, SQLException, IOException {
         int rowCount = 0;
         String sqlRequest = "SELECT * FROM employee where last_name LIKE ?";
         Connection connection = DbConnection.getConnection();
@@ -15,19 +15,19 @@ public class DataBaseHelper {
             statement.setString(1, "%" + lastNameWasEntered + "%");
             ResultSet resultSet = statement.executeQuery();
             resultSet.last();
-            rowCount = resultSet.getRow();
+             rowCount=resultSet.getRow();
         }
         return rowCount;
     }
 
-    public List<User> getUsers(String lastNameWasEntered, int limitFrom, int limitTo) throws ClassNotFoundException, SQLException, IOException {
+    public List<User> getUsers(String lastNameWasEntered, int limit, int fromIndex) throws ClassNotFoundException, SQLException, IOException {
         List<User> listOfUser = new ArrayList<>();
         String sqlRequest = "SELECT * FROM employee where last_name LIKE ? LIMIT ? OFFSET ?";
         Connection connection = DbConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sqlRequest)) {
             statement.setString(1, "%" + lastNameWasEntered + "%");
-            statement.setInt(2, limitFrom);
-            statement.setInt(3, limitTo);
+            statement.setInt(2, limit);
+            statement.setInt(3, fromIndex);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");

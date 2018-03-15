@@ -15,27 +15,27 @@ import java.util.List;
 public class ServletResult extends HttpServlet {
     private List<User> listOfUser;
     private int countPages;
-    private int linesInBase;
+    private int rowsInBase;
     private String lastName;
     private DataBaseHelper base;
     private static final int countUsersOnePage = 3;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int minIndex;
-        DataBaseHelper base = new DataBaseHelper();
+        int fromIndex;
+        base = new DataBaseHelper();
         int numberPage = Integer.parseInt(req.getParameter("page"));
         if (numberPage == 1) {
-            minIndex = numberPage - 1;
+            fromIndex = numberPage - 1;
         } else {
             if (listOfUser.size() % countUsersOnePage != 0 && numberPage == countPages) {
-                minIndex = numberPage * countUsersOnePage - countUsersOnePage;
+                fromIndex = numberPage * countUsersOnePage - countUsersOnePage;
             } else {
-                minIndex = numberPage * countUsersOnePage - countUsersOnePage;
+                fromIndex = numberPage * countUsersOnePage - countUsersOnePage;
             }
         }
         try {
-            listOfUser = base.getUsers(lastName, countUsersOnePage, minIndex);
+            listOfUser = base.getUsers(lastName, countUsersOnePage, fromIndex);
         } catch (ClassNotFoundException | SQLException e) {
             req.getRequestDispatcher("jsp/errors.jsp").forward(req, resp);
             return;
@@ -53,9 +53,9 @@ public class ServletResult extends HttpServlet {
             return;
         } else {
             try {
-                linesInBase = base.checkCountPages(lastName);
+                rowsInBase = base.checkCountRows(lastName);
                 listOfUser = base.getUsers(lastName, countUsersOnePage, 0);
-                if (linesInBase == 0) {
+                if (rowsInBase == 0) {
                     resp.sendRedirect("/input?error=true");
                     return;
                 }
@@ -66,7 +66,7 @@ public class ServletResult extends HttpServlet {
                 resp.sendError(404, "File not found");
                 return;
             }
-            countPages = (int) Math.ceil((double) linesInBase / countUsersOnePage);
+            countPages = (int) Math.ceil((double) rowsInBase / countUsersOnePage);
             req.setAttribute("listOfUser", listOfUser); ////
             req.setAttribute("countPages", countPages);
             req.getRequestDispatcher("jsp/result.jsp").forward(req, resp);
