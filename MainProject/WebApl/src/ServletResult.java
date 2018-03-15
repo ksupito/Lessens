@@ -16,8 +16,8 @@ public class ServletResult extends HttpServlet {
     private List<User> listOfUser;
     private int countPages;
     private int linesInBase;
-    String lastName;
-    DataBaseHelper base;
+    private String lastName;
+    private DataBaseHelper base;
     private static final int countUsersOnePage = 3;
 
     @Override
