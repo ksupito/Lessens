@@ -44,8 +44,7 @@ public class ServletResult extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-         base = new DataBaseHelper();
+        base = new DataBaseHelper();
         lastName = validate(req, resp);
         if (lastName == null) {
             return;
