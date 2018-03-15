@@ -36,7 +36,10 @@ public class ServletResult extends HttpServlet {
         }
         try {
             listOfUser = base.getUsers(lastName, countUsersOnePage, minIndex);
-        } catch (ClassNotFoundException | SQLException e) {}
+        } catch (ClassNotFoundException | SQLException e) {
+            req.getRequestDispatcher("jsp/errors.jsp").forward(req, resp);
+            return;
+        }
         req.setAttribute("listOfUser", listOfUser);
         req.setAttribute("countPages", countPages);
         req.getRequestDispatcher("jsp/result.jsp").forward(req, resp);
