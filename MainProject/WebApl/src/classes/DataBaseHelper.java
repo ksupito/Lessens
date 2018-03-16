@@ -9,13 +9,13 @@ public class DataBaseHelper {
 
     public int checkCountRows(String lastNameWasEntered) throws ClassNotFoundException, SQLException, IOException {
         int rowCount = 0;
-        String sqlRequest = "SELECT * FROM employee where last_name LIKE ?";
+        String sqlRequest = "SELECT COUNT(*) FROM employee where last_name LIKE ?";
         Connection connection = DbConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sqlRequest)) {
             statement.setString(1, "%" + lastNameWasEntered + "%");
             ResultSet resultSet = statement.executeQuery();
-            resultSet.last();
-             rowCount=resultSet.getRow();
+            while(resultSet.next()){
+            rowCount = resultSet.getInt(1);}
         }
         return rowCount;
     }
