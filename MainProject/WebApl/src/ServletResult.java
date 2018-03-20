@@ -1,5 +1,6 @@
 import classes.DataBaseHelper;
 import classes.User;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,7 @@ public class ServletResult extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int fromIndex;
         base = new DataBaseHelper();
+        resp.setContentType("text/plain");
         int numberPage = Integer.parseInt(req.getParameter("page"));
         if (numberPage == 1) {
             fromIndex = numberPage - 1;
@@ -40,9 +43,9 @@ public class ServletResult extends HttpServlet {
             req.getRequestDispatcher("jsp/errors.jsp").forward(req, resp);
             return;
         }
-        req.setAttribute("listOfUser", listOfUser);
-        req.setAttribute("countPages", countPages);
-        req.getRequestDispatcher("jsp/result.jsp").forward(req, resp);
+        PrintWriter printWriter = resp.getWriter();
+        Gson gson = new Gson();
+        printWriter.print(gson.toJson(listOfUser));
     }
 
     @Override
