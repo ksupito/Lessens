@@ -14,8 +14,9 @@ public class DataBaseHelper {
         try (PreparedStatement statement = connection.prepareStatement(sqlRequest)) {
             statement.setString(1, "%" + lastNameWasEntered + "%");
             ResultSet resultSet = statement.executeQuery();
-            while(resultSet.next()){
-            rowCount = resultSet.getInt(1);}
+            while (resultSet.next()) {
+                rowCount = resultSet.getInt(1);
+            }
         }
         return rowCount;
     }
@@ -52,5 +53,23 @@ public class DataBaseHelper {
             }
         }
         return true;
+    }
+
+    public InformationUser getInformation(int idUser) throws ClassNotFoundException, SQLException, IOException {
+        InformationUser informationUser = null;
+        String sqlRequest = "SELECT * FROM information where employee_id LIKE ? ";
+        Connection connection = DbConnection.getConnection();
+        try (PreparedStatement statement = connection.prepareStatement(sqlRequest)) {
+            statement.setInt(1, idUser);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int age = resultSet.getInt("age");
+                String gender = resultSet.getString("gender");
+                String department = resultSet.getString("department");
+                String position = resultSet.getString("position");
+                informationUser = new InformationUser(gender, age, department, position);
+            }
+        }
+        return informationUser;
     }
 }

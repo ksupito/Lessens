@@ -1,4 +1,5 @@
 import classes.DataBaseHelper;
+import classes.InformationUser;
 import classes.User;
 import com.google.gson.Gson;
 
@@ -21,31 +22,55 @@ public class ServletResult extends HttpServlet {
     private String lastName;
     private DataBaseHelper base;
     private static final int countUsersOnePage = 3;
+    private PrintWriter printWriter;
+    private Gson gson = new Gson();
+    private InformationUser informationUser = null;
+    private int fromIndex = 0;
+    private int idUser;
+    private int numberPage = 0;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int fromIndex;
+        String id;
         base = new DataBaseHelper();
+        printWriter = resp.getWriter();
         resp.setContentType("text/plain");
-        int numberPage = Integer.parseInt(req.getParameter("page"));
+        String page = req.getParameter("page");
+        if (page != null) {
+            numberPage = Integer.parseInt(page);
+        } else {
+            try {
+                id = req.getParameter("id");
+                if (id != null) {
+                    idUser = Integer.parseInt(id);
+                    informationUser = base.getInformation(idUser);
+                }
+            } catch (ClassNotFoundException | SQLException e) {
+                req.getRequestDispatcher("jsp/errors.jsp").forward(req, resp);
+                return;
+            }
+            if(informationUser !=null){
+            printWriter.print(gson.toJson(informationUser));} //доделать
+        }
+
         if (numberPage == 1) {
             fromIndex = numberPage - 1;
-        } else {
+        } else if (numberPage != 0) {
             if (listOfUser.size() % countUsersOnePage != 0 && numberPage == countPages) {
                 fromIndex = numberPage * countUsersOnePage - countUsersOnePage;
             } else {
                 fromIndex = numberPage * countUsersOnePage - countUsersOnePage;
             }
         }
-        try {
-            listOfUser = base.getUsers(lastName, countUsersOnePage, fromIndex);
-        } catch (ClassNotFoundException | SQLException e) {
-            req.getRequestDispatcher("jsp/errors.jsp").forward(req, resp);
-            return;
+        if (numberPage != 0) {
+            try {
+                listOfUser = base.getUsers(lastName, countUsersOnePage, fromIndex);    /////что то ек так
+            } catch (ClassNotFoundException | SQLException e) {
+                req.getRequestDispatcher("jsp/errors.jsp").forward(req, resp);
+                return;
+            }
+            printWriter.print(gson.toJson(listOfUser));
         }
-        PrintWriter printWriter = resp.getWriter();
-        Gson gson = new Gson();
-        printWriter.print(gson.toJson(listOfUser));
     }
 
     @Override
@@ -70,7 +95,7 @@ public class ServletResult extends HttpServlet {
                 return;
             }
             countPages = (int) Math.ceil((double) rowsInBase / countUsersOnePage);
-            req.setAttribute("listOfUser", listOfUser); ////
+            req.setAttribute("listOfUser", listOfUser);
             req.setAttribute("countPages", countPages);
             req.getRequestDispatcher("jsp/result.jsp").forward(req, resp);
         }
