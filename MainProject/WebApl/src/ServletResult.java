@@ -32,10 +32,11 @@ public class ServletResult extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id;
+        String page;
         base = new DataBaseHelper();
         printWriter = resp.getWriter();
         resp.setContentType("text/plain");
-        String page = req.getParameter("page");
+        page = req.getParameter("page");
         if (page != null) {
             numberPage = Integer.parseInt(page);
         } else {
@@ -44,15 +45,14 @@ public class ServletResult extends HttpServlet {
                 if (id != null) {
                     idUser = Integer.parseInt(id);
                     informationUser = base.getInformation(idUser);
+                    if(informationUser !=null){
+                        printWriter.print(gson.toJson(informationUser));}
                 }
             } catch (ClassNotFoundException | SQLException e) {
                 req.getRequestDispatcher("jsp/errors.jsp").forward(req, resp);
                 return;
             }
-            if(informationUser !=null){
-            printWriter.print(gson.toJson(informationUser));} //доделать
         }
-
         if (numberPage == 1) {
             fromIndex = numberPage - 1;
         } else if (numberPage != 0) {
@@ -61,14 +61,16 @@ public class ServletResult extends HttpServlet {
             } else {
                 fromIndex = numberPage * countUsersOnePage - countUsersOnePage;
             }
+
         }
         if (numberPage != 0) {
             try {
-                listOfUser = base.getUsers(lastName, countUsersOnePage, fromIndex);    /////что то ек так
+                listOfUser = base.getUsers(lastName, countUsersOnePage, fromIndex);
             } catch (ClassNotFoundException | SQLException e) {
                 req.getRequestDispatcher("jsp/errors.jsp").forward(req, resp);
                 return;
             }
+            numberPage=0;
             printWriter.print(gson.toJson(listOfUser));
         }
     }

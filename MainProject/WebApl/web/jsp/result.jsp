@@ -42,6 +42,7 @@
     <div id="popup-wraper">
         <div id="popup-container">
             <span id="showResult"></span><br>
+            <p id="po"></p>
             <button id="closePopup" onclick="toggle_visibility('form')">Close</button>
         </div>
     </div>

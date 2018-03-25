@@ -5,7 +5,6 @@ function changePageNumber(nameButton) {
             data: {page: name},
             url: 'result',
             cache: false,
-            "timeout": 5000,
             success: function (result) {
                 $("#table").empty();
                 var list = JSON.parse(result);
@@ -14,9 +13,6 @@ function changePageNumber(nameButton) {
                             '</td><td>' + this['firstName'] + '</td><td>' + '<button id="buttonShowMore" onclick="showMore(this)">Show More</button>' + '</td><tr>');
                     }
                 )
-            },
-            error: function () {
-                $('#error').text('An error occurred!');
             }
         }
     )
@@ -30,16 +26,16 @@ function showMore(ths) {
             data: {id: code},
             url: 'result',
             cache: false,
-            "timeout": 5000,
             success: function (result) {
                 $('#showResult').empty();
                 var inf = JSON.parse(result);
                 toggle_visibility("form");
-                $('#showResult').append("Age : " + inf.age + '<br>' + "gender : " + inf.gender + '<br>' + "department : " + inf.department + '<br>' + "position : " + inf.position);
-            },
-            error: function () {
-                $('#error').text('An error occurred!');
+                var img = new Image();
+                img.src = "data:image/jpeg;base64,"+hexToBase64(inf.image);
+                var width = "150";
+                $('#showResult').append("Age : " + inf.age + '<br>' + "Gender : " + inf.gender + '<br>' + "Department : " + inf.department + '<br>' + "Position : " + inf.position +'<br>'+ '<img src='+img.src + ' width='+ width +'>');
             }
+
         }
     )
 }
@@ -64,3 +60,8 @@ $(document).ajaxComplete(function () {
 $(document).ajaxError(function () {
     alert("An error occurred!");
 });
+
+function hexToBase64(str) {
+    return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
+}
+
