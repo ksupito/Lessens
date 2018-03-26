@@ -1,13 +1,11 @@
 package classes;
 
-
-import java.io.IOException;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+        import java.io.IOException;
+        import java.sql.*;
+        import java.util.ArrayList;
+        import java.util.List;
 
 public class DataBaseHelper {
-
     public int checkCountRows(String lastNameWasEntered) throws ClassNotFoundException, SQLException, IOException {
         int rowCount = 0;
         String sqlRequest = "SELECT COUNT(*) FROM employee where last_name LIKE ?";
@@ -70,32 +68,10 @@ public class DataBaseHelper {
                 String position = resultSet.getString("position");
                 Blob imageBlob = resultSet.getBlob("image");
                 byte[] imageBytes = imageBlob.getBytes(1, (int) imageBlob.length());
-                informationUser = new InformationUser(gender, age, department, position,toHexString(imageBytes));
+                informationUser = new InformationUser(gender, age, department, position, UtilClass.toHexString(imageBytes));
             }
         }
         return informationUser;
     }
-
-    public static String toHexString( byte[] bytes )
-    {
-        StringBuffer sb = new StringBuffer( bytes.length*2 );
-        for( int i = 0; i < bytes.length; i++ )
-        {
-            sb.append( toHex(bytes[i] >> 4) );
-            sb.append( toHex(bytes[i]) );
-        }
-
-        return sb.toString();
-    }
-    private static char toHex(int nibble)
-    {
-        final char[] hexDigit =
-                {
-                        '0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'
-                };
-        return hexDigit[nibble & 0xF];
-    }
-
-
 }
 

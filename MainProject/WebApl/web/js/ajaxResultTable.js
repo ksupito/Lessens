@@ -31,9 +31,9 @@ function showMore(ths) {
                 var inf = JSON.parse(result);
                 toggle_visibility("form");
                 var img = new Image();
-                img.src = "data:image/jpeg;base64,"+hexToBase64(inf.image);
+                img.src = "data:image/jpeg;base64," + hexToBase64(inf.image);
                 var width = "150";
-                $('#showResult').append("Age : " + inf.age + '<br>' + "Gender : " + inf.gender + '<br>' + "Department : " + inf.department + '<br>' + "Position : " + inf.position +'<br>'+ '<img src='+img.src + ' width='+ width +'>');
+                $('#showResult').append("Age : " + inf.age + '<br>' + "Gender : " + inf.gender + '<br>' + "Department : " + inf.department + '<br>' + "Position : " + inf.position + '<br>' + '<img src=' + img.src + ' width=' + width + '>');
             }
 
         }

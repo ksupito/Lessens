@@ -45,8 +45,9 @@ public class ServletResult extends HttpServlet {
                 if (id != null) {
                     idUser = Integer.parseInt(id);
                     informationUser = base.getInformation(idUser);
-                    if(informationUser !=null){
-                        printWriter.print(gson.toJson(informationUser));}
+                    if (informationUser != null) {
+                        printWriter.print(gson.toJson(informationUser));
+                    }
                 }
             } catch (ClassNotFoundException | SQLException e) {
                 req.getRequestDispatcher("jsp/errors.jsp").forward(req, resp);
@@ -61,7 +62,6 @@ public class ServletResult extends HttpServlet {
             } else {
                 fromIndex = numberPage * countUsersOnePage - countUsersOnePage;
             }
-
         }
         if (numberPage != 0) {
             try {
@@ -70,7 +70,7 @@ public class ServletResult extends HttpServlet {
                 req.getRequestDispatcher("jsp/errors.jsp").forward(req, resp);
                 return;
             }
-            numberPage=0;
+            numberPage = 0;
             printWriter.print(gson.toJson(listOfUser));
         }
     }
