@@ -1,6 +1,8 @@
-import classes.DataBaseHelper;
-import classes.InformationUser;
-import classes.User;
+package servlets;
+
+import repository.DataBaseHelper;
+import domain.InformationUser;
+import domain.User;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
@@ -11,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet("/result")

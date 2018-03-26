@@ -1,6 +1,6 @@
 package filters;
 
-import classes.DataBaseHelper;
+import repository.DataBaseHelper;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.*;

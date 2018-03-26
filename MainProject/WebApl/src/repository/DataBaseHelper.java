@@ -1,9 +1,13 @@
-package classes;
+package repository;
 
-        import java.io.IOException;
-        import java.sql.*;
-        import java.util.ArrayList;
-        import java.util.List;
+import domain.InformationUser;
+import domain.User;
+import utilities.ImageUtil;
+
+import java.io.IOException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataBaseHelper {
     public int checkCountRows(String lastNameWasEntered) throws ClassNotFoundException, SQLException, IOException {
@@ -68,7 +72,7 @@ public class DataBaseHelper {
                 String position = resultSet.getString("position");
                 Blob imageBlob = resultSet.getBlob("image");
                 byte[] imageBytes = imageBlob.getBytes(1, (int) imageBlob.length());
-                informationUser = new InformationUser(gender, age, department, position, UtilClass.toHexString(imageBytes));
+                informationUser = new InformationUser(gender, age, department, position, ImageUtil.toHexString(imageBytes));
             }
         }
         return informationUser;

@@ -1,6 +1,8 @@
-package classes;
+package utilities;
 
-public class UtilClass {
+public class ImageUtil {
+    private ImageUtil(){}
+
     public static String toHexString(byte[] bytes) {
         StringBuffer sb = new StringBuffer(bytes.length * 2);
         for (int i = 0; i < bytes.length; i++) {

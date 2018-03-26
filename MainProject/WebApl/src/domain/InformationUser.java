@@ -1,4 +1,4 @@
-package classes;
+package domain;
 
 public class InformationUser {
     String gender;
@@ -7,7 +7,7 @@ public class InformationUser {
     String position;
     String image;
 
-    InformationUser(String gender,int age,String department,String position,String image){
+   public InformationUser(String gender,int age,String department,String position,String image){
         this.gender = gender;
         this.age = age;
         this.department= department;
