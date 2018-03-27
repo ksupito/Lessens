@@ -10,7 +10,11 @@ function changePageNumber(nameButton) {
                 var list = JSON.parse(result);
                 $.each(list, function () {
                         $('#table').append('<tr><td>' + this['id'] + '</td><td>' + this['lastName'] +
-                            '</td><td>' + this['firstName'] + '</td><td>' + '<button id="buttonShowMore" onclick="showMore(this)">Show More</button>' + '</td><tr>');
+                            '</td><td>' + this['firstName'] + '</td><td>' + '<button class="btn btn-default" data-toggle="modal" data-target="#myModal" id="buttonShowMore"\n' +
+                            '                            onclick="showMore(this)">\n' +
+                            '                        <i class="glyphicon glyphicon-info-sign"></i>\n' +
+                            '                        Show More \n' +
+                            '                    </button>' + '</td><tr>');
                     }
                 )
             }
@@ -29,7 +33,6 @@ function showMore(ths) {
             success: function (result) {
                 $('#showResult').empty();
                 var inf = JSON.parse(result);
-                toggle_visibility("form");
                 var img = new Image();
                 img.src = "data:image/jpeg;base64," + hexToBase64(inf.image);
                 var width = "150";
@@ -38,14 +41,6 @@ function showMore(ths) {
 
         }
     )
-}
-
-function toggle_visibility(id) {
-    var e = document.getElementById(id);
-    if (e.style.display == 'block')
-        e.style.display = 'none';
-    else
-        e.style.display = 'block';
 }
 
 $(document).ajaxStart(function () {
