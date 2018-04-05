@@ -10,7 +10,7 @@ public class ConfigClass {
     HelloWorld helloWorld;
 
     @Autowired
-    public void setMyClass(HelloWorld myClass) {
+    public void setHelloWorld(HelloWorld myClass) {
         this.helloWorld = myClass;
     }
 
