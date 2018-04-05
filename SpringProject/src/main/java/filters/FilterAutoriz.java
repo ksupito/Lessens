@@ -1,5 +1,11 @@
 package filters;
 
+import config.MainConfig;
+import context.ApplicationContextProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 import repository.DataBaseHelper;
 import org.apache.commons.lang3.StringUtils;
 
@@ -13,12 +19,14 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
+@Component
 @WebFilter("/*")
 public class FilterAutoriz implements Filter {
+    @Autowired
+    DataBaseHelper base;
     private List<String> pathFilters = Arrays.asList(new String[]{"input", "input.jsp", "result", "result.jsp"});
 
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
     @Override
@@ -29,7 +37,7 @@ public class FilterAutoriz implements Filter {
         String path = StringUtils.substringAfterLast(url, "/");
         String login = request.getParameter("login");
         String password = request.getParameter("password");
-        DataBaseHelper base = new DataBaseHelper();
+        base = ApplicationContextProvider.getContext().getBean("dataBaseHelper", DataBaseHelper.class);
         HttpSession session = request.getSession(true);
         if (!pathFilters.contains(path)) {
             filterChain.doFilter(servletRequest, servletResponse);
@@ -56,7 +64,6 @@ public class FilterAutoriz implements Filter {
     }
 
     public void destroy() {
-
     }
 }
 

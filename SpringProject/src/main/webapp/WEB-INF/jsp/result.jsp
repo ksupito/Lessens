@@ -5,8 +5,8 @@
 <html>
 <head>
     <title>Title</title>
-    <spring:url value="/resources/css/styleResult.css" var="stylecss"/>
-    <link href="${stylecss}" rel="stylesheet"/>
+
+    <link href="/resources/css/styleResult.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link type="text/css" href="/resources/css/bootstrap.css" rel="stylesheet"/>
     <link type="text/css" href="/resources/css/bootstrap.min.css" rel="stylesheet"/>

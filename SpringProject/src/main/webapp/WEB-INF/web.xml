@@ -20,15 +20,14 @@
     <mime-type>application/vnd.ms-fontobject</mime-type>
   </mime-mapping>
 
-
   <servlet>
-    <servlet-name>dispatcher</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
+    <servlet-name>ServletResult</servlet-name>
+    <servlet-class>controller.ServletResult</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>dispatcher</servlet-name>
-    <url-pattern>/</url-pattern>
+    <servlet-name>ServletResult</servlet-name>
+    <url-pattern>/result</url-pattern>
   </servlet-mapping>
+
 
 </web-app>

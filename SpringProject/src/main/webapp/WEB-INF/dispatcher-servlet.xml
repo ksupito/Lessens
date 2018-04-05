@@ -12,6 +12,8 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <context:annotation-config/>
+<bean class="config.MyConfig"/>
     <mvc:resources mapping="/resources/**" location="/resources/"/>
     <mvc:default-servlet-handler/>
     <mvc:annotation-driven/>

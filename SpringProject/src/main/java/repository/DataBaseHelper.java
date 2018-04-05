@@ -2,6 +2,7 @@ package repository;
 
 import model.domain.InformationUser;
 import model.domain.User;
+import org.springframework.stereotype.Repository;
 import utilities.ImageUtil;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class DataBaseHelper {
     public int checkCountRows(String lastNameWasEntered) throws ClassNotFoundException, SQLException, IOException {
         int rowCount = 0;

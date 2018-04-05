@@ -5,8 +5,8 @@
 <html>
 <head>
     <title>Autorization</title>
-    <spring:url value="/resources/css/bootstrap.css" var="stylecss"/>
-    <link href="${stylecss}" rel="stylesheet"/>
+    <link href="/resources/css/bootstrap.css" rel="stylesheet">
+
 </head>
 <body class="bg-dark text-white">
 <div class="container">
