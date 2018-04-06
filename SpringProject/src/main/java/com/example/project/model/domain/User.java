@@ -1,4 +1,4 @@
-package model.domain;
+package com.example.project.model.domain;
 
 public class User {
     private final int id;

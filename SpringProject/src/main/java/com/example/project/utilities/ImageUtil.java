@@ -1,4 +1,4 @@
-package utilities;
+package com.example.project.utilities;
 
 public class ImageUtil {
     private ImageUtil(){}

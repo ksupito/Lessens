@@ -1,9 +1,9 @@
-package repository;
+package com.example.project.repository;
 
-import model.domain.InformationUser;
-import model.domain.User;
+import com.example.project.model.domain.InformationUser;
+import com.example.project.model.domain.User;
 import org.springframework.stereotype.Repository;
-import utilities.ImageUtil;
+import com.example.project.utilities.ImageUtil;
 
 import java.io.IOException;
 import java.sql.*;
