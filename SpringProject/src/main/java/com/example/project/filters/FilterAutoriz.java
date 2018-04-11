@@ -1,12 +1,8 @@
 package com.example.project.filters;
 
-
-//import context.ApplicationContextProvider;
+import com.example.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.context.ApplicationContext;
-//import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
-import com.example.project.repository.DataBaseHelper;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.*;
@@ -23,7 +19,7 @@ import java.util.List;
 @WebFilter("/*")
 public class FilterAutoriz implements Filter {
     @Autowired
-    DataBaseHelper base;
+    private UserService userService;
     private List<String> pathFilters = Arrays.asList(new String[]{"input", "input.jsp", "result", "result.jsp"});
 
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -43,12 +39,12 @@ public class FilterAutoriz implements Filter {
             return;
         }
         try {
-            if (base.checkUser(login, password) && session.getAttribute("authorized") == null) {
+            if (userService.checkUser(login, password) && session.getAttribute("authorized") == null) {
                 session.setAttribute("authorized", true);
                 filterChain.doFilter(servletRequest, servletResponse);
                 return;
             }
-            if (!base.checkUser(login, password) && (login != null || password != null)) {
+            if (!userService.checkUser(login, password) && (login != null || password != null)) {
                 response.sendRedirect("/login?error=true");
                 return;
             }

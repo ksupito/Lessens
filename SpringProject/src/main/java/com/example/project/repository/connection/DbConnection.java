@@ -1,4 +1,4 @@
-package com.example.project.repository;
+package com.example.project.repository.connection;
 
 import java.io.IOException;
 import java.io.InputStream;

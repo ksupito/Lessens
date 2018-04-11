@@ -6,7 +6,8 @@ function changePageNumber(nameButton) {
             cache: false,
             success: function (result) {
                 $("#table").empty();
-                var list = jQuery.parseJSON(JSON.stringify(result));
+            var list = jQuery.parseJSON(JSON.stringify(result));
+               // var list = JSON.parse(result);
                 $.each(list, function () {
                         $('#table').append('<tr><td>' + this['id'] + '</td><td>' + this['lastName'] +
                             '</td><td>' + this['firstName'] + '</td><td>' + '<button class="btn btn-default" data-toggle="modal" data-target="#myModal" id="buttonShowMore"\n' +
@@ -32,6 +33,7 @@ function showMore(ths) {
             success: function (result) {
                 $('#showResult').empty();
                 var inf = jQuery.parseJSON(JSON.stringify(result));
+               // var inf = JSON.parse(result);
                 var img = new Image();
                 img.src = "data:image/jpeg;base64," + hexToBase64(inf.image);
                 var width = "250";

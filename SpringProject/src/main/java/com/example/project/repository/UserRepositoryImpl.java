@@ -1,9 +1,8 @@
 package com.example.project.repository;
 
-import com.example.project.model.domain.InformationUser;
-import com.example.project.model.domain.User;
+import com.example.project.model.User;
+import com.example.project.repository.connection.DbConnection;
 import org.springframework.stereotype.Repository;
-import com.example.project.utilities.ImageUtil;
 
 import java.io.IOException;
 import java.sql.*;
@@ -11,14 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class DataBaseHelper {
+public class UserRepositoryImpl implements UserRepository {
     public int checkCountRows(String lastNameWasEntered) throws ClassNotFoundException, SQLException, IOException {
         int rowCount = 0;
         String sqlRequest = "SELECT COUNT(*) FROM employee where last_name LIKE ?";
         Connection connection = DbConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sqlRequest)) {
             statement.setString(1, "%" + lastNameWasEntered + "%");
-            ResultSet resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();             //Должен закрываться resultSet.close????
             while (resultSet.next()) {
                 rowCount = resultSet.getInt(1);
             }
@@ -58,26 +57,6 @@ public class DataBaseHelper {
             }
         }
         return true;
-    }
-
-    public InformationUser getInformation(int idUser) throws ClassNotFoundException, SQLException, IOException {
-        InformationUser informationUser = null;
-        String sqlRequest = "SELECT * FROM information where employee_id = ? ";
-        Connection connection = DbConnection.getConnection();
-        try (PreparedStatement statement = connection.prepareStatement(sqlRequest)) {
-            statement.setInt(1, idUser);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                int age = resultSet.getInt("age");
-                String gender = resultSet.getString("gender");
-                String department = resultSet.getString("department");
-                String position = resultSet.getString("position");
-                Blob imageBlob = resultSet.getBlob("image");
-                byte[] imageBytes = imageBlob.getBytes(1, (int) imageBlob.length());
-                informationUser = new InformationUser(gender, age, department, position, ImageUtil.toHexString(imageBytes));
-            }
-        }
-        return informationUser;
     }
 }
 
