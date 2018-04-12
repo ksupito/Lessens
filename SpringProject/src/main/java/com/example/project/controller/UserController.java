@@ -1,16 +1,19 @@
 package com.example.project.controller;
 
+import com.example.project.dto.InputForm;
 import com.example.project.service.UserInfoService;
 import com.example.project.service.UserService;
-import com.example.project.utilities.ValidateUtil;
 import com.example.project.model.UserInfo;
 import com.example.project.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -32,41 +35,32 @@ public class UserController {
     private int numberPage = 0;
 
     @RequestMapping(value = "/input")
-    public String viewInput(@RequestParam(value = "error", required = false) String error, Model model) {
-        if (error != null) {
-            model.addAttribute("errorMessage", "Enter valid last name!");
-            return "input";
-        }
-        return "input";
+    public ModelAndView viewInput(@RequestParam(value = "error", required = false) String error, Model model) {
+        return new ModelAndView("input", "lastName", new InputForm());
     }
 
     @RequestMapping(value = "/result", method = RequestMethod.POST)
-    public String viewResult(@ModelAttribute("lastName") String name, Model model) throws IOException {
-        lastName = ValidateUtil.validate(name);
-        if (lastName != null) {
-            try {
-                rowsInBase = userService.checkCountRows(lastName);
-                listOfUser = userService.getUsers(lastName, countUsersOnePage, 0);
-                if (rowsInBase == 0) {
-                    model.addAttribute("errorMessage", "There are no coincidences!");
-                    return "input";
-                }
-            } catch (ClassNotFoundException | SQLException e) {
-                return "errors";
-            } catch (IOException e) {
-                //return "meters/notfound";
-                //resp.sendError(404, "File not found");
-                //return ;
-                //return (HttpStatus.NOT_FOUND);
-                //ErrorPage error404Page = new ErrorPage(HttpStatus.NOT_FOUND, "/404.html");
-            }
-            countPages = (int) Math.ceil((double) rowsInBase / countUsersOnePage);
-            model.addAttribute("listOfUser", listOfUser);
-            model.addAttribute("countPages", countPages);
-            return "result";
-        } else {
+    public String viewResult(@Valid @ModelAttribute("lastName") InputForm inputForm, BindingResult bindingResult, Model model) throws IOException {
+        lastName = new String(inputForm.getLastName().getBytes("ISO-8859-1"), "UTF-8");
+        if (bindingResult.hasErrors()) {
             return "input";
         }
+        try {
+            rowsInBase = userService.checkCountRows(lastName);
+            listOfUser = userService.getUsers(lastName, countUsersOnePage, 0);
+            if (rowsInBase == 0) {
+                model.addAttribute("errorMessage", "There are no coincidences!");
+                return "input";
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            return "errors";
+        } catch (IOException e) {
+            return "errors";
+        }
+        countPages = (int) Math.ceil((double) rowsInBase / countUsersOnePage);
+        model.addAttribute("listOfUser", listOfUser);
+        model.addAttribute("countPages", countPages);
+        return "result";
     }
 
     @RequestMapping(value = "/result", method = RequestMethod.GET, produces = "application/json")
