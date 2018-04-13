@@ -64,8 +64,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/result", method = RequestMethod.GET, produces = "application/json")
-    public @ResponseBody
-    Object viewResultGet(@ModelAttribute("page") String page, @ModelAttribute("id") String id, Model model, HttpServletResponse resp) {
+    @ResponseBody
+    public Object viewResultGet(@ModelAttribute("page") String page, @ModelAttribute("id") String id, Model model, HttpServletResponse resp) {
         if (page != null && !page.isEmpty()) {
             numberPage = Integer.parseInt(page);
         } else {
