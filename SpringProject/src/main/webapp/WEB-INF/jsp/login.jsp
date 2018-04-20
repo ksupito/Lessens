@@ -16,19 +16,19 @@
     </c:if>
     <form method="post" action="/input">
         <div class="form-group row justify-content-center my-sm-3">
-            <label class="control-label col-sm-1"><spring:message code="login.login"/></label>
+            <label class="control-label col-sm-1"><spring:message code="login.login.form"/></label>
             <div class="col-md-5">
                 <input type="text" class="form-control" placeholder='<spring:message code="login.placeholder.login"/>'
                        name="login" id="login">
             </div>
         </div>
         <div class="form-group row justify-content-center">
-            <label class="control-label col-sm-1"><spring:message code="login.password"/></label>
+            <label class="control-label col-sm-1"><spring:message code="login.password.form"/></label>
             <div class="col-md-5">
                 <input type="text" class="form-control"
                        placeholder='<spring:message code="login.placeholder.password"/>' name="password" id="password">
                 <br>
-                <spring:message code="login.button" var="logIn"></spring:message>
+                <spring:message code="login.button.logIn" var="logIn"></spring:message>
                 <input type="submit" class="btn btn-success" value="${logIn}">
             </div>
         </div>
