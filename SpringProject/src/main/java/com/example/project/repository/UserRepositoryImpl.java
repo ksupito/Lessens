@@ -17,7 +17,7 @@ public class UserRepositoryImpl implements UserRepository {
         Connection connection = DbConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sqlRequest)) {
             statement.setString(1, "%" + lastNameWasEntered + "%");
-            ResultSet resultSet = statement.executeQuery();             //Должен закрываться resultSet.close????
+            ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 rowCount = resultSet.getInt(1);
             }

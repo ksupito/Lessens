@@ -1,7 +1,8 @@
 package com.example.project.utilities;
 
 public class ImageUtil {
-    private ImageUtil(){}
+    private ImageUtil() {
+    }
 
     public static String toHexString(byte[] bytes) {
         StringBuffer sb = new StringBuffer(bytes.length * 2);

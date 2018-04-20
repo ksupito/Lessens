@@ -1,6 +1,7 @@
 package com.example.project.controller;
 
 import com.example.project.dto.InputForm;
+import com.example.project.dto.ObjectGenerator;
 import com.example.project.service.UserInfoService;
 import com.example.project.service.UserService;
 import com.example.project.model.UserInfo;
@@ -12,27 +13,19 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 @Controller
+@SessionAttributes({"lastName", "countPages", "listOfUser"})
 public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
     private UserInfoService userInfoService;
-    private List<User> listOfUser;
-    private int countPages;
-    private int rowsInBase;
-    private String lastName;
     private static final int countUsersOnePage = 3;
-    private UserInfo userInfo = null;
-    private int fromIndex = 0;
-    private int idUser;
-    private int numberPage = 0;
 
     @RequestMapping(value = "/input")
     public ModelAndView viewInput(@RequestParam(value = "error", required = false) String error, Model model) {
@@ -40,8 +33,10 @@ public class UserController {
     }
 
     @RequestMapping(value = "/result", method = RequestMethod.POST)
-    public String viewResult(@Valid @ModelAttribute("lastName") InputForm inputForm, BindingResult bindingResult, Model model) throws IOException {
-        lastName = new String(inputForm.getLastName().getBytes("ISO-8859-1"), "UTF-8");
+    public String viewResultPostRequest(@Valid @ModelAttribute("lastName") InputForm inputForm, BindingResult bindingResult, Model model) {
+        int rowsInBase;
+        List<User> listOfUser;
+        String lastName = inputForm.getLastName();
         if (bindingResult.hasErrors()) {
             return "input";
         }
@@ -49,15 +44,13 @@ public class UserController {
             rowsInBase = userService.checkCountRows(lastName);
             listOfUser = userService.getUsers(lastName, countUsersOnePage, 0);
             if (rowsInBase == 0) {
-                model.addAttribute("errorMessage", "There are no coincidences!");
+                model.addAttribute("errorMessage", "noCoincidencesError");
                 return "input";
             }
-        } catch (ClassNotFoundException | SQLException e) {
-            return "errors";
-        } catch (IOException e) {
+        } catch (ClassNotFoundException | SQLException | IOException e) {
             return "errors";
         }
-        countPages = (int) Math.ceil((double) rowsInBase / countUsersOnePage);
+        int countPages = (int) Math.ceil((double) rowsInBase / countUsersOnePage);
         model.addAttribute("listOfUser", listOfUser);
         model.addAttribute("countPages", countPages);
         return "result";
@@ -65,20 +58,29 @@ public class UserController {
 
     @RequestMapping(value = "/result", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Object viewResultGet(@ModelAttribute("page") String page, @ModelAttribute("id") String id, Model model, HttpServletResponse resp) {
+    public ObjectGenerator viewResultGetRequest(@ModelAttribute("lastName") InputForm inputForm,
+                                                @ModelAttribute("countPages") int countPages,
+                                                @ModelAttribute("page") String page,
+                                                @ModelAttribute("id") String id,
+                                                @ModelAttribute("listOfUser") List<User> listOfUser) {
+        String lastName = inputForm.getLastName();
+        int numberPage = 0;
+        int idUser;
+        int fromIndex = 0;
         if (page != null && !page.isEmpty()) {
             numberPage = Integer.parseInt(page);
         } else {
             try {
                 if (id != null) {
                     idUser = Integer.parseInt(id);
-                    userInfo = userInfoService.getInformation(idUser);
+                    UserInfo userInfo = userInfoService.getInformation(idUser);
                     if (userInfo != null) {
-                        return userInfo;
+                        return new ObjectGenerator(userInfo);
                     }
                 }
             } catch (IOException | ClassNotFoundException | SQLException e) {
-                return "errors";
+                //return "errors";
+                return new ObjectGenerator("errors"); //
             }
         }
         if (numberPage == 1) {
@@ -93,12 +95,13 @@ public class UserController {
         if (numberPage != 0) {
             try {
                 listOfUser = userService.getUsers(lastName, countUsersOnePage, fromIndex);
+                numberPage = 0;
             } catch (IOException | ClassNotFoundException | SQLException e) {
-                return "errors";
+                //return "errors";
+                return new ObjectGenerator("errors"); //
             }
-            numberPage = 0;
         }
-        return listOfUser;
+        return new ObjectGenerator(listOfUser);
     }
 }
 

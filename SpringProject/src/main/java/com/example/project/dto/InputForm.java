@@ -3,7 +3,7 @@ package com.example.project.dto;
 import javax.validation.constraints.NotBlank;
 
 public class InputForm {
-    @NotBlank(message = "Enter last name!")
+    @NotBlank(message = "{input.form.empty.lastName.error}")
     private String lastName;
 
     public String getLastName() {

@@ -10,7 +10,6 @@ import java.sql.*;
 
 @Repository
 public class UserInfoRepositoryImpl implements UserInfoRepository {
-
     public UserInfo getInformation(int idUser) throws ClassNotFoundException, SQLException, IOException {
         UserInfo userInfo = null;
         String sqlRequest = "SELECT * FROM information where employee_id = ? ";

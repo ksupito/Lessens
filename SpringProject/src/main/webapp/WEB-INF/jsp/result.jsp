@@ -5,7 +5,6 @@
 <html>
 <head>
     <title>Title</title>
-
     <link href="/resources/css/styleResult.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link type="text/css" href="/resources/css/bootstrap.css" rel="stylesheet"/>
@@ -14,9 +13,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
-
     <script type="text/javascript" src="/resources/js/ajaxResultTable.js"></script>
-
 </head>
 <body class="bg-dark text-white">
 
@@ -24,13 +21,22 @@
     JavaScript is off in your browser
 </noscript>
 
+<script type="text/javascript">
+    var strings = new Array();
+    strings['popup.age.js'] = "<spring:message code='popup.age' javaScriptEscape='true' />";
+    strings['popup.gender.js'] = "<spring:message code='popup.gender' javaScriptEscape='true' />";
+    strings['popup.department.js'] = "<spring:message code='popup.department' javaScriptEscape='true' />";
+    strings['popup.position.js'] = "<spring:message code='popup.position' javaScriptEscape='true' />";
+    strings['result.showMore.button.js'] = "<spring:message code='result.showMore.button' javaScriptEscape='true' />";
+</script>
+
 <div class="container">
     <table class="table text-center">
         <thead class="table-active">
         <tr class="table-dark">
-            <th class="text-center">Id</th>
-            <th class="text-center">Last name</th>
-            <th class="text-center">First name</th>
+            <th class="text-center"><spring:message code="result.table.id"/></th>
+            <th class="text-center"><spring:message code="result.table.lastName"/></th>
+            <th class="text-center"><spring:message code="result.table.firstName"/></th>
             <th></th>
         </tr>
         </thead>
@@ -44,7 +50,7 @@
                     <button class="btn btn-default" data-toggle="modal" data-target="#myModal" id="buttonShowMore"
                             onclick="showMore(this)">
                         <span class="glyphicon glyphicon-info-sign"></span>
-                        Show More
+                        <spring:message code="result.showMore.button"/>
                     </button>
                 </td>
             </tr>
@@ -60,7 +66,7 @@
         </form>
     </c:if>
 
-    <a href="/input" class="btn btn-info">Назад</a>
+    <a href="/input" class="btn btn-info"><spring:message code="result.back.button"/></a>
     <div id="loader" class="loader">
         <p><img src="/resources/img/tenor.gif"></p>
     </div>
@@ -78,6 +84,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

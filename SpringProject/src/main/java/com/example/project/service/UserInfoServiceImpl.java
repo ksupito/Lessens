@@ -13,11 +13,10 @@ import java.sql.SQLException;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
-
     @Autowired
     private UserInfoRepository userInfo;
 
-    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS, isolation = Isolation.READ_UNCOMMITTED)
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED)
     public UserInfo getInformation(int idUser) throws ClassNotFoundException, SQLException, IOException {
         return userInfo.getInformation(idUser);
     }

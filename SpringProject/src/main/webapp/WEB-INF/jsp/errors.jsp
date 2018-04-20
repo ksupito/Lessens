@@ -8,6 +8,6 @@
     <link href="${stylecss}" rel="stylesheet"/>
 </head>
 <body>
-<h1 class="bg-danger text-center">Something was happened</h1>
+<h1 class="bg-danger text-center"><spring:message code="errors.error"/></h1>
 </body>
 </html>

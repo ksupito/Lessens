@@ -17,17 +17,17 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository base;
 
-    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS, isolation = Isolation.READ_UNCOMMITTED)
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED)
     public int checkCountRows(String lastNameWasEntered) throws ClassNotFoundException, SQLException, IOException {
         return base.checkCountRows(lastNameWasEntered);
     }
 
-    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS, isolation = Isolation.READ_UNCOMMITTED)
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED)
     public List<User> getUsers(String lastNameWasEntered, int limit, int fromIndex) throws ClassNotFoundException, SQLException, IOException {
         return base.getUsers(lastNameWasEntered, limit, fromIndex);
     }
 
-    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS, isolation = Isolation.READ_UNCOMMITTED)
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED)
     public boolean checkUser(String login, String password) throws ClassNotFoundException, SQLException, IOException {
         return base.checkUser(login, password);
     }

@@ -6,24 +6,30 @@
 <head>
     <title>Autorization</title>
     <link href="/resources/css/bootstrap.css" rel="stylesheet">
-
 </head>
+
 <body class="bg-dark text-white">
 <div class="container">
-    <p class="text-center text-danger">${errorMessage}</p>
+    <spring:message code="login.language"/> : <a href="?lang=en">English</a> | <a href="?lang=ru">Руссий</a>
+    <c:if test="${errorMessage=='loginError'}">
+        <p class="text-center text-danger"><spring:message code="login.error"/></p>
+    </c:if>
     <form method="post" action="/input">
-        <div class="form-group row justify-content-center">
-            <label class="control-label col-sm-1">Login</label>
+        <div class="form-group row justify-content-center my-sm-3">
+            <label class="control-label col-sm-1"><spring:message code="login.login"/></label>
             <div class="col-md-5">
-                <input type="text" class="form-control" placeholder="Login" name="login" id="login">
+                <input type="text" class="form-control" placeholder='<spring:message code="login.placeholder.login"/>'
+                       name="login" id="login">
             </div>
         </div>
         <div class="form-group row justify-content-center">
-            <label class="control-label col-sm-1">Password</label>
+            <label class="control-label col-sm-1"><spring:message code="login.password"/></label>
             <div class="col-md-5">
-                <input type="text" class="form-control" placeholder="Password" name="password" id="password">
+                <input type="text" class="form-control"
+                       placeholder='<spring:message code="login.placeholder.password"/>' name="password" id="password">
                 <br>
-                <input type="submit" class="btn btn-success" value="Log in">
+                <spring:message code="login.button" var="logIn"></spring:message>
+                <input type="submit" class="btn btn-success" value="${logIn}">
             </div>
         </div>
     </form>
