@@ -10,8 +10,7 @@ public class LoginController {
     @GetMapping("/login")
     public String viewLogin(@RequestParam(value = "error", required = false) String error, Model model) {
         if (error != null) {
-            model.addAttribute("errorMessage", "loginError");
-            return "login";
+            model.addAttribute("errorMessage", "loginError");           
         }
         return "login";
     }
