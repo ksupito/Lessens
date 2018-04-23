@@ -60,10 +60,10 @@ public class UserController {
     @ResponseBody
     public ObjectGenerator viewResultGetRequest(@ModelAttribute("lastName") InputForm inputForm,
                                                 @ModelAttribute("countPages") int countPages,
-                                                @ModelAttribute("page") String page) {
-        String lastName = inputForm.getLastName();
+                                                @ModelAttribute("page") String page) {       
         int fromIndex;
         List<User> listOfUser;
+        String lastName = inputForm.getLastName();
         int numberPage = Integer.parseInt(page);
         if (numberPage == 1) {
             fromIndex = numberPage - 1;
