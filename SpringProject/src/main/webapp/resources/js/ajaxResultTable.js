@@ -27,7 +27,7 @@ function showMore(ths) {
     $.ajax({
             type: 'get',
             data: {id: code},
-            url: 'result',
+            url: 'details',
             cache: false,
             success: function (result) {
                 $('#showResult').empty();
