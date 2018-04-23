@@ -19,16 +19,16 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Controller
-@SessionAttributes({"lastName", "countPages", "listOfUser"})
+@SessionAttributes({"lastName", "countPages"})
 public class UserController {
+    private static final int countUsersOnePage = 3;
     @Autowired
     private UserService userService;
     @Autowired
     private UserInfoService userInfoService;
-    private static final int countUsersOnePage = 3;
 
     @RequestMapping(value = "/input")
-    public ModelAndView viewInput(@RequestParam(value = "error", required = false) String error, Model model) {
+    public ModelAndView viewInput() {
         return new ModelAndView("input", "lastName", new InputForm());
     }
 
@@ -60,48 +60,39 @@ public class UserController {
     @ResponseBody
     public ObjectGenerator viewResultGetRequest(@ModelAttribute("lastName") InputForm inputForm,
                                                 @ModelAttribute("countPages") int countPages,
-                                                @ModelAttribute("page") String page,
-                                                @ModelAttribute("id") String id,
-                                                @ModelAttribute("listOfUser") List<User> listOfUser) {
+                                                @ModelAttribute("page") String page) {
         String lastName = inputForm.getLastName();
-        int numberPage = 0;
-        int idUser;
-        int fromIndex = 0;
-        if (page != null && !page.isEmpty()) {
-            numberPage = Integer.parseInt(page);
-        } else {
-            try {
-                if (id != null) {
-                    idUser = Integer.parseInt(id);
-                    UserInfo userInfo = userInfoService.getInformation(idUser);
-                    if (userInfo != null) {
-                        return new ObjectGenerator(userInfo);
-                    }
-                }
-            } catch (IOException | ClassNotFoundException | SQLException e) {
-                //return "errors";
-                return new ObjectGenerator("errors"); //
-            }
-        }
+        int fromIndex;
+        List<User> listOfUser;
+        int numberPage = Integer.parseInt(page);
         if (numberPage == 1) {
             fromIndex = numberPage - 1;
-        } else if (numberPage != 0) {
-            if (listOfUser.size() % countUsersOnePage != 0 && numberPage == countPages) {
+        } else {
+            if (numberPage == countPages) {
                 fromIndex = numberPage * countUsersOnePage - countUsersOnePage;
             } else {
                 fromIndex = numberPage * countUsersOnePage - countUsersOnePage;
             }
         }
-        if (numberPage != 0) {
-            try {
-                listOfUser = userService.getUsers(lastName, countUsersOnePage, fromIndex);
-                numberPage = 0;
-            } catch (IOException | ClassNotFoundException | SQLException e) {
-                //return "errors";
-                return new ObjectGenerator("errors"); //
-            }
+        try {
+            listOfUser = userService.getUsers(lastName, countUsersOnePage, fromIndex);
+        } catch (IOException | ClassNotFoundException | SQLException e) {
+            return new ObjectGenerator("errors"); //
         }
         return new ObjectGenerator(listOfUser);
+    }
+
+    @RequestMapping(value = "/details", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ObjectGenerator viewPopup(@ModelAttribute("id") String id) {
+        UserInfo userInfo;
+        int idUser = Integer.parseInt(id);
+        try {
+            userInfo = userInfoService.getInformation(idUser);
+        } catch (IOException | ClassNotFoundException | SQLException e) {
+            return new ObjectGenerator("errors");
+        }
+        return new ObjectGenerator(userInfo);
     }
 }
 
