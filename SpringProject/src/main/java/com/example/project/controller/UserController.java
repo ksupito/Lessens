@@ -49,11 +49,10 @@ public class UserController {
         } catch (ClassNotFoundException | SQLException | IOException e) {
             return "errors";
         }
-        int countPages = (int) Math.ceil((double) rowsInBase / COUNT_USERS_ONE_PAGE);
-        String lastName1 = inputForm.getLastName();
+        int countPages = (int) Math.ceil((double) rowsInBase / COUNT_USERS_ONE_PAGE);       
         model.addAttribute("listOfUser", listOfUser);
         model.addAttribute("countPages", countPages);
-        model.addAttribute("lastName", lastName1);
+        model.addAttribute("lastName", lastName);
         return "result";
     }
 
