@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/result", method = RequestMethod.GET)
-    public String viewList(@Valid @ModelAttribute("lastName") InputForm inputForm, BindingResult bindingResult, Model model) {
+    public String viewUsers(@Valid @ModelAttribute("lastName") InputForm inputForm, BindingResult bindingResult, Model model) {
         int rowsInBase;
         List<User> listOfUser;
         String lastName = inputForm.getLastName();
