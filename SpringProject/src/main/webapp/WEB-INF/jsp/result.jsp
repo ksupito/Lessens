@@ -61,13 +61,15 @@
         </c:forEach>
         </tbody>
     </table>
+
     <c:if test="${requestScope.countPages > 1}">
         <c:forEach begin="1" end="${requestScope.countPages}" varStatus="loop">
             <button class="btn btn-default" id="button${loop.count}"
-                    onclick="changePageNumber(${ loop.count })">${ loop.count }</button>
+                    onclick="changePageNumber(${ loop.count },${requestScope.countPages},'${requestScope.lastName}')">${ loop.count }</button>
         </c:forEach>
         </form>
     </c:if>
+
     <a href="/input" class="btn btn-info"><spring:message code="result.back.button"/></a>
     <div id="loader" class="loader">
         <p><img src="/resources/img/tenor.gif"></p>

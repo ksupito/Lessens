@@ -17,7 +17,7 @@
     <c:if test="${errorMessage=='noCoincidencesError'}">
         <p class="text-center text-danger"><spring:message code="input.noCoincidences.error"/></p>
     </c:if>
-    <form:form method="post" modelAttribute="lastName" action="/result">
+    <form:form method="get" modelAttribute="lastName" action="/result">
         <div class="form-group row justify-content-center my-sm-3">
             <form:label path="lastName" class="control-label col-sm-2"><spring:message code="input.form"/></form:label>
             <div class="col-md-5">

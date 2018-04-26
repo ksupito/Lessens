@@ -1,8 +1,8 @@
-function changePageNumber(nameButton) {
+function changePageNumber(nameButton, countPages, lastName) {
     $.ajax({
             type: 'get',
-            data: {page: nameButton},
-            url: 'result',
+            data: {page: nameButton, countPages: countPages, lastName: lastName},
+            url: 'moreUsers',
             cache: false,
             success: function (result) {
                 $("#table").empty();

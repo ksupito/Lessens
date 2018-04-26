@@ -19,21 +19,20 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Controller
-@SessionAttributes({"lastName", "countPages"})
 public class UserController {
-    private static final int countUsersOnePage = 3;
+    private static final int COUNT_USERS_ONE_PAGE = 3;
     @Autowired
     private UserService userService;
     @Autowired
     private UserInfoService userInfoService;
 
     @RequestMapping(value = "/input")
-    public ModelAndView viewInput() {
+    public ModelAndView viewUsers() {
         return new ModelAndView("input", "lastName", new InputForm());
     }
 
-    @RequestMapping(value = "/result", method = RequestMethod.POST)
-    public String viewResultPostRequest(@Valid @ModelAttribute("lastName") InputForm inputForm, BindingResult bindingResult, Model model) {
+    @RequestMapping(value = "/result", method = RequestMethod.GET)
+    public String viewList(@Valid @ModelAttribute("lastName") InputForm inputForm, BindingResult bindingResult, Model model) {
         int rowsInBase;
         List<User> listOfUser;
         String lastName = inputForm.getLastName();
@@ -42,7 +41,7 @@ public class UserController {
         }
         try {
             rowsInBase = userService.checkCountRows(lastName);
-            listOfUser = userService.getUsers(lastName, countUsersOnePage, 0);
+            listOfUser = userService.getUsers(lastName, COUNT_USERS_ONE_PAGE, 0);
             if (rowsInBase == 0) {
                 model.addAttribute("errorMessage", "noCoincidencesError");
                 return "input";
@@ -50,32 +49,33 @@ public class UserController {
         } catch (ClassNotFoundException | SQLException | IOException e) {
             return "errors";
         }
-        int countPages = (int) Math.ceil((double) rowsInBase / countUsersOnePage);
+        int countPages = (int) Math.ceil((double) rowsInBase / COUNT_USERS_ONE_PAGE);
+        String lastName1 = inputForm.getLastName();
         model.addAttribute("listOfUser", listOfUser);
         model.addAttribute("countPages", countPages);
+        model.addAttribute("lastName", lastName1);
         return "result";
     }
 
-    @RequestMapping(value = "/result", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/moreUsers", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public ObjectGenerator viewResultGetRequest(@ModelAttribute("lastName") InputForm inputForm,
-                                                @ModelAttribute("countPages") int countPages,
-                                                @ModelAttribute("page") String page) {
+    public ObjectGenerator viewMoreUsers(@ModelAttribute(value = "lastName") String lastName,
+                                         @ModelAttribute("countPages") int countPages,
+                                         @ModelAttribute("page") String page) {
         int fromIndex;
         List<User> listOfUser;
-        String lastName = inputForm.getLastName();  // переделать для пустого запроса
         int numberPage = Integer.parseInt(page);
         if (numberPage == 1) {
             fromIndex = numberPage - 1;
         } else {
             if (numberPage == countPages) {
-                fromIndex = numberPage * countUsersOnePage - countUsersOnePage;
+                fromIndex = numberPage * COUNT_USERS_ONE_PAGE - COUNT_USERS_ONE_PAGE;
             } else {
-                fromIndex = numberPage * countUsersOnePage - countUsersOnePage;
+                fromIndex = numberPage * COUNT_USERS_ONE_PAGE - COUNT_USERS_ONE_PAGE;
             }
         }
         try {
-            listOfUser = userService.getUsers(lastName, countUsersOnePage, fromIndex);
+            listOfUser = userService.getUsers(lastName, COUNT_USERS_ONE_PAGE, fromIndex);
         } catch (IOException | ClassNotFoundException | SQLException e) {
             return new ObjectGenerator("errors"); //
         }
