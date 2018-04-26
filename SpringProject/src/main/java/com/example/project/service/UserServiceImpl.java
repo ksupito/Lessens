@@ -26,9 +26,4 @@ public class UserServiceImpl implements UserService {
     public List<User> getUsers(String lastNameWasEntered, int limit, int fromIndex) throws ClassNotFoundException, SQLException, IOException {
         return base.getUsers(lastNameWasEntered, limit, fromIndex);
     }
-
-    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED)
-    public boolean checkUser(String login, String password) throws ClassNotFoundException, SQLException, IOException {
-        return base.checkUser(login, password);
-    }
 }

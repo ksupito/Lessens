@@ -10,6 +10,10 @@
 </head>
 <body class="bg-dark text-white">
 <div class="container">
+    <c:url value="/logout" var="logoutUrl"/>
+    <div class="text-right my-2">
+        <a href="${logoutUrl}" class="btn btn-info btn-large"><spring:message code="logout.button"/></a>
+    </div>
     <c:if test="${errorMessage=='noCoincidencesError'}">
         <p class="text-center text-danger"><spring:message code="input.noCoincidences.error"/></p>
     </c:if>

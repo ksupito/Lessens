@@ -18,7 +18,7 @@
 <body class="bg-dark text-white">
 
 <noscript>
-    JavaScript is off in your browser
+    <spring:message code="non.javaScript.in.browser"/>
 </noscript>
 
 <script type="text/javascript">
@@ -31,6 +31,10 @@
 </script>
 
 <div class="container">
+    <c:url value="/logout" var="logoutUrl"/>
+    <div class="text-right my-2">
+        <a href="${logoutUrl}" class="btn btn-info btn-large"><spring:message code="logout.button"/></a>
+    </div>
     <table class="table text-center">
         <thead class="table-active">
         <tr class="table-dark">
@@ -57,7 +61,6 @@
         </c:forEach>
         </tbody>
     </table>
-
     <c:if test="${requestScope.countPages > 1}">
         <c:forEach begin="1" end="${requestScope.countPages}" varStatus="loop">
             <button class="btn btn-default" id="button${loop.count}"
@@ -65,7 +68,6 @@
         </c:forEach>
         </form>
     </c:if>
-
     <a href="/input" class="btn btn-info"><spring:message code="result.back.button"/></a>
     <div id="loader" class="loader">
         <p><img src="/resources/img/tenor.gif"></p>

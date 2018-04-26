@@ -10,6 +10,4 @@ public interface UserService {
     int checkCountRows(String lastNameWasEntered) throws ClassNotFoundException, SQLException, IOException;
 
     List<User> getUsers(String lastNameWasEntered, int limit, int fromIndex) throws ClassNotFoundException, SQLException, IOException;
-
-    boolean checkUser(String login, String password) throws ClassNotFoundException, SQLException, IOException;
 }

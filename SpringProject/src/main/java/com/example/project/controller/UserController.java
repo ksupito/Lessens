@@ -2,10 +2,10 @@ package com.example.project.controller;
 
 import com.example.project.dto.InputForm;
 import com.example.project.dto.ObjectGenerator;
+import com.example.project.model.User;
 import com.example.project.service.UserInfoService;
 import com.example.project.service.UserService;
 import com.example.project.model.UserInfo;
-import com.example.project.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,10 +60,10 @@ public class UserController {
     @ResponseBody
     public ObjectGenerator viewResultGetRequest(@ModelAttribute("lastName") InputForm inputForm,
                                                 @ModelAttribute("countPages") int countPages,
-                                                @ModelAttribute("page") String page) {       
+                                                @ModelAttribute("page") String page) {
         int fromIndex;
         List<User> listOfUser;
-        String lastName = inputForm.getLastName();
+        String lastName = inputForm.getLastName();  // переделать для пустого запроса
         int numberPage = Integer.parseInt(page);
         if (numberPage == 1) {
             fromIndex = numberPage - 1;

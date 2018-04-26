@@ -5,16 +5,19 @@
 <html>
 <head>
     <title>Autorization</title>
-    <link href="/resources/css/bootstrap.css" rel="stylesheet">
+    <link href="/resources/css/bootstrap.css" rel="stylesheet" type="text/css">
 </head>
-
 <body class="bg-dark text-white">
 <div class="container">
     <spring:message code="login.language"/> : <a href="?lang=en">English</a> | <a href="?lang=ru">Руссий</a>
-    <c:if test="${errorMessage=='loginError'}">
-        <p class="text-center text-danger"><spring:message code="login.error"/></p>
+    <c:if test="${errorMessage}">
+        <p class="text-center text-danger"><spring:message code="login.error.message"/></p>
     </c:if>
-    <form method="post" action="/input">
+    <c:if test="${logout}">
+        <p class="text-center text-warning"><spring:message code="login.logout.message"/></p>
+    </c:if>
+    <form name='loginForm' method="post" action="${loginUrl}">
+        <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden">
         <div class="form-group row justify-content-center my-sm-3">
             <label class="control-label col-sm-1"><spring:message code="login.login.form"/></label>
             <div class="col-md-5">

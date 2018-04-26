@@ -8,10 +8,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
     @GetMapping("/login")
-    public String viewLogin(@RequestParam(value = "error", required = false) String error, Model model) {
-        if (error != null) {
-            model.addAttribute("errorMessage", "loginError");           
-        }
+    public String viewLogin(@RequestParam(value = "error", required = false) String error,
+                            @RequestParam(value = "logout", required = false) String logout,
+                            Model model) {
+        model.addAttribute("errorMessage", error != null);
+        model.addAttribute("logout", logout != null);
         return "login";
     }
 }

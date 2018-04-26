@@ -31,12 +31,16 @@ function showMore(ths) {
             cache: false,
             success: function (result) {
                 $('#showResult').empty();
-                var viewObject =jQuery.parseJSON(JSON.stringify(result));
+                var viewObject = jQuery.parseJSON(JSON.stringify(result));
                 var inf = viewObject.userInfo;
                 var img = new Image();
                 img.src = "data:image/jpeg;base64," + hexToBase64(inf.image);
                 var width = "250";
-                $('#showResult').append('<img src=' + img.src + ' width=' + width + ' class="img-responsive pull-right" ' + '>' + '<h4>' + strings['popup.age.js'] + inf.age + '</h4><h4>' + strings['popup.gender.js'] + inf.gender + '</h4><h4>' + strings['popup.department.js'] + inf.department + '</h4><h4>' + strings['popup.position.js'] + inf.position + '</h4>');
+                $('#showResult').append('<img src=' + img.src + ' width=' + width +
+                    ' class="img-responsive pull-right" ' + '>' + '<h4>' + strings['popup.age.js']
+                    + inf.age + '</h4><h4>' + strings['popup.gender.js'] + inf.gender + '</h4><h4>'
+                    + strings['popup.department.js'] + inf.department + '</h4><h4>' + strings['popup.position.js']
+                    + inf.position + '</h4>');
             }
         }
     )

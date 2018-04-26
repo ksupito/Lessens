@@ -1,13 +1,17 @@
 package com.example.project.repository;
 
 import com.example.project.model.User;
+import com.example.project.model.RegisterInfo;
 import com.example.project.repository.connection.DbConnection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -42,21 +46,6 @@ public class UserRepositoryImpl implements UserRepository {
             }
         }
         return listOfUser;
-    }
-
-    public boolean checkUser(String login, String password) throws ClassNotFoundException, SQLException, IOException {
-        Connection connection = DbConnection.getConnection();
-        try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM user WHERE login_name = ? and password = md5(?)")) {
-            statement.setString(1, login);
-            statement.setString(2, password);
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.last();
-            int rows = resultSet.getRow();
-            if (rows == 0) {
-                return false;
-            }
-        }
-        return true;
     }
 }
 
