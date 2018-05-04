@@ -37,7 +37,7 @@ public class EmployeeInfoRepositoryImpl implements EmployeeInfoRepository {
     public EmployeeInfo getInformation(int idUser) throws ClassNotFoundException, SQLException, IOException {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-        EmployeeInfo employeeInfo =(EmployeeInfo) session.get(EmployeeInfo.class, 1);   //<- вот прям тут
+        EmployeeInfo employeeInfo = (EmployeeInfo) session.get(EmployeeInfo.class, 1);   //<- вот прям тут
         return employeeInfo;
     }
 }
