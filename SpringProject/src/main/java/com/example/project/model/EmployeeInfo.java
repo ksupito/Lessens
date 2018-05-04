@@ -1,8 +1,6 @@
 package com.example.project.model;
 
-
 import javax.persistence.*;
-
 
 import java.io.Serializable;
 import java.sql.Blob;
