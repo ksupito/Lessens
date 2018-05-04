@@ -1,7 +1,7 @@
 package com.example.project.service;
 
-import com.example.project.model.UserInfo;
-import com.example.project.repository.UserInfoRepository;
+import com.example.project.model.EmployeeInfo;
+import com.example.project.repository.EmployeeInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -12,12 +12,13 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @Service
-public class UserInfoServiceImpl implements UserInfoService {
+public class EmployeeInfoServiceImpl implements EmployeeInfoService {
     @Autowired
-    private UserInfoRepository userInfo;
+    private EmployeeInfoRepository userInfo;
 
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED)
-    public UserInfo getInformation(int idUser) throws ClassNotFoundException, SQLException, IOException {
+    public EmployeeInfo getInformation(int idUser) throws ClassNotFoundException, SQLException, IOException {
         return userInfo.getInformation(idUser);
     }
+
 }

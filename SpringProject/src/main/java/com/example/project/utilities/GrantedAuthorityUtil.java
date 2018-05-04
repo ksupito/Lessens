@@ -1,6 +1,6 @@
 package com.example.project.utilities;
 
-import com.example.project.model.Role;
+import com.example.project.model.UserRole;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.HashSet;
@@ -12,7 +12,7 @@ public class GrantedAuthorityUtil {
 
     public static Set<GrantedAuthority> getSetRoles() {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        grantedAuthorities.add((Role.USER));
+        grantedAuthorities.add((UserRole.USER));
         return grantedAuthorities;
     }
 }

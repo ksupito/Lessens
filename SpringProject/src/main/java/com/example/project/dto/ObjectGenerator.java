@@ -1,29 +1,29 @@
 package com.example.project.dto;
 
-import com.example.project.model.User;
-import com.example.project.model.UserInfo;
+import com.example.project.model.Employee;
+import com.example.project.model.EmployeeInfo;
 
 import java.util.List;
 
 public class ObjectGenerator {
-    UserInfo userInfo;
+    EmployeeInfo employeeInfo;
     String page;
-    List<User> listOfUser;
+    List<Employee> listOfEmployee;
 
-    public ObjectGenerator(UserInfo userInfo) {
-        this.userInfo = userInfo;
+    public ObjectGenerator(EmployeeInfo employeeInfo) {
+        this.employeeInfo = employeeInfo;
     }
 
     public ObjectGenerator(String page) {
         this.page = page;
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
+    public EmployeeInfo getEmployeeInfo() {
+        return employeeInfo;
     }
 
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
+    public void setEmployeeInfo(EmployeeInfo employeeInfo) {
+        this.employeeInfo = employeeInfo;
     }
 
     public String getPage() {
@@ -34,15 +34,15 @@ public class ObjectGenerator {
         this.page = page;
     }
 
-    public List<User> getListOfUser() {
-        return listOfUser;
+    public List<Employee> getListOfEmployee() {
+        return listOfEmployee;
     }
 
-    public void setListOfUser(List<User> listOfUser) {
-        this.listOfUser = listOfUser;
+    public void setListOfEmployee(List<Employee> listOfEmployee) {
+        this.listOfEmployee = listOfEmployee;
     }
 
-    public ObjectGenerator(List<User> listOfUser) {
-        this.listOfUser = listOfUser;
+    public ObjectGenerator(List<Employee> listOfEmployee) {
+        this.listOfEmployee = listOfEmployee;
     }
 }

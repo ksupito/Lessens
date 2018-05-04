@@ -7,7 +7,7 @@ function changePageNumber(nameButton, countPages, lastName) {
             success: function (result) {
                 $("#table").empty();
                 var viewObject = jQuery.parseJSON(JSON.stringify(result));
-                var list = viewObject.listOfUser;
+                var list = viewObject.listOfEmployee;
                 $.each(list, function () {
                         $('#table').append('<tr><td>' + this['id'] + '</td><td>' + this['lastName'] +
                             '</td><td>' + this['firstName'] + '</td><td>' + '<button class="btn btn-default" data-toggle="modal" data-target="#myModal" id="buttonShowMore"\n' +
@@ -32,7 +32,7 @@ function showMore(ths) {
             success: function (result) {
                 $('#showResult').empty();
                 var viewObject = jQuery.parseJSON(JSON.stringify(result));
-                var inf = viewObject.userInfo;
+                var inf = viewObject.employeeInfo;
                 var img = new Image();
                 img.src = "data:image/jpeg;base64," + hexToBase64(inf.image);
                 var width = "250";

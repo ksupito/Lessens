@@ -1,13 +1,39 @@
 package com.example.project.service;
 
 import com.example.project.model.User;
+import com.example.project.repository.UserRepository;
+import com.example.project.utilities.GrantedAuthorityUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
-public interface UserService {
-    int checkCountRows(String lastNameWasEntered) throws ClassNotFoundException, SQLException, IOException;
+@Service
+public class UserService implements UserDetailsService {
+    @Autowired
+    UserRepository userRepository;
 
-    List<User> getUsers(String lastNameWasEntered, int limit, int fromIndex) throws ClassNotFoundException, SQLException, IOException;
+    @Override
+    @Transactional(readOnly = true, propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED)
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User register = null;
+        try {
+            register = userRepository.findByUsername(username);
+            if (register == null) {
+                throw new UsernameNotFoundException("user" + username + "is not found");
+            }
+        } catch (ClassNotFoundException | SQLException | IOException e) {
+            e.printStackTrace();
+        }
+        UserDetails userDetails = new org.springframework.security.core.userdetails.User(register.getUsername(),
+                register.getPassword(), GrantedAuthorityUtil.getSetRoles());
+        return userDetails;
+    }
 }

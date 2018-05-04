@@ -45,7 +45,7 @@
         </tr>
         </thead>
         <tbody id="table" class="table-light text-dark table-striped">
-        <c:forEach var="user" items="#{requestScope.listOfUser}">
+        <c:forEach var="user" items="#{requestScope.listOfEmployee}">
             <tr>
                 <td id="id"><c:out value="${user.id}"/></td>
                 <td><c:out value="${user.lastName}"/></td>

@@ -2,10 +2,10 @@ package com.example.project.controller;
 
 import com.example.project.dto.InputForm;
 import com.example.project.dto.ObjectGenerator;
-import com.example.project.model.User;
-import com.example.project.service.UserInfoService;
-import com.example.project.service.UserService;
-import com.example.project.model.UserInfo;
+import com.example.project.model.Employee;
+import com.example.project.service.EmployeeInfoService;
+import com.example.project.service.EmployeeService;
+import com.example.project.model.EmployeeInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +22,9 @@ import java.util.List;
 public class UserController {
     private static final int COUNT_USERS_ONE_PAGE = 3;
     @Autowired
-    private UserService userService;
+    private EmployeeService employeeService;
     @Autowired
-    private UserInfoService userInfoService;
+    private EmployeeInfoService employeeInfoService;
 
     @RequestMapping(value = "/input")
     public ModelAndView viewUsers() {
@@ -34,14 +34,14 @@ public class UserController {
     @RequestMapping(value = "/result", method = RequestMethod.GET)
     public String viewUsers(@Valid @ModelAttribute("lastName") InputForm inputForm, BindingResult bindingResult, Model model) {
         int rowsInBase;
-        List<User> listOfUser;
+        List<Employee> listOfEmployee;
         String lastName = inputForm.getLastName();
         if (bindingResult.hasErrors()) {
             return "input";
         }
         try {
-            rowsInBase = userService.checkCountRows(lastName);
-            listOfUser = userService.getUsers(lastName, COUNT_USERS_ONE_PAGE, 0);
+            rowsInBase = employeeService.checkCountRows(lastName);
+            listOfEmployee = employeeService.getUsers(lastName, COUNT_USERS_ONE_PAGE, 0);
             if (rowsInBase == 0) {
                 model.addAttribute("errorMessage", "noCoincidencesError");
                 return "input";
@@ -49,8 +49,8 @@ public class UserController {
         } catch (ClassNotFoundException | SQLException | IOException e) {
             return "errors";
         }
-        int countPages = (int) Math.ceil((double) rowsInBase / COUNT_USERS_ONE_PAGE);       
-        model.addAttribute("listOfUser", listOfUser);
+        int countPages = (int) Math.ceil((double) rowsInBase / COUNT_USERS_ONE_PAGE);
+        model.addAttribute("listOfEmployee", listOfEmployee);
         model.addAttribute("countPages", countPages);
         model.addAttribute("lastName", lastName);
         return "result";
@@ -62,7 +62,7 @@ public class UserController {
                                          @ModelAttribute("countPages") int countPages,
                                          @ModelAttribute("page") String page) {
         int fromIndex;
-        List<User> listOfUser;
+        List<Employee> listOfEmployee;
         int numberPage = Integer.parseInt(page);
         if (numberPage == 1) {
             fromIndex = numberPage - 1;
@@ -74,24 +74,25 @@ public class UserController {
             }
         }
         try {
-            listOfUser = userService.getUsers(lastName, COUNT_USERS_ONE_PAGE, fromIndex);
+            listOfEmployee = employeeService.getUsers(lastName, COUNT_USERS_ONE_PAGE, fromIndex);
         } catch (IOException | ClassNotFoundException | SQLException e) {
             return new ObjectGenerator("errors"); //
         }
-        return new ObjectGenerator(listOfUser);
+        return new ObjectGenerator(listOfEmployee);
     }
 
     @RequestMapping(value = "/details", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public ObjectGenerator viewPopup(@ModelAttribute("id") String id) {
-        UserInfo userInfo;
+        EmployeeInfo employeeInfo;
         int idUser = Integer.parseInt(id);
         try {
-            userInfo = userInfoService.getInformation(idUser);
+            employeeInfo =employeeInfoService.getInformation(idUser);
+
         } catch (IOException | ClassNotFoundException | SQLException e) {
             return new ObjectGenerator("errors");
         }
-        return new ObjectGenerator(userInfo);
+        return new ObjectGenerator(employeeInfo);
     }
 }
 

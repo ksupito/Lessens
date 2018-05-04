@@ -1,13 +1,37 @@
 package com.example.project.model;
 
-public class UserInfo {
-    private String gender;
-    private int age;
-    private String department;
-    private String position;
-    private String image;
 
-    public UserInfo(String gender, int age, String department, String position, String image) {
+import javax.persistence.*;
+
+
+import java.io.Serializable;
+import java.sql.Blob;
+
+@Entity
+@Table(name = "information")
+public class EmployeeInfo implements Serializable {
+    @Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(name = "employee_id")
+    private int employeeId;
+    @Column
+    private String gender;
+    @Column
+    private int age;
+    @Column
+    private String department;
+    @Column
+    private String position;
+    @Column
+    Blob image;
+    //private byte[] image;
+
+    public EmployeeInfo() {
+    }
+
+    public EmployeeInfo(String gender, int age, String department, String position, Blob image) {
         this.gender = gender;
         this.age = age;
         this.department = department;
@@ -47,11 +71,27 @@ public class UserInfo {
         this.position = position;
     }
 
-    public String getImage() {
+    public Blob getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(Blob image) {
         this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
     }
 }
