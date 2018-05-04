@@ -7,29 +7,25 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-public class HibernateUtil {
-    private static final SessionFactory sessionFactory = buildSessionFactory();
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
-    private static SessionFactory buildSessionFactory() {
+public class HibernateUtil {
+    private static final EntityManagerFactory entityManagerFactory = buildEntityManagerFactory();
+    private static final String PERSISTENCE_UNIT_NAME = "testBoot";
+    private static EntityManagerFactory buildEntityManagerFactory() {
         try {
-            Configuration configuration = new Configuration();
-            configuration.addAnnotatedClass(EmployeeInfo.class);
-            configuration.configure("hibernate.cfg.xml");
-            ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-            SessionFactory sessionFactory = configuration
-                    .buildSessionFactory(serviceRegistry);
-            return sessionFactory;
+            return Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
         } catch (Throwable ex) {
-            System.err.println("Initial SessionFactory creation failed." + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
 
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
+    public static EntityManagerFactory getEntityManagerFactory() {
+        return entityManagerFactory;
     }
 
     public static void shutdown() {
-        getSessionFactory().close();
+        getEntityManagerFactory().close();
     }
 }

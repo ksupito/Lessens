@@ -9,6 +9,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.sql.*;
 
@@ -35,9 +36,9 @@ public class EmployeeInfoRepositoryImpl implements EmployeeInfoRepository {
     }*/
 
     public EmployeeInfo getInformation(int idUser) throws ClassNotFoundException, SQLException, IOException {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Transaction tx = session.beginTransaction();
-        EmployeeInfo employeeInfo =(EmployeeInfo) session.get(EmployeeInfo.class, 1);   //<- вот прям тут
+        EntityManager entityMgr = HibernateUtil.getEntityManagerFactory().createEntityManager();
+        entityMgr.getTransaction().begin();
+        EmployeeInfo employeeInfo = entityMgr.find(EmployeeInfo.class, 1);   //<- вот прям тут
         return employeeInfo;
     }
 }
