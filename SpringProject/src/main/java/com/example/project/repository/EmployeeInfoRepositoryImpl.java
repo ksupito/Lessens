@@ -4,7 +4,6 @@ import com.example.project.model.EmployeeInfo;
 
 import org.springframework.stereotype.Repository;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
