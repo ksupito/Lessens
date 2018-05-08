@@ -6,5 +6,5 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public interface EmployeeInfoRepository {
-    EmployeeInfo getInformation(int idUser) throws ClassNotFoundException, SQLException, IOException;
+    EmployeeInfo getInformation(int idUser);
 }

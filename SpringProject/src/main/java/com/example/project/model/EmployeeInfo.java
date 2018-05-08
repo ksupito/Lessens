@@ -1,17 +1,20 @@
 package com.example.project.model;
 
+import com.example.project.utilities.ImageUtil;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
+
 
 import java.io.Serializable;
 import java.sql.Blob;
 
 @Entity
-@Table(name = "information")
+@EntityListeners(AuditingEntityListener.class)
 public class EmployeeInfo implements Serializable {
     @Id
-    //@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     @Column(name = "employee_id")
     private int employeeId;
     @Column
@@ -23,13 +26,12 @@ public class EmployeeInfo implements Serializable {
     @Column
     private String position;
     @Column
-    Blob image;
-    //private byte[] image;
+    private byte[] image;
 
     public EmployeeInfo() {
     }
 
-    public EmployeeInfo(String gender, int age, String department, String position, Blob image) {
+    public EmployeeInfo(String gender, int age, String department, String position, byte[] image) {
         this.gender = gender;
         this.age = age;
         this.department = department;
@@ -69,11 +71,11 @@ public class EmployeeInfo implements Serializable {
         this.position = position;
     }
 
-    public Blob getImage() {
-        return image;
+    public String getImage() {
+        return ImageUtil.toHexString(image);
     }
 
-    public void setImage(Blob image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
