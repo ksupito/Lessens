@@ -1,17 +1,17 @@
 package com.example.project.model;
 
 import com.example.project.utilities.ImageUtil;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
-
-import java.io.Serializable;
-import java.sql.Blob;
-
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "secondCacheEmployeeInf")
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class EmployeeInfo implements Serializable {
+public class EmployeeInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
