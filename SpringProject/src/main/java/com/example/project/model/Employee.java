@@ -3,17 +3,23 @@ package com.example.project.model;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Employee {
+public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "last_name")
+    @NotNull
     private String lastName;
     @Column(name = "first_name")
+    @NotNull
     private String firstName;
+    @Column(name = "department_id")
+    private int departmentId;
 
     public Employee() {
     }
@@ -22,6 +28,14 @@ public class Employee {
         this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
+    }
+
+    public int getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
     }
 
     public void setId(int id) {

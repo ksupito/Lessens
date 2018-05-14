@@ -1,14 +1,29 @@
 package com.example.project.dto;
 
+import com.example.project.model.Department;
 import com.example.project.model.Employee;
 import com.example.project.model.EmployeeInfo;
 
 import java.util.List;
 
 public class ObjectGenerator {
-    EmployeeInfo employeeInfo;
-    String page;
-    List<Employee> listOfEmployee;
+    private EmployeeInfo employeeInfo;
+    private String page;
+    private List<Employee> listOfEmployee;
+    private Department department;
+
+    public ObjectGenerator(Department department, EmployeeInfo employeeInfo) {
+        this.department = department;
+        this.employeeInfo = employeeInfo;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 
     public ObjectGenerator(EmployeeInfo employeeInfo) {
         this.employeeInfo = employeeInfo;

@@ -25,9 +25,12 @@
     var strings = new Array();
     strings['popup.age.js'] = "<spring:message code='popup.age' javaScriptEscape='true' />";
     strings['popup.gender.js'] = "<spring:message code='popup.gender' javaScriptEscape='true' />";
-    strings['popup.department.js'] = "<spring:message code='popup.department' javaScriptEscape='true' />";
+    strings['popup.division.js'] = "<spring:message code='popup.division' javaScriptEscape='true' />";
     strings['popup.position.js'] = "<spring:message code='popup.position' javaScriptEscape='true' />";
     strings['result.showMore.button.js'] = "<spring:message code='result.showMore.button' javaScriptEscape='true' />";
+    strings['popup.department.name.js'] = "<spring:message code='popup.department.name' javaScriptEscape='true' />";
+    strings['popup.department.number.js'] = "<spring:message code='popup.department.number' javaScriptEscape='true' />";
+    strings['popup.department.info.js'] = "<spring:message code='popup.department.info' javaScriptEscape='true' />";
 </script>
 
 <div class="container">

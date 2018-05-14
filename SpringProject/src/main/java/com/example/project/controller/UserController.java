@@ -2,7 +2,9 @@ package com.example.project.controller;
 
 import com.example.project.dto.InputForm;
 import com.example.project.dto.ObjectGenerator;
+import com.example.project.model.Department;
 import com.example.project.model.Employee;
+import com.example.project.service.DepartmentService;
 import com.example.project.service.EmployeeInfoService;
 import com.example.project.service.EmployeeService;
 import com.example.project.model.EmployeeInfo;
@@ -25,6 +27,8 @@ public class UserController {
     private EmployeeService employeeService;
     @Autowired
     private EmployeeInfoService employeeInfoService;
+    @Autowired
+    private DepartmentService departmentService;
 
     @RequestMapping(value = "/input")
     public ModelAndView viewUsers() {
@@ -85,14 +89,15 @@ public class UserController {
     @ResponseBody
     public ObjectGenerator viewPopup(@ModelAttribute("id") String id) {
         EmployeeInfo employeeInfo;
+        Department department;
         int idUser = Integer.parseInt(id);
         try {
-            employeeInfo =employeeInfoService.getInformation(idUser);
-
+            employeeInfo = employeeInfoService.getInformation(idUser);
+            department = departmentService.getDepartment(idUser);
         } catch (IOException | ClassNotFoundException | SQLException e) {
             return new ObjectGenerator("errors");
         }
-        return new ObjectGenerator(employeeInfo);
+        return new ObjectGenerator(department, employeeInfo);
     }
 }
 

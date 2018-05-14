@@ -6,35 +6,44 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "secondCacheEmployeeInf")
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class EmployeeInfo {
+public class EmployeeInfo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(name = "employee_id")
+    @NotNull
     private int employeeId;
     @Column
+    @NotNull
     private String gender;
     @Column
+    @Max(200)
     private int age;
     @Column
-    private String department;
+    @NotNull
+    private String division;
     @Column
+    @NotNull
     private String position;
     @Column
+    @NotNull
     private byte[] image;
 
     public EmployeeInfo() {
     }
 
-    public EmployeeInfo(String gender, int age, String department, String position, byte[] image) {
+    public EmployeeInfo(String gender, int age, String division, String position, byte[] image) {
         this.gender = gender;
         this.age = age;
-        this.department = department;
+        this.division = division;
         this.position = position;
         this.image = image;
     }
@@ -55,12 +64,12 @@ public class EmployeeInfo {
         this.age = age;
     }
 
-    public String getDepartment() {
-        return department;
+    public String getDivision() {
+        return division;
     }
 
-    public void setDepartment(String department) {
-        this.department = department;
+    public void setDepartment(String division) {
+        this.division = division;
     }
 
     public String getPosition() {

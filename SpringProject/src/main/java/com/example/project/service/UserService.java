@@ -24,14 +24,14 @@ public class UserService implements UserDetailsService {
     @Transactional(readOnly = true, propagation = Propagation.SUPPORTS, isolation = Isolation.READ_COMMITTED)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User register = null;
-        try {
+       // try {
             register = userRepository.findByUsername(username);
             if (register == null) {
                 throw new UsernameNotFoundException("user" + username + "is not found");
             }
-        } catch (ClassNotFoundException | SQLException | IOException e) {
-            e.printStackTrace();
-        }
+      //  } catch (ClassNotFoundException | SQLException | IOException e) {
+      //      e.printStackTrace();
+       // }
         UserDetails userDetails = new org.springframework.security.core.userdetails.User(register.getUsername(),
                 register.getPassword(), GrantedAuthorityUtil.getSetRoles());
         return userDetails;
