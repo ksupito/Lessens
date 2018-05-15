@@ -33,15 +33,26 @@ function showMore(ths) {
                 $('#showResult').empty();
                 var viewObject = jQuery.parseJSON(JSON.stringify(result));
                 var inf = viewObject.employeeInfo;
-                var dep = viewObject.department;
+                var department = viewObject.department;
                 var img = new Image();
                 img.src = "data:image/jpeg;base64," + hexToBase64(inf.image);
                 var width = "250";
-                $('#showResult').append('<img src=' + img.src + ' width=' + width +
+                var height = "250";
+                $('#showResult').append('<img src=' + img.src + ' width=' + width + 'height=' + height +
                     ' class="img-responsive pull-right" ' + '>' + '<h4>' + strings['popup.age.js']
                     + inf.age + '</h4><h4>' + strings['popup.gender.js'] + inf.gender + '</h4><h4>'
                     + strings['popup.division.js'] + inf.division + '</h4><h4>' + strings['popup.position.js']
-                    + inf.position + '</h4><hr align="center" width="400" /><h3><b>' + strings['popup.department.info.js'] + '</b></h3><h4>' + strings['popup.department.name.js'] + dep.name + '</h4>' + '<h4>' + strings['popup.department.number.js'] + dep.number + '</h4>');
+                    + inf.position + '</h4><hr align="center" width="400" />');
+                if (department != null) {
+                    var managers = department.managers;
+                    $('#showResult').append('<h3><b>' + strings['popup.department.info.js'] + '</b></h3><h4>'
+                        + strings['popup.department.name.js'] + department.name + '</h4>' +
+                        '<h4>' + strings['popup.department.number.js'] + department.number + '</h4>' + '<h4><b>' + strings['popup.department.list.managers.js'] + '</b></h4>');
+                    $.each(managers, function () {
+                        $('#showResult').append(this['lastName'] + ' ' +
+                            this['firstName'] + '; ');
+                    })
+                }
             }
         }
     )

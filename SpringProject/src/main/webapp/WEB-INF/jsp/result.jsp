@@ -31,6 +31,7 @@
     strings['popup.department.name.js'] = "<spring:message code='popup.department.name' javaScriptEscape='true' />";
     strings['popup.department.number.js'] = "<spring:message code='popup.department.number' javaScriptEscape='true' />";
     strings['popup.department.info.js'] = "<spring:message code='popup.department.info' javaScriptEscape='true' />";
+    strings['popup.department.list.managers.js'] = "<spring:message code='popup.department.list.managers' javaScriptEscape='true' />";
 </script>
 
 <div class="container">

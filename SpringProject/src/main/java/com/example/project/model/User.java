@@ -5,6 +5,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -16,6 +17,7 @@ public class User implements Serializable {
     private int id;
     @Column
     @NotNull
+    @Size(min = 1, max = 50)
     private String username;
     @Column
     @NotNull

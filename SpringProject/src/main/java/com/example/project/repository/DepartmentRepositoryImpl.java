@@ -5,6 +5,7 @@ import com.example.project.model.Employee;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -18,11 +19,17 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
 
     @Override
     public Department getDepartment(int employeeId) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Department> query = criteriaBuilder.createQuery(Department.class);
-        Root<Department> root = query.from(Department.class);
-        Join<Department, Employee> join = root.join("managers");
-        query.where(criteriaBuilder.equal(join.get("id"), employeeId));
-        return entityManager.createQuery(query).getSingleResult();
+        Department department = null;
+        try {
+            CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+            CriteriaQuery<Department> query = criteriaBuilder.createQuery(Department.class);
+            Root<Department> root = query.from(Department.class);
+            Join<Department, Employee> join = root.join("managers");
+            query.where(criteriaBuilder.equal(join.get("id"), employeeId));
+            department = entityManager.createQuery(query).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+        return department;
     }
 }
