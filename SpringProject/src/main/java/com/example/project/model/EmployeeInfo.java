@@ -10,7 +10,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Cacheable
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "secondCacheEmployeeInf")
 @Entity
 @EntityListeners(AuditingEntityListener.class)
