@@ -21,8 +21,7 @@ public class EmployeeInfoRepositoryImpl implements EmployeeInfoRepository {
         Root root = query.from(EmployeeInfo.class);
         query.where(builder.equal(root.get("employeeId"), idUser));
         return entityManager.createQuery(query)
-                .setHint("org.hibernate.cacheable", true)
-                .setHint("org.hibernate.readOnly", true)
+                .setHint("org.hibernate.cacheable", true)                
                 .setHint("org.hibernate.cacheRegion", "CacheEmployeeInfo")
                 .getSingleResult();
     }
