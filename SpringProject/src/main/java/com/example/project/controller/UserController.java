@@ -89,7 +89,7 @@ public class UserController {
     @ResponseBody
     public ObjectGenerator viewPopup(@ModelAttribute("id") String id) {
         EmployeeInfo employeeInfo;
-        Department department;
+        Department department =null;
         int idUser = Integer.parseInt(id);
         try {
             employeeInfo = employeeInfoService.getInformation(idUser);

@@ -1,8 +1,6 @@
 package com.example.project.model;
 
 import com.example.project.utilities.ImageUtil;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -10,7 +8,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "secondCacheEmployeeInf")
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class EmployeeInfo implements Serializable {
