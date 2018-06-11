@@ -55,18 +55,8 @@ public class Client implements User {
                         checkAgent(message);
                     } else if (!hasAgent && waitAgent) {
                         checkAgent(message);
-                    } else if (hasAgent) {
-                        // if (message != null) {
-                       /* if (message.equals("/exit")) {
-                            exit();
-                            break;
-                        }
-                        if (message.equals("/leave")) {
-                            leave();
-                            continue;
-                        } else {*/
-                            server.sendClientMessage(message, this);
-                       // }
+                    } else if (hasAgent) {                        
+                            server.sendClientMessage(message, this);                      
                     }
                 } else {
                     exit();
@@ -118,7 +108,4 @@ public class Client implements User {
         }
         return false;
     }
-
-
-
 }

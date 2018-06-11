@@ -17,12 +17,10 @@ public class ClientChat {
         } catch (IOException e) {
             log.error(e.getMessage());
         }
-
     }
 
     private void start() throws IOException {
         try (Socket socket = new Socket(InetAddress.getLocalHost(), 8887)) {
         }
     }
-
 }
